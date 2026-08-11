@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jack's IT Services | Professional Local IT Support</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* ==========================
+   GLOBAL
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f5f8fd;
+    color:#222;
+    overflow-x:hidden;
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:22px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(8,20,40,.55);
+    backdrop-filter:blur(16px);
+    z-index:999;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:32px;
+    font-weight:700;
+    color:#fff;
+    text-decoration:none;
+    white-space:nowrap;
+}
+
+.logo img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+    display:block;
+}
+
+.logo span{
+    color:#49a9ff;
+}
+
+/* ==========================
+   NAVIGATION
+========================== */
+
+nav{
+    display:flex;
+    align-items:center;
+    gap:35px;
+}
+
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:500;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#49a9ff;
+}
+
+/* ==========================
+   MOBILE MENU
+========================== */
+
+.menu-btn{
+    display:none;
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:34px;
+    font-weight:700;
+    cursor:pointer;
+    padding:0;
+    line-height:1;
+}
+
+.menu-btn:hover{
+    background:none;
+    transform:none;
+}
+
+.hidden{
+    display:none !important;
+}
+
+.popup{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,.6);
+    z-index:2000;
+}
+
+.popup-box{
+    width:400px;
+    max-width:90%;
+    padding:35px;
+    border-radius:22px;
+    background:#fff;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.2);
+}
+
+.popup-box h2{
+    color:#1877dd;
+    margin-bottom:20px;
+}
+
+.popup-box a{
+    display:block;
+    padding:14px;
+    margin:10px 0;
+    text-decoration:none;
+    color:#222;
+    font-weight:600;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.popup-box a:hover{
+    background:#edf6ff;
+    color:#1877dd;
+}
+
+/* ==========================
+   HERO
+========================== */
+
+.hero{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    background:
+        linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.65)),
+        url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=2000&q=80");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:900px;
+    color:#fff;
+}
+
+.hero h1{
+    font-size:68px;
+    font-weight:800;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:#56b6ff;
+}
+
+.hero p{
+    font-size:22px;
+    line-height:1.8;
+    margin-bottom:45px;
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:18px 38px;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.primary{
+    background:#3ca8ff;
+    color:#fff;
+}
+
+.primary:hover{
+    background:#1f89df;
+    transform:translateY(-4px);
+}
+
+.secondary{
+    border:2px solid #fff;
+    color:#fff;
+}
+
+.secondary:hover{
+    background:#fff;
+    color:#222;
+}
+
+/* ==========================
+   SCROLL INDICATOR
+========================== */
+
+.scroll{
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#fff;
+    font-size:14px;
+    opacity:.8;
+    animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+    0%,100%{
+        transform:translate(-50%,0);
+    }
+    50%{
+        transform:translate(-50%,10px);
+    }
+}
+
+/* ==========================
+   GENERAL SECTIONS
+========================== */
+
+section{
+    padding:110px 8%;
+}
+
+.title{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:60px;
+}
+
+.section-subtitle{
+    max-width:700px;
+    margin:-35px auto 60px;
+    text-align:center;
+    color:#666;
+    font-size:18px;
+}
+
+/* ==========================
+   CARDS
+========================== */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:#fff;
+    padding:40px;
+    border-radius:22px;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+.card h3{
+    margin-bottom:15px;
+    color:#1b79dc;
+}
+
+.card p{
+    color:#555;
+    line-height:1.8;
+}
+
+.icon{
+    font-size:45px;
+    margin-bottom:20px;
+}
+
+/* ==========================
+   ABOUT
+========================== */
+
+.about{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
+    background:#fff;
+}
+
+.about-image img{
+    width:100%;
+    border-radius:25px;
+    box-shadow:0 20px 50px rgba(0,0,0,.15);
+}
+
+.about-text h2{
+    font-size:45px;
+    margin-bottom:25px;
+}
+
+.about-text p{
+    margin-bottom:20px;
+    color:#555;
+    line-height:1.9;
+}
+
+/* ==========================
+   WHY CHOOSE US
+========================== */
+
+.why{
+    background:#0f172a;
+    color:#fff;
+}
+
+.why-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+}
+
+.reason{
+    padding:35px;
+    border-radius:18px;
+    background:rgba(255,255,255,.05);
+    transition:.3s;
+}
+
+.reason:hover{
+    background:rgba(255,255,255,.08);
+    transform:translateY(-6px);
+}
+
+.reason h3{
+    margin-bottom:15px;
+    color:#5dbbff;
+}
+
+.reason p{
+    line-height:1.8;
+}
+
+/* ==========================
+   PROCESS
+========================== */
+
+.process{
+    background:#f1f6fc;
+}
+
+.process-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+}
+
+.process-card{
+    padding:40px;
+    text-align:center;
+    background:#fff;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.process-card:hover{
+    transform:translateY(-8px);
+}
+
+.process-card h3{
+    font-size:45px;
+    color:#3ca8ff;
+}
+
+.process-card h4{
+    margin:15px 0;
+    font-size:24px;
+}
+
+.process-card p{
+    color:#555;
+    line-height:1.8;
+}
+
+/* ==========================
+   SERVICE AREAS
+========================== */
+
+.area{
+    text-align:center;
+}
+
+.area-text{
+    font-size:20px;
+    color:#666;
+}
+
+.locations{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:25px;
+    margin-top:40px;
+}
+
+.locations div{
+    padding:20px 40px;
+    border-radius:50px;
+    background:#edf6ff;
+    color:#1b79dc;
+    font-weight:600;
+    transition:.3s;
+}
+
+.locations div:hover{
+    background:#dcefff;
+    transform:translateY(-4px);
+}
+
+#about,
+#services{
+    scroll-margin-top:100px;
+}
+
+/* ==========================
+   PRICE COMPARISON
+========================== */
+
+.compare{
+    background:#fff;
+}
+
+.compare-box{
+    max-width:900px;
+    margin:auto;
+    overflow:hidden;
+    border-radius:20px;
+    background:#fff;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+.compare-row{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    align-items:center;
+    padding:18px 25px;
+    border-bottom:1px solid #eee;
+}
+
+.compare-row:last-child{
+    border-bottom:none;
+}
+
+.compare-head{
+    background:#1877dd;
+    color:#fff;
+    font-weight:600;
+}
+
+.compare-row div{
+    text-align:center;
+}
+
+.compare-row div:first-child{
+    text-align:left;
+    font-weight:500;
+}
+
+.yes{
+    color:#22b455;
+    font-size:24px;
+    font-weight:700;
+}
+
+.no{
+    color:#d9534f;
+    font-size:24px;
+    font-weight:700;
+}
+
+/* ==========================
+   REVIEWS
+========================== */
+
+.reviews{
+    background:#f8fbff;
+}
+
+.review-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+}
+
+.review-card{
+    background:#fff;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.review-card:hover{
+    transform:translateY(-8px);
+}
+
+.stars{
+    color:#f5b301;
+    font-size:22px;
+    margin-bottom:18px;
+}
+
+.review-card p{
+    color:#555;
+    line-height:1.8;
+    margin-bottom:20px;
+}
+
+.reviewer{
+    color:#1b79dc;
+    font-weight:600;
+}
+
+.review-location{
+    color:#777;
+    font-size:14px;
+}
+
+/* ==========================
+   CALL TO ACTION
+========================== */
+
+.cta{
+    background:linear-gradient(135deg,#208cff,#49a9ff);
+    color:#fff;
+    text-align:center;
+}
+
+.cta h2{
+    font-size:48px;
+    margin-bottom:20px;
+}
+
+.cta p{
+    font-size:20px;
+    margin-bottom:35px;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+
+footer{
+    background:#08101d;
+    color:#bbb;
+    padding:35px;
+    text-align:center;
+}
+
+footer span{
+    color:#4aa8ff;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width:900px){
+
+    header{
+        padding:20px 6%;
+    }
+
+    nav{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .hero{
+        padding:20px;
+    }
+
+    .hero h1{
+        font-size:46px;
+    }
+
+    .hero p{
+        font-size:18px;
+    }
+
+    .title{
+        font-size:34px;
+    }
+
+    .about{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .about-text h2{
+        font-size:36px;
+    }
+
+    .process-grid,
+    .cards,
+    .review-grid,
+    .why-grid{
+        grid-template-columns:1fr;
+    }
+
+    .locations{
+        gap:15px;
+    }
+
+    .locations div{
+        width:100%;
+        max-width:320px;
+        text-align:center;
+    }
+
+    .cta h2{
+        font-size:36px;
+    }
+
+    .cta p{
+        font-size:18px;
+    }
+
+}
+
+@media (max-width:700px){
+
+    section{
+        padding:80px 6%;
+    }
+
+    .logo{
+        font-size:26px;
+        gap:8px;
+    }
+
+    .logo img{
+        width:40px;
+        height:40px;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .hero p{
+        font-size:17px;
+    }
+
+    .buttons{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .btn{
+        width:100%;
+        max-width:320px;
+        text-align:center;
+    }
+
+    .compare-row{
+        grid-template-columns:1.5fr 1fr 1fr;
+        font-size:14px;
+        padding:15px;
+    }
+
+    .popup-box{
+        width:90%;
+        padding:25px;
+    }
+
+    .popup-box h2{
+        font-size:26px;
+    }
+
+}
+
+@media (max-width:500px){
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .title{
+        font-size:28px;
+    }
+
+    .about-text h2{
+        font-size:30px;
+    }
+
+    .cta h2{
+        font-size:30px;
+    }
+
+    .cta p{
+        font-size:16px;
+    }
+
+    .review-card,
+    .card,
+    .process-card,
+    .reason{
+        padding:25px;
+    }
+
+}
+
+.footer-links{
+    margin-top:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+    color:#4aa8ff;
+    text-decoration:none;
+    font-weight:500;
+    transition:.25s;
+}
+
+.footer-links a:hover{
+    color:#fff;
+    text-decoration:underline;
+}
+
+.footer-links span{
+    color:#666;
+}
+
+.trustpilot-container{
+    margin-top:45px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="navPopup" class="popup hidden">
+    <div class="popup-box">
+
+        <h2>Navigation</h2>
+
+        <a href="https://www.jacksit.uk/bookings">Bookings</a>
+
+        <a href="https://www.jacksit.uk/contact">Contact</a>
+
+        <a href="https://www.jacksit.uk/pricing">Pricing</a>
+
+        <br>
+
+        <button id="closeMenu" type="button">
+            Close
+        </button>
+
+    </div>
+</div>
+
+<header>
+
+<a href="https://www.jacksit.uk" class="logo">
+    <img src="https://i.postimg.cc/SsxKQmDn/white-JIT-logo-transparent.png" alt="Jack's IT Services logo">
+    <span style="color:#fff;">Jack's <span style="color:#49a9ff;">IT Services</span></span>
+</a>
+
+<nav>
+
+<a href="https://www.jacksit.uk/bookings">Bookings</a>
+
+<a href="https://www.jacksit.uk/contact">Contact</a>
+
+<a href="https://www.jacksit.uk/pricing">Pricing</a>
+
+</nav>
+
+    <button id="menuBtn" class="menu-btn" type="button">
+        &#9776;
+    </button>
+
+<!-- TrustBox script -->
+<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+<!-- End TrustBox script -->
+
+</header>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>Professional <span>IT Support</span><br>For Your Home & Business</h1>
+
+<p>
+
+Helping customers throughout Southwater and Horsham with computers,
+phones, tablets, Wi-Fi, printers, smart devices and much more.
+
+</p>
+
+<div class="buttons">
+
+
+<a href="https://jacksit.uk/contact" class="btn primary">Request Support</a>
+
+<a href="https://jacksit.uk/bookings" class="btn secondary">Book an appointment</a>
+
+</div>
+
+</div>
+
+<div class="scroll">
+▼ Scroll Down
+</div>
+
+</section>
+
+<!-- SERVICES -->
+
+<section id="services">
+
+<h2 class="title">
+What We Do
+</h2>
+
+<p class="section-subtitle">
+Professional technology support for homes throughout Southwater, Horsham and West Sussex.
+</p>
+
+
+<div class="cards">
+
+
+<div class="card">
+
+<div class="icon">
+💻
+</div>
+
+<h3>Computer & Laptop Setup</h3>
+
+<p>
+Setting up new computers and laptops, installing software, transferring files and making sure everything is ready to use.
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="icon">
+📷
+</div>
+
+<h3>Smart Device Setup</h3>
+
+<p>
+Helping you install and connect smart devices including cameras, smart home equipment, doorbells and other technology.
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="icon">
+🖨️
+</div>
+
+<h3>Printer Setup</h3>
+
+<p>
+Setting up printers, connecting them to your devices and solving common printing problems.
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="icon">
+🏠
+</div>
+
+<h3>Local Home Support</h3>
+
+<p>
+Friendly technology support in your own home, helping solve everyday device problems.
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="icon">
+🚗
+</div>
+
+<h3>CarPlay & Car Screen Setup</h3>
+
+<p>
+Help setting up Apple CarPlay, Android Auto and modern car display systems.
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="icon">
+🦠
+</div>
+
+<h3>Virus removal</h3>
+
+<p>
+Virus removal on all phones
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ABOUT -->
+
+
+<section id="about" class="about">
+
+<div class="about-image">
+
+<img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80">
+
+</div>
+
+
+
+<div class="about-text">
+
+
+<h2>
+About Jack's IT Services
+</h2>
+
+
+<p>
+    Jack's IT Services provides affordable, friendly and reliable IT support for homes and small businesses throughout Southwater and Horsham.
+</p>
+
+<p>
+    We provide a wide range of technology services, including computer and laptop setup, printer setup, Wi-Fi support, smart device installation, CarPlay and Android Auto setup, and virus removal.
+</p>
+
+<p>
+    Whether you need help setting up a new device, fixing a technology problem, connecting your devices or simply understanding how something works, we're here to make technology simple.
+</p>
+
+<p>
+    Our goal is to provide straightforward, professional and affordable IT support with a friendly local service.
+</p>
+
+
+
+<p>
+
+Technology can sometimes be confusing. Our goal is to make things simple by helping you set up devices, solve problems and get the most out of your technology.
+
+</p>
+
+
+<p>
+
+Whether you need help setting up a new laptop, connecting devices, fixing Wi-Fi issues or understanding your technology better, we are here to help.
+
+</p>
+
+
+<a href="contact.html" class="btn primary">
+Get Support
+</a>
+
+
+</div>
+
+
+</section>
+
+<section class="compare">
+
+<h2 class="title">
+Why Choose Jack's IT Services?
+</h2>
+
+<div class="compare-box">
+
+    <div class="compare-row compare-head">
+        <div>Feature</div>
+        <div>Jack's IT</div>
+        <div>Other Companies</div>
+    </div>
+
+    <div class="compare-row">
+        <div>Affordable hourly pricing</div>
+        <div class="yes">✓</div>
+        <div class="no">✕</div>
+    </div>
+
+    <div class="compare-row">
+        <div>No hidden call-out fees</div>
+        <div class="yes">✓</div>
+        <div class="no">✕</div>
+    </div>
+
+    <div class="compare-row">
+        <div>Local West Sussex engineer</div>
+        <div class="yes">✓</div>
+        <div class="no">✕</div>
+    </div>
+
+    <div class="compare-row">
+        <div>Fast response times</div>
+        <div class="yes">✓</div>
+        <div class="no">✕</div>
+    </div>
+
+    <div class="compare-row">
+        <div>Home visits available</div>
+        <div class="yes">✓</div>
+        <div class="yes">✓</div>
+    </div>
+
+    <div class="compare-row">
+        <div>Friendly one-to-one support</div>
+        <div class="yes">✓</div>
+        <div class="no">✕</div>
+    </div>
+
+    <div class="compare-row">
+        <div>From just £10/hour</div>
+        <div class="yes">✓</div>
+        <div>£40–£80/hour</div>
+    </div>
+
+</div>
+
+</section>
+
+<!-- REVIEWS -->
+
+<section class="reviews">
+
+<h2 class="title">
+What Our Customers Say
+</h2>
+
+<p class="section-subtitle">
+Friendly, reliable IT support trusted by customers across Southwater, Horsham and West Sussex.
+</p>
+
+<div class="review-grid">
+
+<div class="review-card">
+
+<div class="stars">★★★★★</div>
+
+<p>
+"Jack set up my new laptop, printer and email in under an hour. Everything works perfectly now and he explained everything in plain English."
+</p>
+
+<div class="reviewer">
+Sarah M.
+</div>
+
+<div class="review-location">
+Southwater
+</div>
+
+</div>
+
+<div class="review-card">
+
+<div class="stars">★★★★★</div>
+
+<p>
+"Excellent service. Fixed our Wi-Fi problems that we'd been struggling with for weeks. Friendly, punctual and very reasonably priced."
+</p>
+
+<div class="reviewer">
+David T.
+</div>
+
+<div class="review-location">
+Horsham
+</div>
+
+</div>
+
+<div class="review-card">
+
+<div class="stars">★★★★★</div>
+
+<p>
+"Jack helped set up our smart doorbell and security cameras. Everything was installed quickly and works perfectly. Highly recommended."
+</p>
+
+<div class="reviewer">
+Emma R.
+</div>
+
+<div class="review-location">
+Barns Green
+</div>
+
+</div>
+
+</div>
+<div class="trustpilot-container">
+    <div class="trustpilot-widget"
+         data-locale="en-US"
+         data-template-id="56278e9abfbbba0bdcd568bc"
+         data-businessunit-id="6a750d65414a7b3e6d5f2488"
+         data-style-height="52px"
+         data-style-width="100%"
+         data-token="c88c1cd0-e2db-4b53-8a84-627e5f62f781">
+        <a href="https://www.trustpilot.com/review/jacksit.uk" target="_blank" rel="noopener">
+            Trustpilot
+        </a>
+    </div>
+</div>
+
+</section>
+
+
+<!-- HOW WE HELP -->
+
+
+<section class="process">
+
+
+<h2 class="title">
+How Can We Help?
+</h2>
+
+
+<div class="process-grid">
+
+
+<div class="process-card">
+
+<h3>
+01
+</h3>
+
+<h4>
+Contact Us
+</h4>
+
+<p>
+Call us, book a home visit or send us an email explaining what help you need.
+</p>
+
+</div>
+
+
+
+<div class="process-card">
+
+<h3>
+02
+</h3>
+
+<h4>
+Support At Your Door
+</h4>
+
+<p>
+We'll visit your home at a convenient time and provide friendly, professional support with your technology.
+</p>
+
+</div>
+
+
+
+<div class="process-card">
+
+<h3>
+03
+</h3>
+
+<h4>
+Problem Solved
+</h4>
+
+<p>
+We'll fix the issue, set everything up correctly and make sure you are happy with the result.
+</p>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- SERVICE AREA -->
+
+
+<section class="area">
+
+
+<h2 class="title">
+Areas We Cover
+</h2>
+
+
+<p class="area-text">
+
+Jack's IT Services proudly provides local technology support throughout:
+
+</p>
+
+
+<div class="locations">
+
+
+<div>
+📍 Southwater
+</div>
+
+
+<div>
+📍 Horsham
+</div>
+
+
+<div>
+📍 Barns Green
+</div>
+
+<div>
+📍 Roffey
+</div>
+
+<div>
+📍 Shipley
+</div>
+
+</div>
+
+
+</section>
+
+
+<!-- CTA -->
+
+
+<section class="cta">
+
+
+<h2>
+Need Help With Your Technology?
+</h2>
+
+
+<p>
+
+From setting up devices to solving everyday technology problems, we're here to help.
+
+</p>
+
+
+<a href="contact.html" class="btn secondary">
+Contact Jack's IT Services
+</a>
+
+
+</section>
+
+<footer>
+
+© 2026 <span>Jack's IT Services</span><br><br>
+
+Professional Device Setup & IT Support throughout Southwater, Horsham & West Sussex.
+
+    <div class="footer-links">
+        <a href="https://www.jacksit.uk/pp">Privacy Policy</a>
+        <span>•</span>
+        <a href="https://www.jacksit.uk/tos">Terms of Service</a>
+    </div>
+
+</footer>
+
+<script type="module">
+
+const menuBtn = document.getElementById("menuBtn");
+const navPopup = document.getElementById("navPopup");
+const closeMenu = document.getElementById("closeMenu");
+
+menuBtn.addEventListener("click", () => {
+    navPopup.classList.remove("hidden");
+});
+
+closeMenu.addEventListener("click", () => {
+    navPopup.classList.add("hidden");
+});
+
+navPopup.addEventListener("click", (e) => {
+    if (e.target === navPopup) {
+        navPopup.classList.add("hidden");
+    }
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        navPopup.classList.add("hidden");
+    }
+});
+
+</script>
+
+</body>
+</html>
