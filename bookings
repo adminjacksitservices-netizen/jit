@@ -1,0 +1,3117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Book Support | Jack's IT Services
+</title>
+
+<meta
+    name="description"
+    content="Book local IT support from Jack's IT Services in Southwater, Horsham and surrounding areas. Request help with computers, laptops, printers, smart devices, CarPlay and general IT support."
+>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+
+<style>
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f8fc;
+    color:#222;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(15,23,42,.92);
+    backdrop-filter:blur(15px);
+    z-index:999;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:700;
+    color:#fff;
+}
+
+.logo span{
+    color:#4aa8ff;
+}
+
+nav{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:500;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#4aa8ff;
+}
+
+/* Mobile menu button */
+
+.menu-btn{
+    display:none;
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:36px;
+    font-weight:700;
+    cursor:pointer;
+    padding:0;
+    margin:0;
+    width:auto;
+    height:auto;
+    line-height:1;
+    border-radius:0;
+    box-shadow:none;
+}
+
+.menu-btn:hover{
+    background:none;
+    transform:none;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    height:500px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+        linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.7)),
+        url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3");
+    background-size:cover;
+    background-position:center;
+    color:#fff;
+    padding:20px;
+    margin-top:80px;
+}
+
+.hero h1{
+    font-size:60px;
+    font-weight:800;
+}
+
+.hero p{
+    font-size:22px;
+    margin-top:20px;
+}
+
+/* =========================
+   BOOKING SECTION
+========================= */
+
+.booking-section{
+    padding:80px 8%;
+    display:flex;
+    justify-content:center;
+}
+
+.booking-container{
+    background:#fff;
+    width:750px;
+    max-width:100%;
+    padding:45px;
+    border-radius:25px;
+    box-shadow:0 20px 50px rgba(0,0,0,.1);
+}
+
+.booking-container h2{
+    text-align:center;
+    font-size:38px;
+    color:#1e6ddc;
+    margin-bottom:35px;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #ddd;
+    font-size:16px;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#3da7ff;
+}
+
+textarea{
+    height:120px;
+    resize:none;
+}
+
+/* =========================
+   TIME SLOT SELECTION
+========================= */
+
+.time-slots{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:12px;
+}
+
+.no-time-slots{grid-column:1/-1;padding:16px;border:1px dashed #cbd5e1;border-radius:12px;background:#f8fafc;color:#64748b;text-align:center;font-size:14px;}
+
+.time-slot{
+    position:relative;
+}
+
+.time-slot input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.time-slot label{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:58px;
+    padding:12px 10px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    background:#fff;
+    color:#222;
+    font-weight:600;
+    cursor:pointer;
+    text-align:center;
+    transition:.25s;
+}
+
+.time-slot label:hover{
+    border-color:#3da7ff;
+    background:#f4f9ff;
+}
+
+.time-slot input:checked + label{
+    border-color:#3da7ff;
+    background:#3da7ff;
+    color:#fff;
+}
+
+@media screen and (max-width:500px){
+    .time-slots{
+        grid-template-columns:1fr;
+    }
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button{
+    background:#3da7ff;
+    border:none;
+    color:#fff;
+    padding:16px 35px;
+    border-radius:40px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#258be0;
+    transform:translateY(-3px);
+}
+
+.submit-btn{
+    width:100%;
+    margin-top:10px;
+}
+
+.view-btn{
+    display:block;
+    margin:25px auto 0;
+    background:#0f172a;
+}
+
+.view-btn:hover{
+    background:#020617;
+}
+
+/* =========================
+   POPUPS
+========================= */
+
+.hidden{
+    display:none !important;
+}
+
+.popup{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.6);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:2000;
+}
+
+.popup-box{
+    background:#fff;
+    width:420px;
+    max-width:90%;
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.2);
+}
+
+.popup-box h2{
+    color:#1e6ddc;
+    margin-bottom:20px;
+}
+
+.popup-box input{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #ddd;
+    margin-bottom:20px;
+    font-size:16px;
+}
+
+.popup-box button{
+    margin:5px;
+}
+
+.popup-box a{
+    display:block;
+    text-decoration:none;
+    color:#0f172a;
+    font-weight:600;
+    padding:12px 0;
+    transition:.3s;
+}
+
+.popup-box a:hover{
+    color:#3da7ff;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#08101d;
+    padding:35px;
+    text-align:center;
+    color:#aaa;
+}
+
+footer span{
+    color:#4aa8ff;
+    font-weight:600;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media screen and (max-width:800px){
+
+    header{
+        padding:18px 6%;
+    }
+
+    nav{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block !important;
+    }
+
+    .hero{
+        height:420px;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .hero p{
+        font-size:18px;
+    }
+
+    .booking-section{
+        padding:50px 5%;
+    }
+
+    .booking-container{
+        width:100%;
+        padding:25px;
+    }
+
+    .popup-box{
+        width:92%;
+        padding:30px 20px;
+    }
+}
+
+.footer-links{
+    margin-top:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+    color:#4aa8ff;
+    text-decoration:none;
+    font-weight:500;
+    transition:.25s;
+}
+
+.footer-links a:hover{
+    color:#fff;
+    text-decoration:underline;
+}
+
+.footer-links span{
+    color:#666;
+}
+
+</style>
+
+
+</head>
+
+<body>
+
+<div id="navPopup" class="popup hidden">
+    <div class="popup-box">
+        <h2>Menu</h2>
+
+        <a href="https://www.jacksit.uk">Home</a><br><br>
+
+        <a href="https://www.jacksit.uk/contact">Contact</a><br><br>
+
+        <a href="https://www.jacksit.uk/pricing">Pricing</a><br><br>
+
+        <button id="closeMenu">Close</button>
+    </div>
+</div>
+
+
+
+
+<header>
+
+
+<div class="logo">
+
+Jack's <span>IT Services</span>
+
+</div>
+
+
+
+<nav>
+
+
+<a href="https://www.jacksit.uk">
+Home
+</a>
+
+<a href="https://www.jacksit.uk/contact">Contact</a>
+
+<a href="https://www.jacksit.uk/pricing">Pricing</a>
+
+
+</nav>
+
+<button id="menuBtn" class="menu-btn">&#9776;</button>
+
+
+</header>
+
+
+
+
+
+
+
+
+
+
+<section class="hero">
+
+
+<div>
+
+
+<h1>
+Book IT Support
+</h1>
+
+
+<p>
+Local device support across Southwater & Horsham
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="booking-section">
+
+
+<div class="booking-container">
+
+
+<h2>
+Request A Booking
+</h2>
+
+<div style="
+    margin:18px auto 28px;
+    max-width:560px;
+    padding:18px 20px;
+    background:#fff8e6;
+    border:1px solid #f5d67a;
+    border-radius:14px;
+    text-align:center;
+    color:#7a5600;
+    font-size:15px;
+    line-height:1.7;
+">
+
+    <div style="
+        font-size:20px;
+        margin-bottom:8px;
+    ">
+        💷
+    </div>
+
+    <strong style="font-size:17px;">
+        Cash Payments Only
+    </strong>
+
+    <br>
+
+    Payment is required upon completion of your appointment.
+
+    <hr style="
+        margin:15px 0;
+        border:none;
+        border-top:1px solid #f5d67a;
+    ">
+
+    <strong style="
+        display:block;
+        margin-bottom:6px;
+        color:#6b4f00;
+    ">
+        Important Information
+    </strong>
+
+    <small style="
+        display:block;
+        color:#6b5a1d;
+        font-size:13px;
+        line-height:1.7;
+    ">
+        Jack's IT Services is operated by a person under 18.
+        For some appointments, a parent or legal guardian may need
+        to be involved or present where appropriate.
+    </small>
+
+    <hr style="
+        margin:15px 0;
+        border:none;
+        border-top:1px solid #f5d67a;
+    ">
+
+    <small style="
+        display:block;
+        color:#6b5a1d;
+        font-size:13px;
+        line-height:1.7;
+    ">
+        By submitting a booking request, you confirm that you have
+        read our
+        <a
+            href="https://www.jacksit.uk/tos"
+            target="_blank"
+            rel="noopener"
+            style="
+                color:#1e6ddc;
+                font-weight:600;
+            "
+        >
+            Terms of Service
+        </a>
+        and
+        <a
+            href="https://www.jacksit.uk/pp"
+            target="_blank"
+            rel="noopener"
+            style="
+                color:#1e6ddc;
+                font-weight:600;
+            "
+        >
+            Privacy Policy
+        </a>.
+        Submitting a request does not guarantee an appointment.
+        Your appointment will only be confirmed once your booking
+        has been accepted by Jack's IT Services.
+    </small>
+
+</div>
+
+<form id="bookingForm">
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+Full Name *
+</label>
+
+<input
+id="name"
+type="text"
+placeholder="Enter your name">
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+Email *
+</label>
+
+
+<input
+id="email"
+type="email"
+placeholder="Enter your email">
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+Phone Number *
+</label>
+
+
+<input
+id="phone"
+type="text"
+placeholder="Enter your phone number">
+
+</div>
+
+
+<div class="form-group">
+    <label>Address *</label>
+    <input
+        id="address"
+        type="text"
+        placeholder="Enter your full address">
+</div>
+
+
+
+
+<div class="form-group">
+
+<label>
+Service *
+</label>
+
+
+<select id="service">
+
+
+<option>
+Laptop / PC Setup
+</option>
+
+
+<option>
+Laptop / PC Support
+</option>
+
+
+<option>
+Camera Setup
+</option>
+
+
+<option>
+Printer Setup
+</option>
+
+
+<option>
+Smart Device Setup
+</option>
+
+
+<option>
+CarPlay / Car Screen Help
+</option>
+
+<option>
+General IT Support
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+
+<label>
+Location *
+</label>
+
+
+<select id="location">
+
+
+<option>
+Southwater
+</option>
+
+
+<option>
+Horsham
+</option>
+
+
+<option>
+Roffey
+</option>
+
+
+<option>
+Shipley
+</option>
+
+<option>
+Broadbridge Heath
+</option>
+
+
+<option>
+Barns Green
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-group">
+
+<label>
+Preferred Appointment Date *
+</label>
+
+<small style="display:block;color:#666;margin-top:4px;">
+Bookings can be made from tomorrow up to 28 days in advance. Please be aware that some dates may not be available for bookings.
+</small>
+
+<input
+id="date"
+type="date">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Preferred Time Slot *
+</label>
+
+<small style="display:block;color:#666;margin-top:4px;">
+Please select a arrival you would prefer. This is a preferred time and will be confirmed when your booking is accepted.
+</small>
+
+<div id="timeSlots" class="time-slots">
+    <div class="no-time-slots">Please select a date to see available arrival times.</div>
+</div>
+
+</div>
+
+<div class="form-group">
+
+
+<label>
+Additional Information
+</label>
+
+
+<textarea
+id="message"
+placeholder="Describe what help you need">
+
+</textarea>
+
+
+</div>
+
+
+
+
+
+
+
+<button 
+class="submit-btn"
+type="submit">
+
+Request Booking
+
+</button>
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+
+<button
+id="viewBooking"
+class="view-btn"
+type="button">
+
+View Existing Appointment
+
+</button>
+
+
+
+
+
+
+
+</div>
+
+
+</section>
+
+<!-- VIEW BOOKING POPUP -->
+
+
+<div 
+id="bookingSearchPopup"
+class="popup hidden">
+
+
+<div class="popup-box">
+
+
+<h2>
+View Existing Appointment
+</h2>
+
+
+
+<input 
+id="searchContact"
+type="text"
+placeholder="Email or phone number">
+
+
+
+<button 
+id="searchBooking"
+type="button">
+
+Search
+
+</button>
+
+
+
+<button 
+id="closeSearch"
+type="button">
+
+Close
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- RESULT POPUP -->
+
+
+<div 
+id="popup"
+class="popup hidden">
+
+
+<div class="popup-box">
+
+
+<div id="popupContent"></div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<footer>
+
+© 2026 <span>Jack's IT Services</span>
+
+<br><br>
+
+Professional Local IT Support in Southwater & Horsham
+
+    <div class="footer-links">
+        <a href="https://www.jacksit.uk/pp" target="_blank" rel="noopener">Privacy Policy</a>
+        <span>•</span>
+        <a href="https://www.jacksit.uk/tos" target="_blank" rel="noopener">Terms of Service</a>
+    </div>
+
+</footer>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init({
+    publicKey: "56D4x7dQTkzWdB_8k"
+});
+</script>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    getDoc,
+    deleteDoc
+}
+from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+
+// =====================================
+// FIREBASE CONFIG
+// =====================================
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyBRupKdcH4m2E4Pyld5MMsQ7vLULM4iZwI",
+
+    authDomain:
+        "jacks-it-services.firebaseapp.com",
+
+    projectId:
+        "jacks-it-services",
+
+    storageBucket:
+        "jacks-it-services.firebasestorage.app",
+
+    messagingSenderId:
+        "790784937761",
+
+    appId:
+        "1:790784937761:web:1cc0470541219f2c28f860",
+
+    measurementId:
+        "G-0296J37HV7"
+
+};
+
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const db =
+    getFirestore(app);
+
+
+// =====================================
+// MENU
+// =====================================
+
+const menuBtn =
+    document.getElementById(
+        "menuBtn"
+    );
+
+
+const navPopup =
+    document.getElementById(
+        "navPopup"
+    );
+
+
+const closeMenu =
+    document.getElementById(
+        "closeMenu"
+    );
+
+
+menuBtn.onclick = ()=>{
+
+    navPopup.classList.remove(
+        "hidden"
+    );
+
+};
+
+
+closeMenu.onclick = ()=>{
+
+    navPopup.classList.add(
+        "hidden"
+    );
+
+};
+
+
+navPopup.onclick = e=>{
+
+    if(
+        e.target ===
+        navPopup
+    ){
+
+        navPopup.classList.add(
+            "hidden"
+        );
+
+    }
+
+};
+
+
+// =====================================
+// ELEMENTS
+// =====================================
+
+const bookingForm =
+    document.getElementById(
+        "bookingForm"
+    );
+
+
+const viewBooking =
+    document.getElementById(
+        "viewBooking"
+    );
+
+
+const bookingSearchPopup =
+    document.getElementById(
+        "bookingSearchPopup"
+    );
+
+
+const searchContact =
+    document.getElementById(
+        "searchContact"
+    );
+
+
+const searchBooking =
+    document.getElementById(
+        "searchBooking"
+    );
+
+
+const closeSearch =
+    document.getElementById(
+        "closeSearch"
+    );
+
+
+const popup =
+    document.getElementById(
+        "popup"
+    );
+
+
+const popupContent =
+    document.getElementById(
+        "popupContent"
+    );
+
+
+const dateInput =
+    document.getElementById(
+        "date"
+    );
+
+
+const timeSlotsBox =
+    document.getElementById(
+        "timeSlots"
+    );
+
+
+// =====================================
+// DATE LIMITS
+// =====================================
+
+const today =
+    new Date();
+
+
+const minDate =
+    new Date(
+        today
+    );
+
+
+minDate.setDate(
+    minDate.getDate() + 1
+);
+
+
+const maxDate =
+    new Date(
+        today
+    );
+
+
+maxDate.setDate(
+    maxDate.getDate() + 28
+);
+
+
+function formatDate(
+    date
+){
+
+    const year =
+        date.getFullYear();
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            date.getDate()
+        )
+        .padStart(
+            2,
+            "0"
+        );
+
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+dateInput.min =
+    formatDate(
+        minDate
+    );
+
+
+dateInput.max =
+    formatDate(
+        maxDate
+    );
+
+
+// =====================================
+// DAYS
+// =====================================
+
+const dayNames = [
+
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday"
+
+];
+
+
+// =====================================
+// TIME HELPERS
+// =====================================
+
+function minutesFromTime(
+    time
+){
+
+    if(!time){
+
+        return null;
+
+    }
+
+
+    const parts =
+        time.split(":");
+
+
+    if(
+        parts.length !== 2
+    ){
+
+        return null;
+
+    }
+
+
+    const hours =
+        Number(
+            parts[0]
+        );
+
+
+    const minutes =
+        Number(
+            parts[1]
+        );
+
+
+    if(
+        Number.isNaN(hours) ||
+        Number.isNaN(minutes)
+    ){
+
+        return null;
+
+    }
+
+
+    return (
+        hours * 60 +
+        minutes
+    );
+
+}
+
+
+function parseTimeSlot(
+    slot
+){
+
+    if(!slot){
+
+        return null;
+
+    }
+
+
+    const parts =
+        slot.split(" - ");
+
+
+    if(
+        parts.length !== 2
+    ){
+
+        return null;
+
+    }
+
+
+    const start =
+        minutesFromTime(
+            parts[0]
+        );
+
+
+    const end =
+        minutesFromTime(
+            parts[1]
+        );
+
+
+    if(
+        start === null ||
+        end === null ||
+        end <= start
+    ){
+
+        return null;
+
+    }
+
+
+    return {
+        start,
+        end
+    };
+
+}
+
+
+function formatTimeSlot(
+    slot
+){
+
+    if(!slot){
+
+        return "Not selected";
+
+    }
+
+
+    return slot
+        .split(" - ")
+        .map(
+            time=>{
+
+                const [
+                    hours,
+                    minutes
+                ] =
+                    time
+                    .split(":")
+                    .map(Number);
+
+
+                const suffix =
+                    hours >= 12
+                        ? "PM"
+                        : "AM";
+
+
+                const displayHour =
+                    hours % 12 || 12;
+
+
+                return `${displayHour}:${String(minutes).padStart(2,"0")} ${suffix}`;
+
+            }
+        )
+        .join(" - ");
+
+}
+
+
+// =====================================
+// GET AVAILABLE SLOTS
+// =====================================
+
+async function getAvailableSlots(){
+
+    const settings =
+        await getDoc(
+
+            doc(
+                db,
+                "settings",
+                "bookingSettings"
+            )
+
+        );
+
+
+    if(
+        !settings.exists()
+    ){
+
+        return {};
+
+    }
+
+
+    return (
+        settings
+            .data()
+            .availableSlots || {}
+    );
+
+}
+
+
+// =====================================
+// BLOCKED DATE
+// =====================================
+
+async function isDateBlocked(
+    date
+){
+
+    const settings =
+        await getDoc(
+
+            doc(
+                db,
+                "settings",
+                "bookingSettings"
+            )
+
+        );
+
+
+    if(
+        !settings.exists()
+    ){
+
+        return false;
+
+    }
+
+
+    const blockedDates =
+        settings
+            .data()
+            .blockedDates || [];
+
+
+    return blockedDates.includes(
+        date
+    );
+
+}
+
+
+// =====================================
+// GET ALL BOOKINGS
+// =====================================
+
+async function getAllBookings(){
+
+    const snapshot =
+        await getDocs(
+            collection(
+                db,
+                "bookings"
+            )
+        );
+
+
+    const results = [];
+
+
+    snapshot.forEach(
+        docSnap=>{
+
+            results.push({
+
+                id:
+                    docSnap.id,
+
+                ...docSnap.data()
+
+            });
+
+        }
+    );
+
+
+    return results;
+
+}
+
+
+// =====================================
+// GET OCCUPIED RANGE
+// =====================================
+
+function getBookingOccupiedRange(
+    booking
+){
+
+    if(
+        !booking ||
+        !booking.date ||
+        !booking.timeSlot
+    ){
+
+        return null;
+
+    }
+
+
+    const parsed =
+        parseTimeSlot(
+            booking.timeSlot
+        );
+
+
+    if(!parsed){
+
+        return null;
+
+    }
+
+
+    /*
+     * Pending bookings occupy only the
+     * requested slot.
+     *
+     * Approved bookings occupy from the
+     * preferred arrival START time until
+     * the estimated job finish.
+     */
+
+    let end =
+        parsed.end;
+
+
+    if(
+        booking.status ===
+        "Approved" &&
+        booking.estimatedHours
+    ){
+
+        const hours =
+            Number(
+                booking.estimatedHours
+            );
+
+
+        if(
+            !Number.isNaN(hours) &&
+            hours > 0
+        ){
+
+            end =
+                parsed.start +
+                Math.round(
+                    hours * 60
+                );
+
+        }
+
+    }
+
+
+    return {
+
+        start:
+            parsed.start,
+
+        end
+
+    };
+
+}
+
+
+// =====================================
+// RANGE OVERLAP
+// =====================================
+
+function rangesOverlap(
+    startA,
+    endA,
+    startB,
+    endB
+){
+
+    return (
+        startA < endB &&
+        endA > startB
+    );
+
+}
+
+
+// =====================================
+// CHECK SLOT AVAILABILITY
+// =====================================
+
+async function isTimeSlotAvailable(
+    date,
+    timeSlot
+){
+
+    if(
+        !date ||
+        !timeSlot
+    ){
+
+        return false;
+
+    }
+
+
+    const requestedRange =
+        parseTimeSlot(
+            timeSlot
+        );
+
+
+    if(!requestedRange){
+
+        return false;
+
+    }
+
+
+    const bookings =
+        await getAllBookings();
+
+
+    for(
+        const booking of bookings
+    ){
+
+        if(
+            booking.date !==
+            date
+        ){
+
+            continue;
+
+        }
+
+
+        /*
+         * Declined and cancelled bookings
+         * do not occupy a slot.
+         */
+
+        if(
+            booking.status ===
+            "Declined" ||
+
+            booking.status ===
+            "Cancelled"
+        ){
+
+            continue;
+
+        }
+
+
+        /*
+         * Completed jobs are no longer
+         * treated as future availability
+         * blockers.
+         */
+
+        if(
+            booking.status ===
+            "Completed"
+        ){
+
+            continue;
+
+        }
+
+
+        const occupiedRange =
+            getBookingOccupiedRange(
+                booking
+            );
+
+
+        if(!occupiedRange){
+
+            continue;
+
+        }
+
+
+        if(
+            rangesOverlap(
+
+                requestedRange.start,
+
+                requestedRange.end,
+
+                occupiedRange.start,
+
+                occupiedRange.end
+
+            )
+        ){
+
+            return false;
+
+        }
+
+    }
+
+
+    return true;
+
+}
+
+
+// =====================================
+// LOAD AVAILABLE TIME SLOTS FOR DATE
+// =====================================
+
+async function loadTimeSlotsForDate(
+    date
+){
+
+    timeSlotsBox.innerHTML =
+        '<div class="no-time-slots">Checking available arrival times...</div>';
+
+
+    document
+        .querySelectorAll(
+            'input[name="timeSlot"]'
+        )
+        .forEach(
+            input=>{
+                input.checked =
+                    false;
+            }
+        );
+
+
+    if(!date){
+
+        timeSlotsBox.innerHTML =
+            '<div class="no-time-slots">Please select a date to see available arrival times.</div>';
+
+        return;
+
+    }
+
+
+    try{
+
+        // =====================================
+        // BLOCKED DATE
+        // =====================================
+
+        if(
+            await isDateBlocked(
+                date
+            )
+        ){
+
+            timeSlotsBox.innerHTML =
+                '<div class="no-time-slots">This date is unavailable.</div>';
+
+            return;
+
+        }
+
+
+        // =====================================
+        // FIND DAY
+        // =====================================
+
+        const selectedDate =
+            new Date(
+                date +
+                "T00:00:00"
+            );
+
+
+        const day =
+            dayNames[
+                selectedDate.getDay()
+            ];
+
+
+        // =====================================
+        // LOAD ADMIN SLOTS
+        // =====================================
+
+        const availability =
+            await getAvailableSlots();
+
+
+        const slots =
+            Array.isArray(
+                availability[day]
+            )
+                ? availability[day]
+                : [];
+
+
+        if(
+            slots.length === 0
+        ){
+
+            timeSlotsBox.innerHTML =
+                '<div class="no-time-slots">No arrival times are currently available for this day. Please choose another date.</div>';
+
+            return;
+
+        }
+
+
+        // =====================================
+        // FILTER BOOKED/OVERLAPPING SLOTS
+        // =====================================
+
+        const availableSlots = [];
+
+
+        for(
+            const slot of slots
+        ){
+
+            const available =
+                await isTimeSlotAvailable(
+                    date,
+                    slot
+                );
+
+
+            if(available){
+
+                availableSlots.push(
+                    slot
+                );
+
+            }
+
+        }
+
+
+        if(
+            availableSlots.length === 0
+        ){
+
+            timeSlotsBox.innerHTML =
+                '<div class="no-time-slots">All arrival times for this date are currently unavailable. Please choose another date.</div>';
+
+            return;
+
+        }
+
+
+        // =====================================
+        // DISPLAY SLOTS
+        // =====================================
+
+        timeSlotsBox.innerHTML =
+            availableSlots
+            .map(
+                (slot,index)=>{
+
+                    const id =
+                        `slot-${day}-${index}`;
+
+
+                    return `
+
+                        <div class="time-slot">
+
+                            <input
+                                type="radio"
+                                id="${id}"
+                                name="timeSlot"
+                                value="${slot}"
+                            >
+
+                            <label for="${id}">
+                                ${formatTimeSlot(slot)}
+                            </label>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+    }
+    catch(error){
+
+        console.error(
+            "Unable to load time slots:",
+            error
+        );
+
+
+        timeSlotsBox.innerHTML =
+            '<div class="no-time-slots">Unable to load available times. Please try again.</div>';
+
+    }
+
+}
+
+
+// =====================================
+// DATE CHANGE
+// =====================================
+
+dateInput.addEventListener(
+    "change",
+    ()=>{
+
+        loadTimeSlotsForDate(
+            dateInput.value
+        );
+
+    }
+);
+
+
+// =====================================
+// POPUP
+// =====================================
+
+function showPopup(
+    title,
+    message
+){
+
+    popupContent.innerHTML = `
+
+        <h2>
+            ${title}
+        </h2>
+
+        <p>
+            ${message}
+        </p>
+
+        <br>
+
+        <button
+            id="closePopup"
+        >
+            Close
+        </button>
+
+    `;
+
+
+    popup.classList.remove(
+        "hidden"
+    );
+
+
+    document
+        .getElementById(
+            "closePopup"
+        )
+        .onclick = ()=>{
+
+            popup.classList.add(
+                "hidden"
+            );
+
+        };
+
+}
+
+
+// =====================================
+// FIND CUSTOMER BOOKINGS
+// =====================================
+
+async function findBooking(
+    contact
+){
+
+    const snapshot =
+        await getDocs(
+            collection(
+                db,
+                "bookings"
+            )
+        );
+
+
+    const results = [];
+
+
+    snapshot.forEach(
+        item=>{
+
+            const data =
+                item.data();
+
+
+            const email =
+                data.email || "";
+
+
+            const phone =
+                data.phone || "";
+
+
+            if(
+
+                email
+                    .toLowerCase()
+                    ===
+                    contact
+                        .toLowerCase()
+
+                ||
+
+                phone === contact
+
+            ){
+
+                results.push({
+
+                    id:
+                        item.id,
+
+                    ...data
+
+                });
+
+            }
+
+        }
+    );
+
+
+    return results;
+
+}
+
+
+// =====================================
+// CREATE BOOKING
+// =====================================
+
+bookingForm.addEventListener(
+    "submit",
+    async e=>{
+
+        e.preventDefault();
+
+
+        try{
+
+            // =====================================
+            // VALUES
+            // =====================================
+
+            const name =
+                document
+                    .getElementById("name")
+                    .value
+                    .trim();
+
+
+            const email =
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
+
+
+            const phone =
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim();
+
+
+            const address =
+                document
+                    .getElementById("address")
+                    .value
+                    .trim();
+
+
+            const service =
+                document
+                    .getElementById("service")
+                    .value;
+
+
+            const location =
+                document
+                    .getElementById("location")
+                    .value;
+
+
+            const date =
+                document
+                    .getElementById("date")
+                    .value;
+
+
+            const selectedTimeSlot =
+                document.querySelector(
+                    'input[name="timeSlot"]:checked'
+                );
+
+
+            const timeSlot =
+                selectedTimeSlot
+                    ? selectedTimeSlot.value
+                    : "";
+
+
+            const message =
+                document
+                    .getElementById("message")
+                    .value;
+
+
+            // =====================================
+            // REQUIRED FIELDS
+            // =====================================
+
+            if(
+
+                !name ||
+                !email ||
+                !phone ||
+                !address ||
+                !date ||
+                !timeSlot
+
+            ){
+
+                showPopup(
+
+                    "Missing Details",
+
+                    "Please complete all required fields."
+
+                );
+
+                return;
+
+            }
+
+
+            // =====================================
+            // DATE VALIDATION
+            // =====================================
+
+            const selectedDate =
+                new Date(
+                    date
+                );
+
+
+            selectedDate.setHours(
+                0,
+                0,
+                0,
+                0
+            );
+
+
+            const earliest =
+                new Date();
+
+
+            earliest.setDate(
+                earliest.getDate() + 1
+            );
+
+
+            earliest.setHours(
+                0,
+                0,
+                0,
+                0
+            );
+
+
+            const latest =
+                new Date();
+
+
+            latest.setDate(
+                latest.getDate() + 28
+            );
+
+
+            latest.setHours(
+                0,
+                0,
+                0,
+                0
+            );
+
+
+            if(
+
+                selectedDate <
+                    earliest
+
+                ||
+
+                selectedDate >
+                    latest
+
+            ){
+
+                showPopup(
+
+                    "Invalid Date",
+
+                    "Bookings can only be made from tomorrow up to 28 days in advance."
+
+                );
+
+                return;
+
+            }
+
+
+            // =====================================
+            // BLOCKED DATE CHECK
+            // =====================================
+
+            if(
+                await isDateBlocked(
+                    date
+                )
+            ){
+
+                showPopup(
+
+                    "Date unavailable",
+
+                    "This date cannot be booked."
+
+                );
+
+                return;
+
+            }
+
+
+            // =====================================
+            // CHECK EXACT/OVERLAPPING SLOT
+            // =====================================
+
+            /*
+             * This is the important final check.
+             *
+             * It checks Firebase again because another
+             * customer may have booked the slot while
+             * this customer was filling out the form.
+             */
+
+            const slotAvailable =
+                await isTimeSlotAvailable(
+                    date,
+                    timeSlot
+                );
+
+
+            if(!slotAvailable){
+
+                showPopup(
+
+                    "Time Slot Unavailable",
+
+                    "Sorry, that arrival time is no longer available. Another appointment may have been booked for that time. Please choose another available slot."
+
+                );
+
+
+                await loadTimeSlotsForDate(
+                    date
+                );
+
+
+                return;
+
+            }
+
+
+            // =====================================
+            // EXISTING CUSTOMER BOOKING
+            // =====================================
+
+            const existing =
+                await findBooking(
+                    email
+                );
+
+
+            const activeBooking =
+                existing.some(
+                    booking =>
+
+                        booking.status !==
+                        "Completed"
+
+                        &&
+
+                        booking.status !==
+                        "Declined"
+
+                        &&
+
+                        booking.status !==
+                        "Cancelled"
+                );
+
+
+            if(activeBooking){
+
+                showPopup(
+
+                    "Existing Booking",
+
+                    `
+                        You already have an active appointment.
+
+                        <br><br>
+
+                        Please wait until your current appointment has been completed before requesting another booking.
+                    `
+
+                );
+
+                return;
+
+            }
+
+
+            // =====================================
+            // FINAL AVAILABILITY CHECK
+            // =====================================
+
+            const finalAvailability =
+                await isTimeSlotAvailable(
+                    date,
+                    timeSlot
+                );
+
+
+            if(!finalAvailability){
+
+                showPopup(
+
+                    "Time Slot Unavailable",
+
+                    "Sorry, that arrival time has just been booked by another customer. Please choose another available time."
+
+                );
+
+
+                await loadTimeSlotsForDate(
+                    date
+                );
+
+
+                return;
+
+            }
+
+
+            // =====================================
+            // SAVE BOOKING
+            // =====================================
+
+            await addDoc(
+
+                collection(
+                    db,
+                    "bookings"
+                ),
+
+                {
+
+                    name,
+
+                    email,
+
+                    phone,
+
+                    address,
+
+                    service,
+
+                    location,
+
+                    date,
+
+                    timeSlot,
+
+                    message,
+
+                    status:
+                        "Pending",
+
+                    /*
+                     * This is deliberately empty.
+                     *
+                     * The admin enters estimatedHours
+                     * when the appointment is approved.
+                     */
+
+                    estimatedHours:
+                        null,
+
+                    createdAt:
+                        new Date()
+                            .toISOString()
+
+                }
+
+            );
+
+
+            // =====================================
+            // SUCCESS
+            // =====================================
+
+            showPopup(
+
+                "Booking Sent",
+
+                `
+                    Your booking request has been received.
+
+                    <br><br>
+
+                    <strong>Date:</strong>
+                    ${date}
+
+                    <br>
+
+                    <strong>Preferred Time:</strong>
+                    ${formatTimeSlot(timeSlot)}
+
+                    <br><br>
+
+                    We will review your request and contact you shortly.
+                `
+
+            );
+
+
+            // =====================================
+            // RESET
+            // =====================================
+
+            bookingForm.reset();
+
+
+            dateInput.min =
+                formatDate(
+                    minDate
+                );
+
+
+            dateInput.max =
+                formatDate(
+                    maxDate
+                );
+
+
+            timeSlotsBox.innerHTML =
+                '<div class="no-time-slots">Please select a date to see available arrival times.</div>';
+
+        }
+        catch(error){
+
+            console.error(
+                "Booking error:",
+                error
+            );
+
+
+            showPopup(
+
+                "Booking Error",
+
+                "Something went wrong while sending your booking. Please try again."
+
+            );
+
+        }
+
+    }
+);
+
+
+// =====================================
+// VIEW EXISTING BOOKING
+// =====================================
+
+viewBooking.onclick = ()=>{
+
+    bookingSearchPopup.classList.remove(
+        "hidden"
+    );
+
+};
+
+
+closeSearch.onclick = ()=>{
+
+    bookingSearchPopup.classList.add(
+        "hidden"
+    );
+
+};
+
+
+// =====================================
+// SEARCH BOOKINGS
+// =====================================
+
+searchBooking.onclick =
+    async()=>{
+
+        const contact =
+            searchContact
+                .value
+                .trim();
+
+
+        if(!contact){
+
+            showPopup(
+
+                "Missing Information",
+
+                "Enter your email or phone number."
+
+            );
+
+            return;
+
+        }
+
+
+        try{
+
+            const bookings =
+                await findBooking(
+                    contact
+                );
+
+
+            if(
+                bookings.length === 0
+            ){
+
+                showPopup(
+
+                    "No Booking Found",
+
+                    "We could not find any appointments linked to those details."
+
+                );
+
+                return;
+
+            }
+
+
+            bookingSearchPopup.classList.add(
+                "hidden"
+            );
+
+
+            let html = `
+
+                <h2>
+                    Your Appointments
+                </h2>
+
+            `;
+
+
+            bookings.forEach(
+                (booking,index)=>{
+
+                    html += `
+
+                        <div style="
+                            text-align:left;
+                            padding:20px;
+                            margin:15px 0;
+                            background:#f4f8fc;
+                            border-radius:15px;
+                        ">
+
+                            <h3>
+                                Appointment ${index + 1}
+                            </h3>
+
+
+                            <p>
+                                <b>Name:</b>
+                                ${booking.name || ""}
+                            </p>
+
+
+                            <p>
+                                <b>Service:</b>
+                                ${booking.service || ""}
+                            </p>
+
+
+                            <p>
+                                <b>Location:</b>
+                                ${booking.location || ""}
+                            </p>
+
+
+                            <p>
+                                <b>Date:</b>
+                                ${booking.date || ""}
+                            </p>
+
+
+                            <p>
+                                <b>Preferred Time:</b>
+                                ${
+                                    formatTimeSlot(
+                                        booking.timeSlot
+                                    )
+                                }
+                            </p>
+
+
+                            <p>
+                                <b>Status:</b>
+                                ${booking.status || "Pending"}
+                            </p>
+
+                    `;
+
+
+                    // =====================================
+                    // ESTIMATED DURATION
+                    // =====================================
+
+                    if(
+                        booking.status ===
+                        "Approved" &&
+                        booking.estimatedHours
+                    ){
+
+                        const parsed =
+                            parseTimeSlot(
+                                booking.timeSlot
+                            );
+
+
+                        let finishText =
+                            "";
+
+
+                        if(parsed){
+
+                            const finish =
+                                parsed.start +
+                                Math.round(
+                                    Number(
+                                        booking.estimatedHours
+                                    ) * 60
+                                );
+
+
+                            const hours =
+                                Math.floor(
+                                    finish / 60
+                                );
+
+
+                            const minutes =
+                                finish % 60;
+
+
+                            const suffix =
+                                hours >= 12
+                                    ? "PM"
+                                    : "AM";
+
+
+                            const displayHour =
+                                hours % 12 || 12;
+
+
+                            finishText =
+                                `${displayHour}:${String(minutes).padStart(2,"0")} ${suffix}`;
+
+                        }
+
+
+                        html += `
+
+                            <p>
+                                <b>Estimated Job Length:</b>
+                                ${booking.estimatedHours}
+                                hour${Number(booking.estimatedHours) === 1 ? "" : "s"}
+                            </p>
+
+                            ${
+                                finishText
+                                ? `
+                                    <p>
+                                        <b>Estimated Finish:</b>
+                                        ${finishText}
+                                    </p>
+                                `
+                                : ""
+                            }
+
+                        `;
+
+                    }
+
+
+                    // =====================================
+                    // CANCEL ACTIVE BOOKINGS
+                    // =====================================
+
+                    if(
+
+                        booking.status !==
+                        "Completed"
+
+                        &&
+
+                        booking.status !==
+                        "Declined"
+
+                        &&
+
+                        booking.status !==
+                        "Cancelled"
+
+                    ){
+
+                        html += `
+
+                            <button
+                                class="cancelBooking"
+                                data-id="${booking.id}"
+                            >
+                                Cancel Appointment
+                            </button>
+
+                        `;
+
+                    }
+                    else if(
+                        booking.status ===
+                        "Completed"
+                    ){
+
+                        html += `
+
+                            <p style="
+                                color:#16a34a;
+                                font-weight:600;
+                                margin-top:10px;
+                            ">
+
+                                ✓ Completed
+
+                            </p>
+
+                        `;
+
+                    }
+
+
+                    html += `
+
+                        </div>
+
+                    `;
+
+                }
+            );
+
+
+            html += `
+
+                <button
+                    id="closePopup"
+                >
+                    Close
+                </button>
+
+            `;
+
+
+            popupContent.innerHTML =
+                html;
+
+
+            popup.classList.remove(
+                "hidden"
+            );
+
+
+            document
+                .getElementById(
+                    "closePopup"
+                )
+                .onclick = ()=>{
+
+                    popup.classList.add(
+                        "hidden"
+                    );
+
+                };
+
+
+            // =====================================
+            // CANCEL APPOINTMENT
+            // =====================================
+
+            document
+                .querySelectorAll(
+                    ".cancelBooking"
+                )
+                .forEach(
+                    button=>{
+
+                        button.onclick =
+                            async()=>{
+
+                                const id =
+                                    button.dataset.id;
+
+
+                                const booking =
+                                    bookings.find(
+                                        b =>
+                                            b.id ===
+                                            id
+                                    );
+
+
+                                if(!booking){
+
+                                    return;
+
+                                }
+
+
+                                try{
+
+                                    await sendCancellationEmail(
+                                        booking
+                                    );
+
+
+                                    await deleteDoc(
+
+                                        doc(
+                                            db,
+                                            "bookings",
+                                            id
+                                        )
+
+                                    );
+
+
+                                    popup.classList.add(
+                                        "hidden"
+                                    );
+
+
+                                    showPopup(
+
+                                        "Cancelled",
+
+                                        "Your appointment has been cancelled. A confirmation email has been sent."
+
+                                    );
+
+                                }
+                                catch(error){
+
+                                    console.error(
+                                        "Cancellation error:",
+                                        error
+                                    );
+
+
+                                    showPopup(
+
+                                        "Cancellation Error",
+
+                                        "We were unable to cancel the appointment. Please try again."
+
+                                    );
+
+                                }
+
+                            };
+
+                    }
+                );
+
+        }
+        catch(error){
+
+            console.error(
+                "Search error:",
+                error
+            );
+
+
+            showPopup(
+
+                "Error",
+
+                "Something went wrong while searching for your appointments. Please try again."
+
+            );
+
+        }
+
+    };
+
+
+// =====================================
+// CANCELLATION EMAIL
+// =====================================
+
+async function sendCancellationEmail(
+    booking
+){
+
+    try{
+
+        await emailjs.send(
+
+            "service_wd177br",
+
+            "template_a72snlj",
+
+            {
+
+                name:
+                    booking.name,
+
+                customer_email:
+                    booking.email,
+
+                phone:
+                    booking.phone,
+
+                address:
+                    booking.address,
+
+                service:
+                    booking.service,
+
+                location:
+                    booking.location,
+
+                date:
+                    booking.date,
+
+                timeSlot:
+                    booking.timeSlot ||
+                    "Not selected",
+
+                message:
+                    booking.message,
+
+                status:
+                    "Cancelled"
+
+            }
+
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "EmailJS Error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =====================================
+// CLOSE POPUPS OUTSIDE
+// =====================================
+
+popup.onclick = e=>{
+
+    if(
+        e.target ===
+        popup
+    ){
+
+        popup.classList.add(
+            "hidden"
+        );
+
+    }
+
+};
+
+
+bookingSearchPopup.onclick = e=>{
+
+    if(
+        e.target ===
+        bookingSearchPopup
+    ){
+
+        bookingSearchPopup.classList.add(
+            "hidden"
+        );
+
+    }
+
+};
+
+</script>
+
+</body>
+
+</html>
