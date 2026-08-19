@@ -2617,6 +2617,11 @@ select:focus{
             Complete Job
         </h2>
 
+
+        <!-- =================================================
+             AMOUNT PAID
+        ================================================= -->
+
         <label>
             Amount Paid (£)
         </label>
@@ -2628,6 +2633,11 @@ select:focus{
             min="0"
             placeholder="50.00"
         >
+
+
+        <!-- =================================================
+             HOURS WORKED
+        ================================================= -->
 
         <label>
             Hours Worked
@@ -2641,11 +2651,18 @@ select:focus{
             placeholder="2"
         >
 
+
+        <!-- =================================================
+             TRAVEL FEE
+        ================================================= -->
+
         <label>
             Travel Fee
         </label>
 
-        <select id="travelFee">
+        <select
+            id="travelFee"
+        >
 
             <option value="0">
                 No Travel Fee (£0)
@@ -2677,11 +2694,18 @@ select:focus{
 
         </select>
 
+
+        <!-- =================================================
+             PAYMENT METHOD
+        ================================================= -->
+
         <label>
             Payment Method
         </label>
 
-        <select id="paymentMethod">
+        <select
+            id="paymentMethod"
+        >
 
             <option value="Cash">
                 Cash
@@ -2692,6 +2716,212 @@ select:focus{
             </option>
 
         </select>
+
+
+        <!-- =================================================
+             ADDITIONAL SERVICES
+        ================================================= -->
+
+        <div
+            style="
+                margin-top:20px;
+                padding:16px;
+                background:#f8fafc;
+                border:1px solid #e2e8f0;
+                border-radius:12px;
+            "
+        >
+
+            <h3
+                style="
+                    margin:0 0 6px;
+                    font-size:17px;
+                "
+            >
+                Additional Services
+            </h3>
+
+
+            <p
+                style="
+                    margin:0 0 14px;
+                    font-size:13px;
+                    color:#64748b;
+                    line-height:1.5;
+                "
+            >
+                Add any extra services completed
+                during this job.
+            </p>
+
+
+            <!--
+                Additional service rows are inserted here
+                by JavaScript.
+            -->
+
+            <div
+                id="additionalServicesContainer"
+            ></div>
+
+
+            <button
+                type="button"
+                id="addAdditionalServiceBtn"
+                class="close-btn"
+                style="
+                    margin-top:10px;
+                    width:100%;
+                "
+            >
+                + Add Additional Service
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             DISCOUNT
+        ================================================= -->
+
+        <label
+            for="jobDiscount"
+            style="
+                margin-top:18px;
+            "
+        >
+            Discount (£)
+        </label>
+
+        <input
+            id="jobDiscount"
+            type="number"
+            step="0.01"
+            min="0"
+            value="0"
+            placeholder="0.00"
+        >
+
+
+        <!-- =================================================
+             TOTAL SUMMARY
+        ================================================= -->
+
+        <div
+            style="
+                margin-top:16px;
+                padding:16px;
+                background:#f8fafc;
+                border:1px solid #e2e8f0;
+                border-radius:12px;
+            "
+        >
+
+            <!-- Subtotal -->
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    margin-bottom:8px;
+                "
+            >
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong
+                    id="completionSubtotal"
+                >
+                    £0.00
+                </strong>
+
+            </div>
+
+
+            <!-- Travel Fee -->
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    margin-bottom:8px;
+                "
+            >
+
+                <span>
+                    Travel Fee
+                </span>
+
+                <strong
+                    id="completionTravelFee"
+                >
+                    £0.00
+                </strong>
+
+            </div>
+
+
+            <!-- Discount -->
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    margin-bottom:8px;
+                    color:#16a34a;
+                "
+            >
+
+                <span>
+                    Discount
+                </span>
+
+                <strong
+                    id="completionDiscount"
+                >
+                    -£0.00
+                </strong>
+
+            </div>
+
+
+            <!-- Grand Total -->
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    padding-top:12px;
+                    margin-top:10px;
+                    border-top:1px solid #cbd5e1;
+                    font-size:18px;
+                "
+            >
+
+                <strong>
+                    Grand Total
+                </strong>
+
+                <strong
+                    id="completionTotal"
+                >
+                    £0.00
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             TRAVEL FEE INFORMATION
+        ================================================= -->
 
         <div
             style="
@@ -2709,30 +2939,49 @@ select:focus{
                 Travel fee:
             </strong>
 
-            <span id="selectedTravelFee">
+            <span
+                id="selectedTravelFee"
+            >
                 £0.00
             </span>
 
+
             <br>
 
-            <span style="font-size:11px;">
-                This will be shown separately on the invoice.
+
+            <span
+                style="
+                    font-size:11px;
+                "
+            >
+                This will be shown separately
+                on the invoice.
             </span>
 
         </div>
 
-        <div class="modal-buttons">
+
+        <!-- =================================================
+             BUTTONS
+        ================================================= -->
+
+        <div
+            class="modal-buttons"
+        >
 
             <button
                 id="saveCompletedBtn"
                 class="approve-btn"
+                type="button"
             >
                 Save
             </button>
 
+
             <button
                 id="closeCompletedBtn"
                 class="close-btn"
+                type="button"
             >
                 Cancel
             </button>
