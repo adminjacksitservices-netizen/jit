@@ -6770,13 +6770,162 @@ document
                     .value;
 
 
-            /* =====================================================
+            /* =================================================
+               DISCOUNT
+            ================================================= */
+
+            const discount =
+                parseFloat(
+                    document
+                        .getElementById(
+                            "jobDiscount"
+                        )
+                        ?.value
+                ) || 0;
+
+
+            /* =================================================
+               ADDITIONAL SERVICES
+            ================================================= */
+
+            const additionalServices =
+                Array.from(
+                    document.querySelectorAll(
+                        ".additional-service-row"
+                    )
+                )
+                .map(
+                    row => {
+
+                        const description =
+                            row.querySelector(
+                                ".additional-service-description"
+                            )
+                            ?.value
+                            .trim() || "";
+
+
+                        const serviceHours =
+                            parseFloat(
+                                row.querySelector(
+                                    ".additional-service-hours"
+                                )
+                                ?.value
+                            ) || 0;
+
+
+                        const serviceRate =
+                            parseFloat(
+                                row.querySelector(
+                                    ".additional-service-rate"
+                                )
+                                ?.value
+                            ) || 0;
+
+
+                        const serviceAmountInput =
+                            row.querySelector(
+                                ".additional-service-amount"
+                            );
+
+
+                        const enteredAmount =
+                            parseFloat(
+                                serviceAmountInput
+                                    ?.value
+                            );
+
+
+                        const serviceAmount =
+                            Number.isFinite(
+                                enteredAmount
+                            )
+                                ?
+                                enteredAmount
+                                :
+                                (
+                                    serviceHours *
+                                    serviceRate
+                                );
+
+
+                        return {
+
+                            description:
+                                description,
+
+                            hours:
+                                serviceHours,
+
+                            rate:
+                                serviceRate,
+
+                            amount:
+                                serviceAmount
+
+                        };
+
+                    }
+                )
+                .filter(
+                    service =>
+                        service.description !== ""
+                );
+
+
+            /* =================================================
+               ADDITIONAL SERVICES TOTAL
+            ================================================= */
+
+            const additionalServicesTotal =
+                additionalServices.reduce(
+                    (
+                        total,
+                        service
+                    ) => {
+
+                        return (
+                            total +
+                            Number(
+                                service.amount
+                            )
+                        );
+
+                    },
+                    0
+                );
+
+
+            /* =================================================
+               TOTALS
+            ================================================= */
+
+            const subtotal =
+                amount +
+                additionalServicesTotal;
+
+
+            const grandTotal =
+                Math.max(
+                    0,
+
+                    subtotal +
+                    travelFee -
+                    discount
+                );
+
+
+            /* =================================================
                VALIDATION
-            ===================================================== */
+            ================================================= */
 
             if(
-                Number.isNaN(amount) ||
-                Number.isNaN(hours)
+                Number.isNaN(
+                    amount
+                ) ||
+                Number.isNaN(
+                    hours
+                )
             ){
 
                 showMessage(
@@ -6792,7 +6941,8 @@ document
             if(
                 amount < 0 ||
                 hours < 0 ||
-                travelFee < 0
+                travelFee < 0 ||
+                discount < 0
             ){
 
                 showMessage(
@@ -6805,9 +6955,9 @@ document
             }
 
 
-            /* =====================================================
+            /* =================================================
                SAVE TO FIRESTORE
-            ===================================================== */
+            ================================================= */
 
             try{
 
@@ -6824,17 +6974,46 @@ document
                         status:
                             "Completed",
 
+
                         amountPaid:
                             amount,
+
 
                         hoursWorked:
                             hours,
 
+
                         travelFee:
                             travelFee,
 
+
                         paymentMethod:
                             payment,
+
+
+                        additionalServices:
+                            additionalServices,
+
+
+                        additionalServicesTotal:
+                            additionalServicesTotal,
+
+
+                        discount:
+                            discount,
+
+
+                        discountAmount:
+                            discount,
+
+
+                        subtotal:
+                            subtotal,
+
+
+                        grandTotal:
+                            grandTotal,
+
 
                         completedAt:
                             new Date().toISOString()
@@ -6895,9 +7074,6 @@ document
             }
 
         };
-
-
-
 /* =========================================================
    COMPLETED JOBS
 ========================================================= */
