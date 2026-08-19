@@ -8282,17 +8282,31 @@ function openInvoiceA4(
             job.travelFee || 0
         );
 
-   const discount =
+const discount =
     Number(
         job.discount || 0
     );
 
+const additionalServicesTotal =
+    Array.isArray(job.additionalServices)
+        ? job.additionalServices.reduce(
+            (total, service) =>
+                total + Number(service.amount || 0),
+            0
+        )
+        : 0;
 
-    const subtotal =
-        Math.max(
-            0,
-            amountPaid - travelFee
-        );
+const subtotal =
+    amountPaid +
+    additionalServicesTotal;
+
+const grandTotal =
+    Math.max(
+        0,
+        subtotal +
+        travelFee -
+        discount
+    );
 
 
     const invoiceWindow =
@@ -9138,7 +9152,7 @@ td{
             ========================================== -->
 
             ${
-                invoiceDiscount > 0
+                discount > 0
 
                     ?
 
@@ -9162,7 +9176,7 @@ td{
                             "
                         >
 
-                            --£${invoiceDiscount.toFixed(2)}
+                            -£${discount.toFixed(2)}
 
                         </td>
 
@@ -9240,7 +9254,7 @@ td{
         <!-- Discount -->
 
         ${
-            invoiceDiscount > 0
+            discount > 0
 
                 ?
 
@@ -9255,7 +9269,7 @@ td{
                     </span>
 
                     <strong>
-                        -£${invoiceDiscount.toFixed(2)}
+                        -£${discount.toFixed(2)}
                     </strong>
 
                 </div>
