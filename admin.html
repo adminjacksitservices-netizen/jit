@@ -8290,6 +8290,11 @@ function openInvoiceA4(
             job.travelFee || 0
         );
 
+   const discount =
+    Number(
+        job.discount || 0
+    );
+
 
     const subtotal =
         Math.max(
