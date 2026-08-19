@@ -7729,11 +7729,10 @@ const travelFee =
     );
 
 
-const discount =
+const invoiceDiscount =
     Number(
         job.discount || 0
     );
-
 
 const additionalServices =
     Array.isArray(
@@ -9146,7 +9145,7 @@ td{
             ========================================== -->
 
             ${
-                discount > 0
+                invoiceDiscount > 0
 
                     ?
 
@@ -9170,7 +9169,7 @@ td{
                             "
                         >
 
-                            -£${discount.toFixed(2)}
+                            --£${invoiceDiscount.toFixed(2)}
 
                         </td>
 
@@ -9248,7 +9247,7 @@ td{
         <!-- Discount -->
 
         ${
-            discount > 0
+            invoiceDiscount > 0
 
                 ?
 
@@ -9263,7 +9262,7 @@ td{
                     </span>
 
                     <strong>
-                        -£${discount.toFixed(2)}
+                        -£${invoiceDiscount.toFixed(2)}
                     </strong>
 
                 </div>
