@@ -6715,6 +6715,364 @@ document
 
     };
 
+/* =========================================================
+   ADDITIONAL SERVICES
+========================================================= */
+
+let additionalServiceCount = 0;
+
+
+function addAdditionalService(){
+
+    const container =
+        document.getElementById(
+            "additionalServicesContainer"
+        );
+
+
+    if(!container){
+        return;
+    }
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "additional-service-row";
+
+
+    row.dataset.serviceIndex =
+        additionalServiceCount++;
+
+
+    row.innerHTML = `
+
+        <div
+            style="
+                display:grid;
+                grid-template-columns:
+                    2fr 1fr 1fr 1fr auto;
+                gap:8px;
+                align-items:center;
+                margin-bottom:10px;
+            "
+        >
+
+            <input
+                type="text"
+                class="additional-service-description"
+                placeholder="Service description"
+            >
+
+            <input
+                type="number"
+                class="additional-service-hours"
+                min="0"
+                step="0.25"
+                placeholder="Hours"
+            >
+
+            <input
+                type="number"
+                class="additional-service-rate"
+                min="0"
+                step="0.01"
+                placeholder="Rate (£)"
+            >
+
+            <input
+                type="number"
+                class="additional-service-amount"
+                min="0"
+                step="0.01"
+                placeholder="Amount (£)"
+            >
+
+            <button
+                type="button"
+                class="remove-additional-service"
+            >
+                Remove
+            </button>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(
+        row
+    );
+
+
+    const hours =
+        row.querySelector(
+            ".additional-service-hours"
+        );
+
+
+    const rate =
+        row.querySelector(
+            ".additional-service-rate"
+        );
+
+
+    const amount =
+        row.querySelector(
+            ".additional-service-amount"
+        );
+
+
+    function calculateAmount(){
+
+        const h =
+            parseFloat(
+                hours.value
+            ) || 0;
+
+
+        const r =
+            parseFloat(
+                rate.value
+            ) || 0;
+
+
+        amount.value =
+            (
+                h * r
+            ).toFixed(2);
+
+
+        updateCompletionTotal();
+
+    }
+
+
+    hours.addEventListener(
+        "input",
+        calculateAmount
+    );
+
+
+    rate.addEventListener(
+        "input",
+        calculateAmount
+    );
+
+
+    amount.addEventListener(
+        "input",
+        updateCompletionTotal
+    );
+
+
+    row.querySelector(
+        ".remove-additional-service"
+    )
+    .addEventListener(
+        "click",
+        ()=>{
+
+            row.remove();
+
+            updateCompletionTotal();
+
+        }
+    );
+
+
+    updateCompletionTotal();
+
+}
+
+
+/* =========================================================
+   ADDITIONAL SERVICE BUTTON
+========================================================= */
+
+document
+    .getElementById(
+        "addAdditionalServiceBtn"
+    )
+    ?.addEventListener(
+        "click",
+        addAdditionalService
+    );
+
+
+/* =========================================================
+   COMPLETION TOTAL
+========================================================= */
+
+function updateCompletionTotal(){
+
+    const amount =
+        parseFloat(
+            document
+                .getElementById(
+                    "paidAmount"
+                )
+                ?.value
+        ) || 0;
+
+
+    const travelFee =
+        parseFloat(
+            document
+                .getElementById(
+                    "travelFee"
+                )
+                ?.value
+        ) || 0;
+
+
+    const discount =
+        parseFloat(
+            document
+                .getElementById(
+                    "jobDiscount"
+                )
+                ?.value
+        ) || 0;
+
+
+    let additionalTotal = 0;
+
+
+    document
+        .querySelectorAll(
+            ".additional-service-amount"
+        )
+        .forEach(
+            input => {
+
+                additionalTotal +=
+                    parseFloat(
+                        input.value
+                    ) || 0;
+
+            }
+        );
+
+
+    const subtotal =
+        amount +
+        additionalTotal;
+
+
+    const total =
+        Math.max(
+            0,
+            subtotal +
+            travelFee -
+            discount
+        );
+
+
+    const subtotalElement =
+        document.getElementById(
+            "completionSubtotal"
+        );
+
+
+    const travelElement =
+        document.getElementById(
+            "completionTravelFee"
+        );
+
+
+    const discountElement =
+        document.getElementById(
+            "completionDiscount"
+        );
+
+
+    const totalElement =
+        document.getElementById(
+            "completionTotal"
+        );
+
+
+    if(subtotalElement){
+
+        subtotalElement.textContent =
+            money(
+                subtotal
+            );
+
+    }
+
+
+    if(travelElement){
+
+        travelElement.textContent =
+            money(
+                travelFee
+            );
+
+    }
+
+
+    if(discountElement){
+
+        discountElement.textContent =
+            "-" +
+            money(
+                discount
+            );
+
+    }
+
+
+    if(totalElement){
+
+        totalElement.textContent =
+            money(
+                total
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   TOTAL UPDATE LISTENERS
+========================================================= */
+
+document
+    .getElementById(
+        "jobDiscount"
+    )
+    ?.addEventListener(
+        "input",
+        updateCompletionTotal
+    );
+
+
+document
+    .getElementById(
+        "paidAmount"
+    )
+    ?.addEventListener(
+        "input",
+        updateCompletionTotal
+    );
+
+
+document
+    .getElementById(
+        "travelFee"
+    )
+    ?.addEventListener(
+        "change",
+        updateCompletionTotal
+    );
+
 
 /* =========================================================
    SAVE COMPLETED JOB
@@ -8444,7 +8802,7 @@ body{
 
     align-items:flex-start;
 
-    margin-bottom:40px;
+    margin-bottom:35px;
 
 }
 
@@ -8500,6 +8858,21 @@ body{
 }
 
 
+/* =====================================================
+   INVOICE DATE
+===================================================== */
+
+.invoice-date{
+
+    margin-top:5px;
+
+    font-size:12px;
+
+    color:#64748b;
+
+}
+
+
 .info-grid{
 
     display:grid;
@@ -8549,6 +8922,10 @@ body{
 }
 
 
+/* =====================================================
+   JOB DETAILS TABLE
+===================================================== */
+
 table{
 
     width:100%;
@@ -8586,12 +8963,40 @@ td{
 }
 
 
+/* =====================================================
+   IT SERVICES
+===================================================== */
+
+.it-services{
+
+    color:#3ca8ff;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   ADDITIONAL SERVICES
+===================================================== */
+
+.additional-service{
+
+    color:#334155;
+
+}
+
+
 .text-right{
 
     text-align:right;
 
 }
 
+
+/* =====================================================
+   TOTALS
+===================================================== */
 
 .totals{
 
@@ -8617,6 +9022,13 @@ td{
 }
 
 
+.discount-row{
+
+    color:#16a34a;
+
+}
+
+
 .grand-total{
 
     margin-top:10px;
@@ -8631,6 +9043,10 @@ td{
 
 }
 
+
+/* =====================================================
+   PAYMENT
+===================================================== */
 
 .payment{
 
@@ -8654,6 +9070,10 @@ td{
 }
 
 
+/* =====================================================
+   FOOTER
+===================================================== */
+
 .footer{
 
     position:absolute;
@@ -8676,6 +9096,10 @@ td{
 
 }
 
+
+/* =====================================================
+   PRINT CONTROLS
+===================================================== */
 
 .print-controls{
 
@@ -8720,6 +9144,10 @@ td{
 }
 
 
+/* =====================================================
+   PRINT
+===================================================== */
+
 @page{
 
     size:A4;
@@ -8762,13 +9190,10 @@ td{
 
 <body>
 
-
 <div class="print-controls">
 
     <button onclick="window.print()">
-
         Print / Save PDF
-
     </button>
 
 
@@ -8776,9 +9201,7 @@ td{
         class="secondary"
         onclick="window.close()"
     >
-
         Close
-
     </button>
 
 </div>
@@ -8786,6 +9209,10 @@ td{
 
 <div class="invoice-page">
 
+
+    <!-- =================================================
+         HEADER
+    ================================================= -->
 
     <div class="header">
 
@@ -8830,6 +9257,10 @@ td{
     </div>
 
 
+
+    <!-- =================================================
+         CUSTOMER / INVOICE DETAILS
+    ================================================= -->
 
     <div class="info-grid">
 
@@ -8895,13 +9326,27 @@ td{
 
                 <br>
 
+
                 <strong>
-                    Completed:
+                    Invoice Date:
                 </strong>
 
                 ${completedDate}
 
                 <br>
+
+
+                <strong>
+                    Job Date:
+                </strong>
+
+                ${
+                    job.date ||
+                    "N/A"
+                }
+
+                <br>
+
 
                 <strong>
                     Payment:
@@ -8920,6 +9365,10 @@ td{
 
 
 
+    <!-- =================================================
+         JOB DETAILS
+    ================================================= -->
+
     <table>
 
         <thead>
@@ -8931,7 +9380,7 @@ td{
                 </th>
 
                 <th>
-                    Date
+                    Hours
                 </th>
 
                 <th class="text-right">
@@ -8945,28 +9394,32 @@ td{
 
         <tbody>
 
+
+            <!-- =========================================
+                 MAIN IT SERVICE
+            ========================================== -->
+
             <tr>
 
                 <td>
 
-                    <strong>
-                        ${
-                            job.service ||
-                            "IT Support"
-                        }
+                    <strong class="it-services">
+                        IT Services
                     </strong>
 
                     <br>
 
-                    <span style="
-                        color:#64748b;
-                        font-size:11px;
-                    ">
+                    <span
+                        style="
+                            color:#64748b;
+                            font-size:11px;
+                        "
+                    >
 
                         ${
-                            job.hoursWorked ||
-                            0
-                        } hours worked
+                            job.service ||
+                            "IT Support"
+                        }
 
                     </span>
 
@@ -8976,8 +9429,8 @@ td{
                 <td>
 
                     ${
-                        job.date ||
-                        "N/A"
+                        job.hoursWorked ||
+                        0
                     }
 
                 </td>
@@ -8985,12 +9438,81 @@ td{
 
                 <td class="text-right">
 
-                    £${subtotal.toFixed(2)}
+                    £${amountPaid.toFixed(2)}
 
                 </td>
 
             </tr>
 
+
+
+            <!-- =========================================
+                 ADDITIONAL SERVICES
+            ========================================== -->
+
+            ${
+                Array.isArray(
+                    job.additionalServices
+                )
+
+                ?
+
+                job.additionalServices
+                    .map(
+                        service => `
+
+                            <tr>
+
+                                <td>
+
+                                    <span class="additional-service">
+
+                                        ${
+                                            service.description ||
+                                            "Additional Service"
+                                        }
+
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    ${
+                                        service.hours ||
+                                        0
+                                    }
+
+                                </td>
+
+
+                                <td class="text-right">
+
+                                    £${Number(
+                                        service.amount ||
+                                        0
+                                    ).toFixed(2)}
+
+                                </td>
+
+                            </tr>
+
+                        `
+                    )
+                    .join("")
+
+                :
+
+                ""
+
+            }
+
+
+
+            <!-- =========================================
+                 TRAVEL FEE
+            ========================================== -->
 
             ${
                 travelFee > 0
@@ -9006,7 +9528,7 @@ td{
                         </td>
 
                         <td>
-                            ${job.location || ""}
+                            —
                         </td>
 
                         <td class="text-right">
@@ -9025,14 +9547,66 @@ td{
 
             }
 
+
+
+            <!-- =========================================
+                 DISCOUNT
+            ========================================== -->
+
+            ${
+                discount > 0
+
+                    ?
+
+                    `
+
+                    <tr>
+
+                        <td>
+                            Discount
+                        </td>
+
+                        <td>
+                            —
+                        </td>
+
+                        <td
+                            class="text-right"
+                            style="
+                                color:#16a34a;
+                                font-weight:600;
+                            "
+                        >
+
+                            -£${discount.toFixed(2)}
+
+                        </td>
+
+                    </tr>
+
+                    `
+
+                    :
+
+                    ""
+
+            }
+
+
         </tbody>
 
     </table>
 
 
 
+    <!-- =================================================
+         TOTALS
+    ================================================= -->
+
     <div class="totals">
 
+
+        <!-- Subtotal -->
 
         <div class="total-row">
 
@@ -9046,6 +9620,9 @@ td{
 
         </div>
 
+
+
+        <!-- Travel Fee -->
 
         ${
             travelFee > 0
@@ -9075,14 +9652,52 @@ td{
         }
 
 
-        <div class="total-row grand-total">
+
+        <!-- Discount -->
+
+        ${
+            discount > 0
+
+                ?
+
+                `
+
+                <div
+                    class="total-row discount-row"
+                >
+
+                    <span>
+                        Discount
+                    </span>
+
+                    <strong>
+                        -£${discount.toFixed(2)}
+                    </strong>
+
+                </div>
+
+                `
+
+                :
+
+                ""
+
+        }
+
+
+
+        <!-- Grand Total -->
+
+        <div
+            class="total-row grand-total"
+        >
 
             <span>
                 Grand Total
             </span>
 
             <strong>
-                £${amountPaid.toFixed(2)}
+                £${grandTotal.toFixed(2)}
             </strong>
 
         </div>
@@ -9091,18 +9706,26 @@ td{
 
 
 
+    <!-- =================================================
+         PAYMENT INFORMATION
+    ================================================= -->
+
     <div class="payment">
 
         <strong>
             Payment Information
         </strong>
 
+
         Payment received:
-        £${amountPaid.toFixed(2)}
+        £${grandTotal.toFixed(2)}
+
 
         <br>
 
+
         Payment method:
+
         ${
             job.paymentMethod ||
             "Unknown"
@@ -9111,6 +9734,10 @@ td{
     </div>
 
 
+
+    <!-- =================================================
+         FOOTER
+    ================================================= -->
 
     <div class="footer">
 
@@ -9129,7 +9756,6 @@ td{
 </body>
 
 </html>
-
     `);
 
 
