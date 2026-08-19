@@ -7638,13 +7638,16 @@ function displayJobs(
                 </div>
 
 
-                <div class="invoice-amount">
+<div class="invoice-amount">
 
-                    £${Number(
-                        job.amountPaid || 0
-                    ).toFixed(2)}
+    £${(
+        Number(job.amountPaid || 0) +
+        Number(job.additionalServicesTotal || 0) +
+        Number(job.travelFee || 0) -
+        Number(job.discount || 0)
+    ).toFixed(2)}
 
-                </div>
+</div>
 
             `;
 
@@ -7702,29 +7705,63 @@ function openInvoice(job){
             : "Unknown";
 
 
-    const amountPaid =
-        Number(
-            job.amountPaid || 0
-        );
+const amountPaid =
+    Number(
+        job.amountPaid || 0
+    );
 
 
-    const travelFee =
-        Number(
-            job.travelFee || 0
-        );
+const travelFee =
+    Number(
+        job.travelFee || 0
+    );
 
 
-    /*
-        Grand total
+const discount =
+    Number(
+        job.discount || 0
+    );
 
-        If amountPaid is the job charge BEFORE travel,
-        the grand total is:
 
-        Job amount + Travel fee
-    */
+const additionalServices =
+    Array.isArray(
+        job.additionalServices
+    )
+        ? job.additionalServices
+        : [];
 
-    const grandTotal =
-        amountPaid;
+
+const additionalServicesTotal =
+    additionalServices.reduce(
+        (
+            total,
+            service
+        ) => {
+
+            return (
+                total +
+                Number(
+                    service.amount || 0
+                )
+            );
+
+        },
+        0
+    );
+
+
+const subtotal =
+    amountPaid +
+    additionalServicesTotal;
+
+
+const grandTotal =
+    Math.max(
+        0,
+        subtotal +
+        travelFee -
+        discount
+    );
 
 
     invoiceInfo.innerHTML = `
