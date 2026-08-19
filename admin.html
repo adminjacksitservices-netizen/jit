@@ -7722,12 +7722,10 @@ const amountPaid =
         job.amountPaid || 0
     );
 
-
 const travelFee =
     Number(
         job.travelFee || 0
     );
-
 
 const discount =
     Number(
@@ -7741,30 +7739,25 @@ const additionalServices =
         ? job.additionalServices
         : [];
 
-
 const additionalServicesTotal =
     additionalServices.reduce(
         (
             total,
             service
         ) => {
-
             return (
                 total +
                 Number(
                     service.amount || 0
                 )
             );
-
         },
         0
     );
 
-
 const subtotal =
     amountPaid +
     additionalServicesTotal;
-
 
 const grandTotal =
     Math.max(
