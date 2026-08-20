@@ -1651,6 +1651,87 @@ select:focus{
     z-index: 9999;
 }
 
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark-mode{
+    background:#0f172a;
+    color:#e2e8f0;
+}
+
+body.dark-mode .main-content{
+    background:#0f172a;
+}
+
+body.dark-mode .topbar,
+body.dark-mode .card,
+body.dark-mode .stat-card{
+    background:#1e293b;
+    border-color:#334155;
+}
+
+body.dark-mode .page-title h1,
+body.dark-mode .stat-info strong,
+body.dark-mode .upcoming-main strong{
+    color:#f8fafc;
+}
+
+body.dark-mode .page-title p,
+body.dark-mode .topbar-date,
+body.dark-mode .stat-info span,
+body.dark-mode .card-subtitle{
+    color:#94a3b8;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea{
+    background:#0f172a;
+    color:#f8fafc;
+    border-color:#475569;
+}
+
+body.dark-mode .upcoming-item{
+    background:#0f172a;
+    border-color:#334155;
+}
+
+body.dark-mode .welcome-card{
+    box-shadow:none;
+}
+
+/* SETTINGS BUTTONS */
+
+#saveThemeBtn,
+#changePasswordBtn,
+#saveDashboardSettingsBtn{
+    width:100%;
+    padding:13px 18px;
+    margin-top:15px;
+    border-radius:12px;
+    background:#2563eb;
+    color:#fff;
+    font-family:'Poppins',sans-serif;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s ease;
+}
+
+#saveThemeBtn:hover,
+#changePasswordBtn:hover,
+#saveDashboardSettingsBtn:hover{
+    background:#1d4ed8;
+    transform:translateY(-1px);
+    box-shadow:0 6px 15px rgba(37,99,235,.2);
+}
+
+#saveThemeBtn:active,
+#changePasswordBtn:active,
+#saveDashboardSettingsBtn:active{
+    transform:translateY(0);
+}
+
 </style>
 
 </head>
