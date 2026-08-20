@@ -1822,6 +1822,19 @@ select:focus{
 
             </button>
 
+           <button
+    class="nav-item"
+    data-page="settings"
+>
+    <span class="nav-icon">
+        ⚙️
+    </span>
+
+    <span class="nav-text">
+        Settings
+    </span>
+</button>
+
         </nav>
 
 
@@ -2546,6 +2559,181 @@ select:focus{
             </div>
 
         </section>
+
+       <section
+    id="page-settings"
+    class="page-section"
+>
+
+    <div class="welcome-card">
+
+        <h2>
+            Settings
+        </h2>
+
+        <p>
+            Manage your dashboard preferences and security.
+        </p>
+
+    </div>
+
+
+    <!-- APPEARANCE -->
+
+    <div class="card">
+
+        <h2>
+            Appearance
+        </h2>
+
+        <p class="card-subtitle">
+            Change how the admin dashboard looks.
+        </p>
+
+        <label>
+            Theme
+        </label>
+
+        <select
+            id="themeSetting"
+            style="width:100%;margin-top:8px;"
+        >
+            <option value="light">
+                Light
+            </option>
+
+            <option value="dark">
+                Dark
+            </option>
+        </select>
+
+        <button
+            id="saveThemeBtn"
+            class="approve-btn"
+            style="margin-top:15px;"
+        >
+            Save Appearance
+        </button>
+
+    </div>
+
+
+    <!-- PASSWORD -->
+
+    <div class="card">
+
+        <h2>
+            Change Password
+        </h2>
+
+        <p class="card-subtitle">
+            Change the password used to access this admin dashboard.
+        </p>
+
+        <input
+            id="currentPassword"
+            type="password"
+            placeholder="Current password"
+        >
+
+        <input
+            id="newPassword"
+            type="password"
+            placeholder="New password"
+            style="margin-top:10px;"
+        >
+
+        <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Confirm new password"
+            style="margin-top:10px;"
+        >
+
+        <button
+            id="changePasswordBtn"
+            class="approve-btn"
+            style="margin-top:15px;"
+        >
+            Change Password
+        </button>
+
+        <p
+            id="passwordSettingsMessage"
+            style="margin-top:12px;"
+        ></p>
+
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <div class="card">
+
+        <h2>
+            Dashboard
+        </h2>
+
+        <p class="card-subtitle">
+            Choose what opens after you log in.
+        </p>
+
+        <label>
+            Default page
+        </label>
+
+        <select
+            id="defaultPageSetting"
+            style="width:100%;margin-top:8px;"
+        >
+
+            <option value="overview">
+                Overview
+            </option>
+
+            <option value="calendar">
+                Calendar
+            </option>
+
+            <option value="invoices">
+                Invoices
+            </option>
+
+            <option value="quote">
+                Quote Calculator
+            </option>
+
+        </select>
+
+        <label
+            style="
+                display:flex;
+                align-items:center;
+                gap:10px;
+                margin-top:18px;
+            "
+        >
+
+            <input
+                id="sidebarSetting"
+                type="checkbox"
+            >
+
+            Start with collapsed sidebar
+
+        </label>
+
+        <button
+            id="saveDashboardSettingsBtn"
+            class="approve-btn"
+            style="margin-top:15px;"
+        >
+            Save Dashboard Settings
+        </button>
+
+    </div>
+
+</section>
 
 
     </main>
@@ -3978,61 +4166,130 @@ function rangesOverlap(
    LOGIN
 ========================================================= */
 
-window.adminLogin = function(){
+window.adminLogin = async function(){
 
-    if(
-        passwordInput.value ===
-        ADMIN_PASSWORD
-    ){
+    errorText.textContent = "";
 
-        loginScreen.classList.add(
-            "hidden"
-        );
+    try{
 
-        dashboard.classList.remove(
-            "hidden"
-        );
+        const settings =
+            await getAdminSettings();
 
+        const enteredHash =
+            await hashPassword(
+                passwordInput.value
+            );
 
-        updateToday();
+        if(
+            enteredHash ===
+            settings.passwordHash
+        ){
 
-        loadBookings();
+            loginScreen.classList.add(
+                "hidden"
+            );
 
-        loadBlockedDates();
+            dashboard.classList.remove(
+                "hidden"
+            );
 
-        loadAvailability();
+            applyTheme(
+                settings.theme || "light"
+            );
 
+            updateToday();
+            loadBookings();
+            loadBlockedDates();
+            loadAvailability();
 
-        /*
-         * ALWAYS START ON OVERVIEW
-         */
+            showPage(
+                settings.defaultPage ||
+                "overview"
+            );
 
-        showPage(
-            "overview"
-        );
+        }
+        else{
+
+            errorText.textContent =
+                "Incorrect password.";
+
+        }
 
     }
-    else{
+    catch(error){
+
+        console.error(error);
 
         errorText.textContent =
-            "Incorrect password.";
+            "Unable to sign in. Please try again.";
 
     }
 
 };
 
+/* =========================================================
+   ADMIN SETTINGS
+========================================================= */
 
-passwordInput.addEventListener(
-    "keydown",
-    e=>{
-
-        if(e.key === "Enter"){
-            adminLogin();
-        }
-
-    }
+const SETTINGS_REF = doc(
+    db,
+    "settings",
+    "admin"
 );
 
+async function hashPassword(password){
+
+    const encoder = new TextEncoder();
+
+    const data =
+        encoder.encode(password);
+
+    const hash =
+        await crypto.subtle.digest(
+            "SHA-256",
+            data
+        );
+
+    return Array
+        .from(new Uint8Array(hash))
+        .map(
+            byte =>
+                byte.toString(16).padStart(2,"0")
+        )
+        .join("");
+}
+
+
+async function getAdminSettings(){
+
+    const snapshot =
+        await getDoc(SETTINGS_REF);
+
+    if(snapshot.exists()){
+        return snapshot.data();
+    }
+
+    /*
+     * First-time setup.
+     * This preserves your current password.
+     */
+    const defaultHash =
+        await hashPassword("0");
+
+    const settings = {
+        passwordHash: defaultHash,
+        theme: "light",
+        defaultPage: "overview",
+        sidebarCollapsed: false
+    };
+
+    await setDoc(
+        SETTINGS_REF,
+        settings
+    );
+
+    return settings;
+}
 
 /* =========================================================
    TODAY
@@ -9435,6 +9692,218 @@ document.addEventListener("click", async (event)=>{
     }
 
 });
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function applyTheme(theme){
+
+    document.body.classList.toggle(
+        "dark-mode",
+        theme === "dark"
+    );
+
+}
+
+
+async function loadSettingsPage(){
+
+    const settings =
+        await getAdminSettings();
+
+    document.getElementById(
+        "themeSetting"
+    ).value =
+        settings.theme || "light";
+
+    document.getElementById(
+        "defaultPageSetting"
+    ).value =
+        settings.defaultPage ||
+        "overview";
+
+    document.getElementById(
+        "sidebarSetting"
+    ).checked =
+        settings.sidebarCollapsed ||
+        false;
+
+}
+
+
+document.getElementById(
+    "saveThemeBtn"
+).onclick = async ()=>{
+
+    const theme =
+        document.getElementById(
+            "themeSetting"
+        ).value;
+
+    await updateDoc(
+        SETTINGS_REF,
+        {
+            theme: theme
+        }
+    );
+
+    applyTheme(theme);
+
+};
+
+
+document.getElementById(
+    "saveDashboardSettingsBtn"
+).onclick = async ()=>{
+
+    const defaultPage =
+        document.getElementById(
+            "defaultPageSetting"
+        ).value;
+
+    const sidebarCollapsed =
+        document.getElementById(
+            "sidebarSetting"
+        ).checked;
+
+    await updateDoc(
+        SETTINGS_REF,
+        {
+            defaultPage:
+                defaultPage,
+
+            sidebarCollapsed:
+                sidebarCollapsed
+        }
+    );
+
+    /*
+     * Apply sidebar preference immediately.
+     */
+
+    const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+    if(sidebar){
+
+        sidebar.classList.toggle(
+            "collapsed",
+            sidebarCollapsed
+        );
+
+    }
+
+};
+
+
+document.getElementById(
+    "changePasswordBtn"
+).onclick = async ()=>{
+
+    const current =
+        document.getElementById(
+            "currentPassword"
+        ).value;
+
+    const newPassword =
+        document.getElementById(
+            "newPassword"
+        ).value;
+
+    const confirm =
+        document.getElementById(
+            "confirmPassword"
+        ).value;
+
+    const message =
+        document.getElementById(
+            "passwordSettingsMessage"
+        );
+
+
+    if(!current || !newPassword){
+
+        message.textContent =
+            "Please fill in all fields.";
+
+        return;
+
+    }
+
+
+    if(newPassword !== confirm){
+
+        message.textContent =
+            "New passwords do not match.";
+
+        return;
+
+    }
+
+
+    if(newPassword.length < 6){
+
+        message.textContent =
+            "Password must be at least 6 characters.";
+
+        return;
+
+    }
+
+
+    const settings =
+        await getAdminSettings();
+
+
+    const currentHash =
+        await hashPassword(current);
+
+
+    if(
+        currentHash !==
+        settings.passwordHash
+    ){
+
+        message.textContent =
+            "Current password is incorrect.";
+
+        return;
+
+    }
+
+
+    const newHash =
+        await hashPassword(newPassword);
+
+
+    await updateDoc(
+        SETTINGS_REF,
+        {
+            passwordHash:
+                newHash
+        }
+    );
+
+
+    message.textContent =
+        "Password changed successfully.";
+
+    document.getElementById(
+        "currentPassword"
+    ).value = "";
+
+    document.getElementById(
+        "newPassword"
+    ).value = "";
+
+    document.getElementById(
+        "confirmPassword"
+    ).value = "";
+
+};
 
 </script>
 
