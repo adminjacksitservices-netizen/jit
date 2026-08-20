@@ -3373,14 +3373,6 @@ const app =
 const db =
     getFirestore(app);
 
-
-/* =========================================================
-   ADMIN PASSWORD
-========================================================= */
-
-const ADMIN_PASSWORD = "2508";
-
-
 /* =========================================================
    ELEMENTS
 ========================================================= */
@@ -3477,7 +3469,12 @@ const pageInformation = {
         title:"Quote Calculator",
         subtitle:"Create quick customer quotes"
 
-    }
+    },
+
+   settings:{
+    title:"Settings",
+    subtitle:"Manage your dashboard preferences and security"
+}
 
 };
 
@@ -3522,11 +3519,17 @@ function showPage(page){
         });
 
 
-    pageTitle.textContent =
-        pageInformation[page].title;
+const info =
+    pageInformation[page] || {
+        title:"Dashboard",
+        subtitle:"Admin dashboard"
+    };
 
-    pageSubtitle.textContent =
-        pageInformation[page].subtitle;
+pageTitle.textContent =
+    info.title;
+
+pageSubtitle.textContent =
+    info.subtitle;
 
 
     localStorage.setItem(
