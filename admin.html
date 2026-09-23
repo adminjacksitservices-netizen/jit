@@ -1128,6 +1128,10 @@ select:focus{
     background:#ef4444;
 }
 
+.edit-btn{
+    background:#2563eb;
+}
+
 .complete-btn{
     background:#0ea5e9;
 }
@@ -1775,7 +1779,7 @@ body.dark-mode .welcome-card{
 
         <h3>Admin Dashboard</h3>
 
-        <h5>V1.01</h5>
+        <h5>V1.02</h5>
 
         <input
             id="password"
@@ -2849,6 +2853,13 @@ body.dark-mode .welcome-card{
             </button>
 
             <button
+                id="editBookingBtn"
+                class="edit-btn"
+            >
+                Edit Appointment
+            </button>
+
+            <button
                 id="cancelBookingBtn"
                 class="cancel-btn"
             >
@@ -3415,6 +3426,9 @@ const bookingInfo =
 
 const approveBtn =
     document.getElementById("approveBookingBtn");
+
+const editBookingBtn =
+    document.getElementById("editBookingBtn");
 
 const cancelBtn =
     document.getElementById("cancelBookingBtn");
@@ -4139,15 +4153,22 @@ function formatMinutes(totalMinutes){
 function getEstimatedEndTime(booking){
 
     if(
-        !booking ||
-        !booking.timeSlot
+        !booking
     ){
+        return null;
+    }
+
+    const effectiveTimeSlot =
+        booking.arrivalTimeSlot ||
+        booking.timeSlot;
+
+    if(!effectiveTimeSlot){
         return null;
     }
 
     const parsed =
         parseTimeSlot(
-            booking.timeSlot
+            effectiveTimeSlot
         );
 
     if(!parsed){
@@ -4184,15 +4205,22 @@ function getBookingOccupiedRange(booking){
 
     if(
         !booking ||
-        !booking.date ||
-        !booking.timeSlot
+        !booking.date
     ){
+        return null;
+    }
+
+    const effectiveTimeSlot =
+        booking.arrivalTimeSlot ||
+        booking.timeSlot;
+
+    if(!effectiveTimeSlot){
         return null;
     }
 
     const parsed =
         parseTimeSlot(
-            booking.timeSlot
+            effectiveTimeSlot
         );
 
     if(!parsed){
@@ -5331,6 +5359,17 @@ function openBooking(booking){
 
             </div>
 
+            ${booking.arrivalTimeSlot ? `
+                <div class="detail-item time-arrival">
+                    <span>
+                        Your Arrival Time
+                    </span>
+                    <strong>
+                        ${formatTimeSlot(booking.arrivalTimeSlot)}
+                    </strong>
+                </div>
+            ` : ""}
+
             ${estimatedInfo}
 
         </div>
@@ -5378,6 +5417,252 @@ function openBooking(booking){
     modal.classList.remove(
         "hidden"
     );
+
+}
+
+
+/* =========================================================
+   EDIT APPOINTMENT
+========================================================= */
+
+function getTimeParts(slot){
+
+    const parsed = parseTimeSlot(slot);
+
+    if(!parsed){
+        return {
+            start:"",
+            end:""
+        };
+    }
+
+    const toInputTime = minutes=>{
+
+        const hours = Math.floor(minutes / 60) % 24;
+        const mins = minutes % 60;
+
+        return `${String(hours).padStart(2,"0")}:${String(mins).padStart(2,"0")}`;
+
+    };
+
+    return {
+        start: toInputTime(parsed.start),
+        end: toInputTime(parsed.end)
+    };
+
+}
+
+
+function showEditAppointmentPopup(booking){
+
+    return new Promise(resolve=>{
+
+        const existing = document.getElementById("editAppointmentModal");
+
+        if(existing){
+            existing.remove();
+        }
+
+        const arrival = getTimeParts(booking.arrivalTimeSlot || booking.timeSlot);
+
+        const overlay = document.createElement("div");
+        overlay.id = "editAppointmentModal";
+        overlay.className = "modal";
+
+        overlay.innerHTML = `
+
+            <div class="modal-content">
+
+                <h2>Edit Appointment</h2>
+
+                <p style="color:#64748b;font-size:13px;margin-bottom:18px;">
+                    Update the appointment date, your arrival window, job length, or the customer's contact and service details.
+                </p>
+
+                <label for="editAppointmentDate">Appointment Date</label>
+                <input id="editAppointmentDate" type="date" value="${booking.date || ""}">
+
+                <label for="editArrivalStart">Your Arrival Time From</label>
+                <input id="editArrivalStart" type="time" value="${booking.arrivalTimeSlot ? arrival.start : ""}">
+
+                <label for="editArrivalEnd">Your Arrival Time To</label>
+                <input id="editArrivalEnd" type="time" value="${booking.arrivalTimeSlot ? arrival.end : ""}">
+
+                <label for="editEstimatedHours">Estimated Job Hours</label>
+                <input
+                    id="editEstimatedHours"
+                    type="number"
+                    min="0.25"
+                    step="0.25"
+                    placeholder="Example: 2"
+                    value="${booking.estimatedHours || ""}"
+                >
+
+                <hr style="border:0;border-top:1px solid #e2e8f0;margin:20px 0;">
+
+                <h3 style="margin:0 0 6px;font-size:16px;">Customer Details</h3>
+                <p style="color:#64748b;font-size:13px;margin:0 0 14px;">
+                    Change the customer's contact information or the service they require.
+                </p>
+
+                <label for="editCustomerName">Customer Name</label>
+                <input id="editCustomerName" type="text" value="${booking.name || ""}" placeholder="Customer name">
+
+                <label for="editCustomerEmail">Email</label>
+                <input id="editCustomerEmail" type="email" value="${booking.email || ""}" placeholder="customer@example.com">
+
+                <label for="editCustomerPhone">Phone</label>
+                <input id="editCustomerPhone" type="tel" value="${booking.phone || ""}" placeholder="Phone number">
+
+                <label for="editCustomerAddress">Address</label>
+                <textarea id="editCustomerAddress" rows="3" placeholder="Customer address">${booking.address || ""}</textarea>
+
+                <label for="editCustomerLocation">Location</label>
+                <input id="editCustomerLocation" type="text" value="${booking.location || ""}" placeholder="e.g. Southwater, Horsham">
+
+                <label for="editCustomerService">Service Required</label>
+                <input id="editCustomerService" type="text" value="${booking.service || ""}" placeholder="Service required">
+
+                <p id="editAppointmentPreview" style="color:#2563eb;font-size:13px;min-height:22px;margin-top:8px;"></p>
+
+                <div class="modal-buttons">
+                    <button id="saveEditedAppointmentBtn" class="approve-btn">
+                        Save Changes
+                    </button>
+                    <button id="cancelEditAppointmentBtn" class="close-btn">
+                        Cancel
+                    </button>
+                </div>
+
+            </div>
+
+        `;
+
+        document.body.appendChild(overlay);
+
+        const dateInput = document.getElementById("editAppointmentDate");
+        const arrivalStart = document.getElementById("editArrivalStart");
+        const arrivalEnd = document.getElementById("editArrivalEnd");
+        const hoursInput = document.getElementById("editEstimatedHours");
+        const nameInput = document.getElementById("editCustomerName");
+        const emailInput = document.getElementById("editCustomerEmail");
+        const phoneInput = document.getElementById("editCustomerPhone");
+        const addressInput = document.getElementById("editCustomerAddress");
+        const locationInput = document.getElementById("editCustomerLocation");
+        const serviceInput = document.getElementById("editCustomerService");
+        const preview = document.getElementById("editAppointmentPreview");
+
+        const updatePreview = ()=>{
+            const start = minutesFromTime(arrivalStart.value);
+            const hours = Number(hoursInput.value);
+
+            if(start !== null && hours > 0){
+                const finish = start + Math.round(hours * 60);
+                preview.textContent = `Estimated finish: ${formatMinutes(finish)}`;
+                preview.style.color = "#2563eb";
+            }else{
+                preview.textContent = "";
+            }
+        };
+
+        hoursInput.addEventListener("input", updatePreview);
+        arrivalStart.addEventListener("input", updatePreview);
+
+        document.getElementById("cancelEditAppointmentBtn").onclick = ()=>{
+            overlay.remove();
+            resolve(null);
+        };
+
+        document.getElementById("saveEditedAppointmentBtn").onclick = ()=>{
+
+            const date = dateInput.value;
+            const arrivalFrom = arrivalStart.value;
+            const arrivalTo = arrivalEnd.value;
+            const estimatedHours = Number(hoursInput.value);
+
+            if(!date){
+                preview.textContent = "Please select an appointment date.";
+                preview.style.color = "#ef4444";
+                return;
+            }
+
+            if((arrivalFrom && !arrivalTo) || (!arrivalFrom && arrivalTo)){
+                preview.textContent = "Enter both arrival times, or leave both blank.";
+                preview.style.color = "#ef4444";
+                return;
+            }
+
+            let arrivalTimeSlot = "";
+
+            if(arrivalFrom && arrivalTo){
+                const arrivalFromMinutes = minutesFromTime(arrivalFrom);
+                const arrivalToMinutes = minutesFromTime(arrivalTo);
+
+                if(
+                    arrivalFromMinutes === null ||
+                    arrivalToMinutes === null ||
+                    arrivalToMinutes <= arrivalFromMinutes
+                ){
+                    preview.textContent = "Your arrival end time must be after the start time.";
+                    preview.style.color = "#ef4444";
+                    return;
+                }
+
+                arrivalTimeSlot = `${arrivalFrom} - ${arrivalTo}`;
+            }
+
+            if(booking.status === "Approved"){
+                if(Number.isNaN(estimatedHours) || estimatedHours <= 0){
+                    preview.textContent = "Please enter a valid estimated number of hours for this approved appointment.";
+                    preview.style.color = "#ef4444";
+                    return;
+                }
+
+                if(!arrivalTimeSlot){
+                    preview.textContent = "Please enter your confirmed arrival window for this approved appointment.";
+                    preview.style.color = "#ef4444";
+                    return;
+                }
+            }
+
+            if(!nameInput.value.trim()){
+                preview.textContent = "Please enter the customer's name.";
+                preview.style.color = "#ef4444";
+                return;
+            }
+
+            if(!emailInput.value.trim()){
+                preview.textContent = "Please enter the customer's email address.";
+                preview.style.color = "#ef4444";
+                return;
+            }
+
+            overlay.remove();
+
+            resolve({
+                date,
+                arrivalTimeSlot,
+                estimatedHours: Number.isNaN(estimatedHours) ? null : estimatedHours,
+                name: nameInput.value.trim(),
+                email: emailInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                address: addressInput.value.trim(),
+                location: locationInput.value.trim(),
+                service: serviceInput.value.trim()
+            });
+
+        };
+
+        overlay.onclick = e=>{
+            if(e.target === overlay){
+                overlay.remove();
+                resolve(null);
+            }
+        };
+
+        updatePreview();
+
+    });
 
 }
 
@@ -5492,6 +5777,34 @@ function showApprovalDurationPopup(){
 
 
                     <label>
+                        Arrival Time From
+                    </label>
+
+                    <input
+                        id="arrivalStartInput"
+                        type="time"
+                    >
+
+                    <label>
+                        Arrival Time To
+                    </label>
+
+                    <input
+                        id="arrivalEndInput"
+                        type="time"
+                    >
+
+                    <p
+                        style="
+                            color:#64748b;
+                            font-size:12px;
+                            margin-top:5px;
+                        "
+                    >
+                        Enter the time window when you expect to arrive.
+                    </p>
+
+                    <label>
                         Estimated Hours
                     </label>
 
@@ -5546,6 +5859,16 @@ function showApprovalDurationPopup(){
             const input =
                 document.getElementById(
                     "estimatedHoursInput"
+                );
+
+            const arrivalStartInput =
+                document.getElementById(
+                    "arrivalStartInput"
+                );
+
+            const arrivalEndInput =
+                document.getElementById(
+                    "arrivalEndInput"
                 );
 
 
@@ -5622,6 +5945,45 @@ function showApprovalDurationPopup(){
                             input.value
                         );
 
+                    const arrivalStart =
+                        arrivalStartInput.value;
+
+                    const arrivalEnd =
+                        arrivalEndInput.value;
+
+                    if(!arrivalStart || !arrivalEnd){
+
+                        preview.textContent =
+                            "Please enter the arrival time from and to.";
+
+                        preview.style.color =
+                            "#ef4444";
+
+                        return;
+
+                    }
+
+                    const arrivalStartMinutes =
+                        minutesFromTime(arrivalStart);
+
+                    const arrivalEndMinutes =
+                        minutesFromTime(arrivalEnd);
+
+                    if(
+                        arrivalStartMinutes === null ||
+                        arrivalEndMinutes === null ||
+                        arrivalEndMinutes <= arrivalStartMinutes
+                    ){
+
+                        preview.textContent =
+                            "The arrival end time must be after the start time.";
+
+                        preview.style.color =
+                            "#ef4444";
+
+                        return;
+
+                    }
 
                     if(
                         Number.isNaN(hours) ||
@@ -5641,7 +6003,10 @@ function showApprovalDurationPopup(){
 
                     overlay.remove();
 
-                    resolve(hours);
+                    resolve({
+                        estimatedHours: hours,
+                        arrivalTimeSlot: `${arrivalStart} - ${arrivalEnd}`
+                    });
 
                 };
 
@@ -5769,6 +6134,143 @@ function getApprovedConflicts(
 
 
 /* =========================================================
+   EDIT APPOINTMENT BUTTON
+========================================================= */
+
+editBookingBtn.onclick = async()=>{
+
+    if(!selectedBooking){
+        return;
+    }
+
+    const bookingToEdit = selectedBooking;
+
+    try{
+
+        await loadBookings();
+
+        const latestBooking = bookings.find(
+            booking => booking.id === bookingToEdit.id
+        );
+
+        if(!latestBooking){
+            showMessage(
+                "This booking could not be found.",
+                "error"
+            );
+            return;
+        }
+
+        selectedBooking = latestBooking;
+
+        const changes = await showEditAppointmentPopup(latestBooking);
+
+        if(!changes){
+            return;
+        }
+
+        const effectiveSlot =
+            changes.arrivalTimeSlot || latestBooking.timeSlot;
+
+        const estimatedHours =
+            latestBooking.status === "Approved"
+                ? changes.estimatedHours
+                : (
+                    changes.estimatedHours ||
+                    (changes.arrivalTimeSlot
+                        ? Math.max(
+                            0.25,
+                            (minutesFromTime(effectiveSlot.split(" - ")[1]) - minutesFromTime(effectiveSlot.split(" - ")[0])) / 60
+                        )
+                        : 0.25)
+                );
+
+        const conflicts = getApprovedConflicts(
+            {
+                ...latestBooking,
+                date: changes.date,
+                timeSlot: effectiveSlot
+            },
+            estimatedHours
+        );
+
+        if(conflicts.length > 0){
+
+            const names = conflicts
+                .map(conflict => `${conflict.name} (${formatTimeSlot(conflict.timeSlot)})`)
+                .join(", ");
+
+            showMessage(
+                `These changes overlap another appointment: ${names}`,
+                "error"
+            );
+
+            return;
+        }
+
+        const updateData = {
+            date: changes.date,
+            name: changes.name,
+            email: changes.email,
+            phone: changes.phone,
+            address: changes.address,
+            location: changes.location,
+            service: changes.service,
+            editedAt: new Date().toISOString()
+        };
+
+        if(latestBooking.status === "Approved"){
+            updateData.arrivalTimeSlot = changes.arrivalTimeSlot;
+            updateData.estimatedHours = changes.estimatedHours;
+        }
+        else if(changes.arrivalTimeSlot){
+            updateData.arrivalTimeSlot = changes.arrivalTimeSlot;
+        }
+
+        await updateDoc(
+            doc(db, "bookings", latestBooking.id),
+            updateData
+        );
+
+        selectedBooking = {
+            ...latestBooking,
+            ...updateData
+        };
+
+        await loadBookings();
+
+        const refreshedBooking = bookings.find(
+            booking => booking.id === latestBooking.id
+        );
+
+        selectedBooking = refreshedBooking || selectedBooking;
+
+        openBooking(selectedBooking);
+
+        showMessage(
+            "Appointment updated successfully.",
+            "success"
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Edit appointment error:",
+            error
+        );
+
+        showMessage(
+            "Unable to update the appointment.",
+            "error"
+        );
+
+    }
+
+};
+
+
+/* =========================================================
    APPROVE BOOKING
 ========================================================= */
 
@@ -5812,21 +6314,30 @@ approveBtn.onclick = async()=>{
             latestBooking;
 
 
-        const estimatedHours =
+        const approvalDetails =
             await showApprovalDurationPopup();
 
 
         if(
-            estimatedHours ===
+            approvalDetails ===
             null
         ){
             return;
         }
 
 
+        const estimatedHours =
+            approvalDetails.estimatedHours;
+
+        const arrivalTimeSlot =
+            approvalDetails.arrivalTimeSlot;
+
         const conflicts =
             getApprovedConflicts(
-                latestBooking,
+                {
+                    ...latestBooking,
+                    timeSlot: arrivalTimeSlot
+                },
                 estimatedHours
             );
 
@@ -5870,6 +6381,10 @@ approveBtn.onclick = async()=>{
 
                     estimatedHours,
 
+                arrivalTimeSlot:
+
+                    arrivalTimeSlot,
+
                 approvedAt:
                     new Date().toISOString()
 
@@ -5902,6 +6417,9 @@ approveBtn.onclick = async()=>{
 
                     timeSlot:
                         latestBooking.timeSlot,
+
+                    arrivalTimeSlot:
+                        arrivalTimeSlot,
 
                     location:
                         latestBooking.location,
@@ -5936,7 +6454,7 @@ approveBtn.onclick = async()=>{
 
 
         showMessage(
-            `Booking approved. ${estimatedHours} hour${estimatedHours === 1 ? "" : "s"} estimated.`,
+            `Booking approved. Arrival: ${formatTimeSlot(arrivalTimeSlot)}. ${estimatedHours} hour${estimatedHours === 1 ? "" : "s"} estimated.`,
             "success"
         );
 
