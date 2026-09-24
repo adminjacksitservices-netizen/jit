@@ -1373,6 +1373,11 @@ select:focus{
         grid-column:auto;
     }
 
+    #blockedStartDate,
+    #blockedEndDate{
+        width:100%;
+    }
+
 }
 
 /* =========================================================
@@ -2300,15 +2305,51 @@ body.dark-mode .welcome-card{
                         Prevent customers from booking on selected dates.
                     </p>
 
-                    <input
-                        id="blockedDate"
-                        type="date"
-                    >
+                    <div style="
+                        display:grid;
+                        grid-template-columns:1fr 1fr;
+                        gap:10px;
+                    ">
+                        <div>
+                            <label style="
+                                display:block;
+                                margin:0 0 6px;
+                                color:#475569;
+                                font-size:11px;
+                                font-weight:600;
+                            ">
+                                Start Date
+                            </label>
+
+                            <input
+                                id="blockedStartDate"
+                                type="date"
+                            >
+                        </div>
+
+                        <div>
+                            <label style="
+                                display:block;
+                                margin:0 0 6px;
+                                color:#475569;
+                                font-size:11px;
+                                font-weight:600;
+                            ">
+                                End Date
+                            </label>
+
+                            <input
+                                id="blockedEndDate"
+                                type="date"
+                            >
+                        </div>
+                    </div>
 
                     <button
                         onclick="blockDate()"
                         style="
                             margin-top:10px;
+                            width:100%;
                             background:#ef4444;
                             color:#fff;
                             padding:12px 18px;
@@ -2316,7 +2357,7 @@ body.dark-mode .welcome-card{
                             font-weight:600;
                         "
                     >
-                        Block Date
+                        Block Date Range
                     </button>
 
                     <div
@@ -5252,6 +5293,59 @@ function openBooking(booking){
     }
 
 
+    /* Change the main booking action depending on status. */
+    if(booking.status === "Approved"){
+
+        approveBtn.textContent =
+            booking.arrivedAt
+                ? "Arrived"
+                : "Arrived";
+
+        approveBtn.className =
+            "approve-btn";
+
+        approveBtn.disabled =
+            Boolean(booking.arrivedAt);
+
+        approveBtn.style.opacity =
+            booking.arrivedAt
+                ? "0.7"
+                : "1";
+
+        approveBtn.style.cursor =
+            booking.arrivedAt
+                ? "default"
+                : "pointer";
+
+        approveBtn.onclick =
+            booking.arrivedAt
+                ? null
+                : markBookingArrived;
+
+    }
+    else{
+
+        approveBtn.textContent =
+            "Approve";
+
+        approveBtn.className =
+            "approve-btn";
+
+        approveBtn.disabled =
+            false;
+
+        approveBtn.style.opacity =
+            "1";
+
+        approveBtn.style.cursor =
+            "pointer";
+
+        approveBtn.onclick =
+            approveBooking;
+
+    }
+
+
     bookingInfo.innerHTML = `
 
         <div class="booking-detail-grid">
@@ -5366,6 +5460,24 @@ function openBooking(booking){
                     </span>
                     <strong>
                         ${formatTimeSlot(booking.arrivalTimeSlot)}
+                    </strong>
+                </div>
+            ` : ""}
+
+            ${booking.arrivedAt ? `
+                <div class="detail-item time-arrival">
+                    <span>
+                        Arrived At
+                    </span>
+                    <strong>
+                        ${new Date(booking.arrivedAt).toLocaleString("en-GB", {
+                            day:"2-digit",
+                            month:"2-digit",
+                            year:"numeric",
+                            hour:"2-digit",
+                            minute:"2-digit",
+                            second:"2-digit"
+                        })}
                     </strong>
                 </div>
             ` : ""}
@@ -6274,7 +6386,7 @@ editBookingBtn.onclick = async()=>{
    APPROVE BOOKING
 ========================================================= */
 
-approveBtn.onclick = async()=>{
+async function approveBooking(){
 
     if(!selectedBooking){
         return;
@@ -6477,6 +6589,118 @@ approveBtn.onclick = async()=>{
 
 
 /* =========================================================
+   MARK APPOINTMENT AS ARRIVED
+========================================================= */
+
+async function markBookingArrived(){
+
+    if(!selectedBooking){
+        return;
+    }
+
+    const bookingToArrive =
+        selectedBooking;
+
+    try{
+
+        await loadBookings();
+
+        const latestBooking =
+            bookings.find(
+                booking =>
+                    booking.id ===
+                    bookingToArrive.id
+            );
+
+        if(!latestBooking){
+
+            showMessage(
+                "This booking could not be found.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        if(latestBooking.status !== "Approved"){
+
+            showMessage(
+                "Only approved appointments can be marked as arrived.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        if(latestBooking.arrivedAt){
+
+            showMessage(
+                "This appointment has already been marked as arrived.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        const arrivedAt =
+            new Date().toISOString();
+
+        await updateDoc(
+            doc(
+                db,
+                "bookings",
+                latestBooking.id
+            ),
+            {
+                arrivedAt: arrivedAt
+            }
+        );
+
+        selectedBooking = {
+            ...latestBooking,
+            arrivedAt: arrivedAt
+        };
+
+        await loadBookings();
+
+        const refreshedBooking =
+            bookings.find(
+                booking =>
+                    booking.id === latestBooking.id
+            );
+
+        selectedBooking =
+            refreshedBooking || selectedBooking;
+
+        openBooking(selectedBooking);
+
+        showMessage(
+            `Arrival recorded at ${new Date(arrivedAt).toLocaleString("en-GB")}.`,
+            "success"
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Arrival recording error:",
+            error
+        );
+
+        showMessage(
+            "Unable to record the arrival time.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
    CANCEL BOOKING
 ========================================================= */
 
@@ -6662,20 +6886,39 @@ deleteBtn.onclick = async()=>{
 
 window.blockDate = async function(){
 
-    const input =
+    const startInput =
         document.getElementById(
-            "blockedDate"
+            "blockedStartDate"
         );
 
+    const endInput =
+        document.getElementById(
+            "blockedEndDate"
+        );
 
-    const date =
-        input.value;
+    const startDate =
+        startInput.value;
+
+    const endDate =
+        endInput.value;
 
 
-    if(!date){
+    if(!startDate || !endDate){
 
         showMessage(
-            "Please select a date.",
+            "Please select both a start and end date.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(endDate < startDate){
+
+        showMessage(
+            "The end date cannot be before the start date.",
             "error"
         );
 
@@ -6710,14 +6953,80 @@ window.blockDate = async function(){
                 : [];
 
 
-        if(
-            currentDates.includes(
-                date
-            )
-        ){
+        /*
+         * Create one YYYY-MM-DD entry for EVERY date
+         * in the selected range, including both endpoints.
+         *
+         * Example:
+         * 2026-10-01 -> 2026-10-03
+         *
+         * becomes:
+         * 2026-10-01
+         * 2026-10-02
+         * 2026-10-03
+         *
+         * This means each date can still be removed
+         * separately from the blocked-date list.
+         */
+
+        const datesToBlock = [];
+
+        const current =
+            new Date(
+                startDate + "T00:00:00"
+            );
+
+        const last =
+            new Date(
+                endDate + "T00:00:00"
+            );
+
+
+        while(current <= last){
+
+            const year =
+                current.getFullYear();
+
+            const month =
+                String(
+                    current.getMonth() + 1
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+            const day =
+                String(
+                    current.getDate()
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+            datesToBlock.push(
+                `${year}-${month}-${day}`
+            );
+
+            current.setDate(
+                current.getDate() + 1
+            );
+
+        }
+
+
+        const newDates =
+            datesToBlock.filter(
+                date =>
+                    !currentDates.includes(
+                        date
+                    )
+            );
+
+
+        if(newDates.length === 0){
 
             showMessage(
-                "That date is already blocked.",
+                "All selected dates are already blocked.",
                 "error"
             );
 
@@ -6733,8 +7042,10 @@ window.blockDate = async function(){
             {
 
                 blockedDates:[
-                    ...currentDates,
-                    date
+                    ...new Set([
+                        ...currentDates,
+                        ...newDates
+                    ])
                 ].sort()
 
             },
@@ -6746,17 +7057,34 @@ window.blockDate = async function(){
         );
 
 
-        input.value =
-            "";
+        startInput.value = "";
+        endInput.value = "";
 
 
         await loadBlockedDates();
 
 
-        showMessage(
-            "Date blocked.",
-            "success"
-        );
+        const skipped =
+            datesToBlock.length -
+            newDates.length;
+
+
+        if(skipped > 0){
+
+            showMessage(
+                `${newDates.length} date${newDates.length === 1 ? "" : "s"} blocked. ${skipped} already blocked.`,
+                "success"
+            );
+
+        }
+        else{
+
+            showMessage(
+                `${newDates.length} date${newDates.length === 1 ? "" : "s"} blocked.`,
+                "success"
+            );
+
+        }
 
     }
     catch(error){
@@ -6766,7 +7094,7 @@ window.blockDate = async function(){
         );
 
         showMessage(
-            "Unable to block date.",
+            "Unable to block the selected dates.",
             "error"
         );
 
