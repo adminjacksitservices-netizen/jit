@@ -44,67 +44,120 @@ body{
 
 header{
     position:fixed;
+
     top:0;
     left:0;
+
     width:100%;
-    padding:20px 8%;
+    height:82px;
+
+    padding:0 7%;
+
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    background:rgba(15,23,42,.92);
-    backdrop-filter:blur(15px);
-    z-index:999;
+    justify-content:space-between;
+
+    background:rgba(7,20,39,.78);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    z-index:1000;
+
+    transition:.3s;
+}
+
+header.scrolled{
+    background:rgba(7,20,39,.96);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.18);
 }
 
 .logo{
-    font-size:30px;
-    font-weight:700;
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
     color:#fff;
+
+    text-decoration:none;
+
+    font-size:27px;
+    font-weight:700;
+
+    white-space:nowrap;
 }
 
-.logo span{
-    color:#4aa8ff;
+.logo img{
+    width:44px;
+    height:44px;
+
+    object-fit:contain;
+}
+
+.logo .blue{
+    color:#55b6ff;
 }
 
 nav{
     display:flex;
     align-items:center;
-    gap:30px;
+
+    gap:29px;
 }
 
 nav a{
     color:#fff;
+
     text-decoration:none;
+
+    font-size:14px;
     font-weight:500;
-    transition:.3s;
+
+    transition:.25s;
 }
 
 nav a:hover{
-    color:#4aa8ff;
+    color:#55b6ff;
 }
 
-/* Mobile menu button */
+.nav-book{
+    padding:11px 21px;
+
+    border-radius:50px;
+
+    background:#3ca8ff;
+
+    color:#fff !important;
+
+    box-shadow:
+        0 8px 22px rgba(60,168,255,.2);
+}
+
+.nav-book:hover{
+    background:#218ee0;
+
+    transform:translateY(-2px);
+}
 
 .menu-btn{
     display:none;
-    background:none;
-    border:none;
-    color:#fff;
-    font-size:36px;
-    font-weight:700;
-    cursor:pointer;
-    padding:0;
-    margin:0;
-    width:auto;
-    height:auto;
-    line-height:1;
-    border-radius:0;
-    box-shadow:none;
-}
 
-.menu-btn:hover{
+    border:none;
+
     background:none;
-    transform:none;
+
+    color:#fff;
+
+    font-size:31px;
+
+    cursor:pointer;
+
+    line-height:1;
 }
 
 /* =========================
