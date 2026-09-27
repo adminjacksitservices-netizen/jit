@@ -566,6 +566,578 @@ button{
 }
 
 
+
+/* =========================================================
+   ENHANCED OVERVIEW
+========================================================= */
+
+.overview-hero{
+    position:relative;
+    overflow:hidden;
+    min-height:205px;
+    margin-bottom:24px;
+    padding:30px 34px;
+    border-radius:25px;
+    color:#fff;
+    background:
+        radial-gradient(circle at 85% 20%,rgba(255,255,255,.20),transparent 24%),
+        radial-gradient(circle at 70% 110%,rgba(56,189,248,.24),transparent 35%),
+        linear-gradient(135deg,#1d4ed8 0%,#2563eb 50%,#0ea5e9 100%);
+    box-shadow:0 18px 45px rgba(37,99,235,.20);
+}
+
+.overview-hero-content{
+    position:relative;
+    z-index:2;
+    max-width:700px;
+}
+
+.overview-eyebrow{
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.16em;
+    opacity:.72;
+    margin-bottom:9px;
+}
+
+.overview-hero h2{
+    font-size:30px;
+    line-height:1.15;
+    margin:0 0 9px;
+    color:#fff;
+}
+
+.overview-hero h2 span{
+    display:inline-block;
+    animation:overviewWave 2.2s ease-in-out infinite;
+    transform-origin:70% 70%;
+}
+
+@keyframes overviewWave{
+    0%,55%,100%{transform:rotate(0)}
+    65%{transform:rotate(12deg)}
+    75%{transform:rotate(-7deg)}
+    85%{transform:rotate(9deg)}
+}
+
+.overview-hero p{
+    margin:0;
+    max-width:620px;
+    color:rgba(255,255,255,.86);
+    font-size:14px;
+}
+
+.overview-hero-meta{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-top:18px;
+    color:rgba(255,255,255,.75);
+    font-size:11px;
+    font-weight:600;
+}
+
+.overview-dot{opacity:.5}
+
+.overview-hero-art{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+
+.hero-orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(1px);
+    border:1px solid rgba(255,255,255,.13);
+    background:rgba(255,255,255,.07);
+}
+
+.hero-orb-one{
+    width:240px;
+    height:240px;
+    right:80px;
+    top:-95px;
+}
+
+.hero-orb-two{
+    width:160px;
+    height:160px;
+    right:-20px;
+    bottom:-65px;
+}
+
+.hero-calendar-icon{
+    position:absolute;
+    right:105px;
+    top:50%;
+    transform:translateY(-50%);
+    width:92px;
+    height:92px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:27px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.22);
+    backdrop-filter:blur(12px);
+    font-size:39px;
+    box-shadow:0 20px 40px rgba(15,23,42,.14);
+}
+
+.overview-section-heading{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    margin:0 2px 12px;
+}
+
+.overview-section-heading h2{
+    margin:0;
+    color:#0f172a;
+    font-size:18px;
+}
+
+.overview-section-heading p{
+    margin:3px 0 0;
+    color:#64748b;
+    font-size:12px;
+}
+
+.overview-stats{
+    margin-bottom:24px;
+}
+
+.overview-stats .stat-card{
+    position:relative;
+    min-height:105px;
+    overflow:hidden;
+}
+
+.overview-stats .stat-card::after{
+    content:"";
+    position:absolute;
+    width:75px;
+    height:75px;
+    right:-35px;
+    bottom:-35px;
+    border-radius:50%;
+    background:rgba(37,99,235,.035);
+}
+
+.overview-stats .stat-info small{
+    display:block;
+    margin-top:3px;
+    color:#94a3b8;
+    font-size:10px;
+}
+
+.stat-primary .stat-icon{
+    background:#dbeafe;
+    color:#2563eb;
+}
+
+.revenue-stat .stat-icon{
+    background:#dcfce7;
+    color:#16a34a;
+}
+
+.card-heading-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+}
+
+.card-heading-row .card-subtitle{
+    margin-bottom:0;
+}
+
+.overview-link-btn{
+    flex-shrink:0;
+    border:1px solid #dbeafe;
+    background:#eff6ff;
+    color:#2563eb;
+    padding:8px 11px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.overview-link-btn:hover{
+    background:#dbeafe;
+    transform:translateY(-1px);
+}
+
+.overview-main-grid{
+    align-items:stretch;
+}
+
+.overview-main-grid > .card{
+    margin-bottom:0;
+}
+
+.overview-status-card{
+    display:flex;
+    flex-direction:column;
+}
+
+.booking-summary-modern{
+    flex:1;
+}
+
+.booking-summary-modern .summary-row{
+    padding:12px 0;
+    border-bottom:1px solid #f1f5f9;
+}
+
+.booking-summary-modern .summary-row:last-child{
+    border-bottom:0;
+}
+
+.summary-row-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.summary-label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#475569;
+    font-size:12px;
+    font-weight:600;
+}
+
+.summary-count{
+    color:#0f172a;
+    font-size:13px;
+    font-weight:800;
+}
+
+.summary-bar{
+    height:5px;
+    margin-top:7px;
+    border-radius:99px;
+    background:#f1f5f9;
+    overflow:hidden;
+}
+
+.summary-bar span{
+    display:block;
+    height:100%;
+    border-radius:inherit;
+    transition:width .35s ease;
+}
+
+.pipeline-total{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:13px;
+    padding:12px 13px;
+    border-radius:12px;
+    background:#f8fafc;
+}
+
+.pipeline-total span{
+    color:#64748b;
+    font-size:11px;
+}
+
+.pipeline-total strong{
+    color:#0f172a;
+    font-size:16px;
+}
+
+.overview-lower-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:22px;
+    margin-top:22px;
+}
+
+.overview-lower-grid .card{
+    margin-bottom:0;
+}
+
+.snapshot-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.snapshot-item{
+    padding:14px;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    background:#f8fafc;
+}
+
+.snapshot-item span{
+    display:block;
+    color:#64748b;
+    font-size:10px;
+    font-weight:600;
+}
+
+.snapshot-item strong{
+    display:block;
+    margin-top:3px;
+    color:#0f172a;
+    font-size:21px;
+}
+
+.snapshot-item small{
+    display:block;
+    margin-top:2px;
+    color:#94a3b8;
+    font-size:9px;
+}
+
+.quick-actions{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.quick-actions button{
+    width:100%;
+    display:grid;
+    grid-template-columns:35px 1fr auto;
+    align-items:center;
+    gap:10px;
+    padding:11px 12px;
+    border:1px solid #e2e8f0;
+    border-radius:13px;
+    background:#f8fafc;
+    text-align:left;
+    transition:.2s;
+}
+
+.quick-actions button:hover{
+    background:#eff6ff;
+    border-color:#bfdbfe;
+    transform:translateX(2px);
+}
+
+.quick-actions button > span{
+    width:35px;
+    height:35px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    background:#fff;
+    font-size:16px;
+}
+
+.quick-actions strong{
+    display:block;
+    color:#0f172a;
+    font-size:12px;
+}
+
+.quick-actions small{
+    display:block;
+    margin-top:2px;
+    color:#94a3b8;
+    font-size:9px;
+}
+
+.quick-actions b{
+    color:#2563eb;
+    font-size:14px;
+}
+
+.recent-jobs-card{
+    margin-top:22px;
+}
+
+.recent-jobs-list{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.recent-job{
+    padding:14px;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    background:#f8fafc;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.recent-job:hover{
+    border-color:#93c5fd;
+    transform:translateY(-2px);
+    box-shadow:0 7px 18px rgba(37,99,235,.07);
+}
+
+.recent-job-number{
+    color:#2563eb;
+    font-size:12px;
+    font-weight:800;
+}
+
+.recent-job-name{
+    margin-top:4px;
+    color:#0f172a;
+    font-size:12px;
+    font-weight:700;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.recent-job-meta{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:8px;
+    color:#64748b;
+    font-size:9px;
+}
+
+.recent-job-total{
+    color:#0ea5e9;
+    font-weight:800;
+}
+
+.invoice-search-wrap{
+    position:relative;
+    margin-bottom:5px;
+}
+
+.invoice-search-wrap input{
+    padding-left:42px;
+    padding-right:42px;
+    margin-bottom:0!important;
+}
+
+.invoice-search-icon{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-52%);
+    color:#64748b;
+    font-size:22px;
+    line-height:1;
+    z-index:2;
+}
+
+.clear-invoice-search{
+    position:absolute;
+    right:9px;
+    top:50%;
+    transform:translateY(-50%);
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    background:#f1f5f9;
+    color:#64748b;
+    font-size:18px;
+    z-index:2;
+}
+
+.clear-invoice-search:hover{
+    background:#e2e8f0;
+    color:#0f172a;
+}
+
+.search-hint{
+    margin:0 0 18px;
+    color:#94a3b8;
+    font-size:10px;
+}
+
+body.dark-mode .overview-section-heading h2,
+body.dark-mode .snapshot-item strong,
+body.dark-mode .quick-actions strong,
+body.dark-mode .recent-job-name,
+body.dark-mode .pipeline-total strong,
+body.dark-mode .summary-count{
+    color:#f8fafc;
+}
+
+body.dark-mode .overview-section-heading p,
+body.dark-mode .snapshot-item span,
+body.dark-mode .snapshot-item small,
+body.dark-mode .quick-actions small,
+body.dark-mode .recent-job-meta{
+    color:#94a3b8;
+}
+
+body.dark-mode .overview-stats .stat-info small{
+    color:#64748b;
+}
+
+body.dark-mode .snapshot-item,
+body.dark-mode .quick-actions button,
+body.dark-mode .recent-job,
+body.dark-mode .pipeline-total{
+    background:#0f172a;
+    border-color:#334155;
+}
+
+body.dark-mode .summary-bar{
+    background:#334155;
+}
+
+body.dark-mode .booking-summary-modern .summary-row{
+    border-color:#334155;
+}
+
+@media(max-width:1100px){
+    .overview-lower-grid{
+        grid-template-columns:1fr;
+    }
+
+    .recent-jobs-list{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .hero-calendar-icon{
+        right:45px;
+    }
+}
+
+@media(max-width:700px){
+    .overview-hero{
+        min-height:190px;
+        padding:24px;
+    }
+
+    .overview-hero h2{
+        font-size:23px;
+    }
+
+    .hero-calendar-icon{
+        display:none;
+    }
+
+    .overview-hero-art{
+        opacity:.65;
+    }
+
+    .card-heading-row{
+        flex-direction:column;
+    }
+
+    .overview-link-btn{
+        width:100%;
+    }
+
+    .snapshot-grid,
+    .recent-jobs-list{
+        grid-template-columns:1fr;
+    }
+}
+
 /* =========================================================
    CALENDAR
 ========================================================= */
@@ -893,6 +1465,11 @@ select:focus{
     color:#0ea5e9;
     font-size:16px;
     font-weight:700;
+}
+.invoice-row-meta{
+    color:#94a3b8;
+    font-size:10px;
+    margin-top:3px;
 }
 
 
@@ -1706,6 +2283,14 @@ body.dark-mode .upcoming-item{
     border-color:#334155;
 }
 
+body.dark-mode .overview-section-heading h2{
+    color:#f8fafc;
+}
+
+body.dark-mode .overview-hero{
+    box-shadow:none;
+}
+
 body.dark-mode .welcome-card{
     box-shadow:none;
 }
@@ -1784,7 +2369,7 @@ body.dark-mode .welcome-card{
 
         <h3>Admin Dashboard</h3>
 
-        <h5>V1.02</h5>
+        <h5>V1.10</h5>
 
         <input
             id="password"
@@ -2011,231 +2596,224 @@ body.dark-mode .welcome-card{
             class="page-section active"
         >
 
-            <div class="welcome-card">
-
-                <h2>
-                    Welcome back, Jack 👋
-                </h2>
-
-                <p>
-                    Here's what's happening with your IT services today.
-                </p>
-
+            <div class="overview-hero">
+                <div class="overview-hero-content">
+                    <div class="overview-eyebrow">BUSINESS OVERVIEW</div>
+                    <h2>Welcome back, Jack <span>👋</span></h2>
+                    <p>Here’s a clear snapshot of your appointments, workload and completed work.</p>
+                    <div class="overview-hero-meta">
+                        <span id="overviewHeroDate">Today</span>
+                        <span class="overview-dot">•</span>
+                        <span id="overviewHeroStatus">Dashboard ready</span>
+                    </div>
+                </div>
+                <div class="overview-hero-art" aria-hidden="true">
+                    <div class="hero-orb hero-orb-one"></div>
+                    <div class="hero-orb hero-orb-two"></div>
+                    <div class="hero-calendar-icon">📊</div>
+                </div>
             </div>
 
-
-            <div class="stats-grid">
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon">
-                        📅
-                    </div>
-
-                    <div class="stat-info">
-
-                        <span>
-                            Total Bookings
-                        </span>
-
-                        <strong id="totalBookings">
-                            0
-                        </strong>
-
-                    </div>
-
+            <div class="overview-section-heading">
+                <div>
+                    <h2>At a glance</h2>
+                    <p>Key numbers from your booking system.</p>
                 </div>
+            </div>
 
+            <div class="stats-grid overview-stats">
+
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-info">
+                        <span>Total Bookings</span>
+                        <strong id="totalBookings">0</strong>
+                        <small>All appointments</small>
+                    </div>
+                </div>
 
                 <div class="stat-card cyan">
-
-                    <div class="stat-icon">
-                        📆
-                    </div>
-
+                    <div class="stat-icon">📆</div>
                     <div class="stat-info">
-
-                        <span>
-                            Today's Bookings
-                        </span>
-
-                        <strong id="todayBookings">
-                            0
-                        </strong>
-
+                        <span>Today's Bookings</span>
+                        <strong id="todayBookings">0</strong>
+                        <small id="todayBookingsLabel">For today</small>
                     </div>
-
                 </div>
-
 
                 <div class="stat-card orange">
-
-                    <div class="stat-icon">
-                        ⏳
-                    </div>
-
+                    <div class="stat-icon">⏳</div>
                     <div class="stat-info">
-
-                        <span>
-                            Pending
-                        </span>
-
-                        <strong id="pendingBookings">
-                            0
-                        </strong>
-
+                        <span>Pending</span>
+                        <strong id="pendingBookings">0</strong>
+                        <small>Need attention</small>
                     </div>
-
                 </div>
-
 
                 <div class="stat-card green">
-
-                    <div class="stat-icon">
-                        ✓
-                    </div>
-
+                    <div class="stat-icon">✓</div>
                     <div class="stat-info">
-
-                        <span>
-                            Approved
-                        </span>
-
-                        <strong id="approvedBookings">
-                            0
-                        </strong>
-
+                        <span>Approved</span>
+                        <strong id="approvedBookings">0</strong>
+                        <small>Scheduled jobs</small>
                     </div>
-
                 </div>
-
 
                 <div class="stat-card cyan">
-
-                    <div class="stat-icon">
-                        💼
-                    </div>
-
+                    <div class="stat-icon">💼</div>
                     <div class="stat-info">
-
-                        <span>
-                            Completed Jobs
-                        </span>
-
-                        <strong id="completedBookings">
-                            0
-                        </strong>
-
+                        <span>Completed Jobs</span>
+                        <strong id="completedBookings">0</strong>
+                        <small>Finished appointments</small>
                     </div>
-
                 </div>
 
-
-                <div class="stat-card">
-
-                    <div class="stat-icon">
-                        £
-                    </div>
-
+                <div class="stat-card revenue-stat">
+                    <div class="stat-icon">£</div>
                     <div class="stat-info">
-
-                        <span>
-                            Revenue
-                        </span>
-
-                        <strong id="completedRevenue">
-                            £0.00
-                        </strong>
-
+                        <span>Completed Revenue</span>
+                        <strong id="completedRevenue">£0.00</strong>
+                        <small id="revenuePeriodLabel">Completed work</small>
                     </div>
-
                 </div>
-
 
                 <div class="stat-card red">
-
-                    <div class="stat-icon">
-                        ×
-                    </div>
-
+                    <div class="stat-icon">×</div>
                     <div class="stat-info">
-
-                        <span>
-                            Declined
-                        </span>
-
-                        <strong id="declinedBookings">
-                            0
-                        </strong>
-
+                        <span>Declined</span>
+                        <strong id="declinedBookings">0</strong>
+                        <small>Declined appointments</small>
                     </div>
-
                 </div>
 
-
                 <div class="stat-card">
-
-                    <div class="stat-icon">
-                        🕐
-                    </div>
-
+                    <div class="stat-icon">🕐</div>
                     <div class="stat-info">
-
-                        <span>
-                            Upcoming
-                        </span>
-
-                        <strong id="upcomingBookings">
-                            0
-                        </strong>
-
+                        <span>Upcoming</span>
+                        <strong id="upcomingBookings">0</strong>
+                        <small>Pending + approved</small>
                     </div>
-
                 </div>
 
             </div>
 
+            <div class="overview-grid overview-main-grid">
 
-            <div class="overview-grid">
-
-
-                <div class="card">
-
-                    <h2>
-                        Upcoming Appointments
-                    </h2>
-
-                    <p class="card-subtitle">
-                        Your next approved and pending appointments.
-                    </p>
+                <div class="card overview-appointments-card">
+                    <div class="card-heading-row">
+                        <div>
+                            <h2>Upcoming Appointments</h2>
+                            <p class="card-subtitle">Your next appointments, with the most urgent work shown first.</p>
+                        </div>
+                        <button class="overview-link-btn" type="button" onclick="showPage('calendar')">
+                            Open calendar →
+                        </button>
+                    </div>
 
                     <div id="upcomingList" class="upcoming-list">
-
                         <div class="empty-state">
                             No upcoming appointments.
                         </div>
-
                     </div>
-
                 </div>
 
+                <div class="card overview-status-card">
+                    <div class="card-heading-row">
+                        <div>
+                            <h2>Booking Pipeline</h2>
+                            <p class="card-subtitle">How your current bookings are progressing.</p>
+                        </div>
+                    </div>
 
-                <div class="card">
+                    <div id="bookingSummary" class="booking-summary-modern"></div>
 
-                    <h2>
-                        Booking Summary
-                    </h2>
-
-                    <p class="card-subtitle">
-                        Current appointment status.
-                    </p>
-
-                    <div id="bookingSummary"></div>
-
+                    <div class="pipeline-total">
+                        <span>Total appointments</span>
+                        <strong id="pipelineTotal">0</strong>
+                    </div>
                 </div>
 
             </div>
+
+            <div class="overview-lower-grid">
+
+                <div class="card">
+                    <div class="card-heading-row">
+                        <div>
+                            <h2>Business Snapshot</h2>
+                            <p class="card-subtitle">Useful figures from your current dashboard data.</p>
+                        </div>
+                    </div>
+
+                    <div class="snapshot-grid">
+                        <div class="snapshot-item">
+                            <span>Completion rate</span>
+                            <strong id="completionRate">0%</strong>
+                            <small>Completed vs all bookings</small>
+                        </div>
+                        <div class="snapshot-item">
+                            <span>Approval rate</span>
+                            <strong id="approvalRate">0%</strong>
+                            <small>Approved + completed</small>
+                        </div>
+                        <div class="snapshot-item">
+                            <span>Open workload</span>
+                            <strong id="openWorkload">0</strong>
+                            <small>Pending + approved</small>
+                        </div>
+                        <div class="snapshot-item">
+                            <span>Average job value</span>
+                            <strong id="averageJobValue">£0.00</strong>
+                            <small>Completed jobs</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card quick-actions-card">
+                    <div class="card-heading-row">
+                        <div>
+                            <h2>Quick Actions</h2>
+                            <p class="card-subtitle">Jump straight to the tools you use most.</p>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <button type="button" onclick="showPage('calendar')">
+                            <span>📅</span>
+                            <div><strong>Calendar</strong><small>View appointments</small></div>
+                            <b>→</b>
+                        </button>
+                        <button type="button" onclick="showPage('invoices')">
+                            <span>🧾</span>
+                            <div><strong>Invoices</strong><small>Find completed jobs</small></div>
+                            <b>→</b>
+                        </button>
+                        <button type="button" onclick="showPage('quote')">
+                            <span>💷</span>
+                            <div><strong>Quote Calculator</strong><small>Create a quote</small></div>
+                            <b>→</b>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card recent-jobs-card">
+                <div class="card-heading-row">
+                    <div>
+                        <h2>Recent Completed Jobs</h2>
+                        <p class="card-subtitle">Your latest completed work and invoice values.</p>
+                    </div>
+                    <button class="overview-link-btn" type="button" onclick="showPage('invoices')">
+                        View all invoices →
+                    </button>
+                </div>
+                <div id="recentJobsList" class="recent-jobs-list">
+                    <div class="empty-state">No completed jobs yet.</div>
+                </div>
+            </div>
+
+        </section>
 
         </section>
 
@@ -2460,11 +3038,25 @@ body.dark-mode .welcome-card{
                 </div>
 
 
-                <input
-                    id="customerSearch"
-                    type="text"
-                    placeholder="Search customer name..."
-                >
+                <div class="invoice-search-wrap">
+                    <span class="invoice-search-icon">⌕</span>
+                    <input
+                        id="customerSearch"
+                        type="text"
+                        placeholder="Search by customer name or job number (e.g. #A-0001)..."
+                        autocomplete="off"
+                    >
+                    <button
+                        type="button"
+                        id="clearInvoiceSearch"
+                        class="clear-invoice-search hidden"
+                        title="Clear search"
+                        aria-label="Clear invoice search"
+                    >×</button>
+                </div>
+                <p class="search-hint">
+                    Search works with customer names and job numbers.
+                </p>
 
 
                 <div id="jobList">
@@ -4466,6 +5058,220 @@ function updateToday(){
 }
 
 
+
+/* =========================================================
+   ENHANCED OVERVIEW HELPERS
+========================================================= */
+
+function getJobTotal(job){
+
+    const amountPaid =
+        Number(job.amountPaid || 0);
+
+    const additionalServicesTotal =
+        Number(job.additionalServicesTotal || 0);
+
+    const travelFee =
+        Number(job.travelFee || 0);
+
+    const discount =
+        Number(job.discount || 0);
+
+    return Math.max(
+        0,
+        amountPaid +
+        additionalServicesTotal +
+        travelFee -
+        discount
+    );
+
+}
+
+function renderOverviewSnapshot(){
+
+    const total =
+        bookings.length;
+
+    const completed =
+        bookings.filter(
+            b=>b.status==="Completed"
+        ).length;
+
+    const approvedOrCompleted =
+        bookings.filter(
+            b=>
+                b.status==="Approved" ||
+                b.status==="Completed"
+        ).length;
+
+    const openWorkload =
+        bookings.filter(
+            b=>
+                b.status==="Pending" ||
+                b.status==="Approved"
+        ).length;
+
+    const completionRate =
+        total > 0
+            ? Math.round((completed / total) * 100)
+            : 0;
+
+    const approvalRate =
+        total > 0
+            ? Math.round((approvedOrCompleted / total) * 100)
+            : 0;
+
+    const averageJobValue =
+        completedJobs.length > 0
+            ? completedJobs.reduce(
+                (sum,job)=>sum + getJobTotal(job),
+                0
+            ) / completedJobs.length
+            : 0;
+
+    const setText = (id,value)=>{
+        const el = document.getElementById(id);
+        if(el) el.textContent = value;
+    };
+
+    setText("completionRate", `${completionRate}%`);
+    setText("approvalRate", `${approvalRate}%`);
+    setText("openWorkload", openWorkload);
+    setText("averageJobValue", money(averageJobValue));
+
+    const today = new Date();
+
+    setText(
+        "overviewHeroDate",
+        today.toLocaleDateString(
+            "en-GB",
+            {
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+            }
+        )
+    );
+
+    const pending =
+        bookings.filter(
+            b=>b.status==="Pending"
+        ).length;
+
+    setText(
+        "overviewHeroStatus",
+        pending > 0
+            ? `${pending} booking${pending===1?"":"s"} waiting for attention`
+            : "No pending bookings waiting"
+    );
+
+}
+
+function renderRecentJobs(){
+
+    const container =
+        document.getElementById(
+            "recentJobsList"
+        );
+
+    if(!container){
+        return;
+    }
+
+    const jobs =
+        [...completedJobs]
+            .sort(
+                (a,b)=>
+                    new Date(b.completedAt || 0) -
+                    new Date(a.completedAt || 0)
+            )
+            .slice(0,3);
+
+    if(jobs.length === 0){
+
+        container.innerHTML =
+            `<div class="empty-state">No completed jobs yet.</div>`;
+
+        return;
+
+    }
+
+    container.innerHTML =
+        jobs.map(
+            job=>{
+
+                const total =
+                    getJobTotal(job);
+
+                const date =
+                    job.completedAt
+                        ? new Date(
+                            job.completedAt
+                          ).toLocaleDateString(
+                            "en-GB"
+                          )
+                        : "—";
+
+                const safeId =
+                    String(job.id || "");
+
+                return `
+
+                    <div class="recent-job"
+                         data-job-id="${safeId}">
+
+                        <div class="recent-job-number">
+                            ${job.jobNumber || "No job number"}
+                        </div>
+
+                        <div class="recent-job-name">
+                            ${job.name || "Unknown Customer"}
+                        </div>
+
+                        <div class="recent-job-meta">
+                            <span>${date}</span>
+                            <span class="recent-job-total">
+                                ${money(total)}
+                            </span>
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+    container
+        .querySelectorAll(".recent-job")
+        .forEach(
+            card=>{
+
+                card.addEventListener(
+                    "click",
+                    ()=>{
+
+                        const job =
+                            completedJobs.find(
+                                item =>
+                                    String(item.id) ===
+                                    card.dataset.jobId
+                            );
+
+                        if(job){
+                            openInvoice(job);
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+}
+
 /* =========================================================
    STATS
 ========================================================= */
@@ -4501,9 +5307,7 @@ function updateStats(){
             (total,job)=>{
 
                 return total +
-                    Number(
-                        job.amountPaid || 0
-                    );
+                    getJobTotal(job);
 
             },
             0
@@ -4597,6 +5401,10 @@ function updateStats(){
     renderUpcoming();
 
     renderBookingSummary();
+
+    renderOverviewSnapshot();
+
+    renderRecentJobs();
 
 }
 
@@ -4775,7 +5583,6 @@ function renderBookingSummary(){
             "bookingSummary"
         );
 
-
     const statuses = [
 
         {
@@ -4812,52 +5619,68 @@ function renderBookingSummary(){
 
     ];
 
+    const total =
+        bookings.length;
 
     container.innerHTML =
         statuses.map(
-            status=>`
+            status=>{
 
-                <div style="
-                    display:flex;
-                    justify-content:space-between;
-                    align-items:center;
-                    padding:13px 0;
-                    border-bottom:1px solid #f1f5f9;
-                ">
+                const percentage =
+                    total > 0
+                        ? Math.round(
+                            (status.value / total) * 100
+                        )
+                        : 0;
 
-                    <div style="
-                        display:flex;
-                        align-items:center;
-                        gap:8px;
-                    ">
+                return `
 
-                        <span style="
-                            width:9px;
-                            height:9px;
-                            border-radius:50%;
-                            background:${status.color};
-                        "></span>
+                    <div class="summary-row">
 
-                        <span style="
-                            color:#475569;
-                            font-size:13px;
-                        ">
-                            ${status.name}
-                        </span>
+                        <div class="summary-row-top">
+
+                            <div class="summary-label">
+
+                                <span style="
+                                    width:9px;
+                                    height:9px;
+                                    border-radius:50%;
+                                    background:${status.color};
+                                "></span>
+
+                                ${status.name}
+
+                            </div>
+
+                            <strong class="summary-count">
+                                ${status.value}
+                            </strong>
+
+                        </div>
+
+                        <div class="summary-bar">
+                            <span style="
+                                width:${percentage}%;
+                                background:${status.color};
+                            "></span>
+                        </div>
 
                     </div>
 
-                    <strong style="
-                        color:#0f172a;
-                    ">
-                        ${status.value}
-                    </strong>
+                `;
 
-                </div>
-
-            `
+            }
         )
         .join("");
+
+    const pipelineTotal =
+        document.getElementById(
+            "pipelineTotal"
+        );
+
+    if(pipelineTotal){
+        pipelineTotal.textContent = total;
+    }
 
 }
 
@@ -8768,20 +9591,33 @@ function displayJobs(
         "";
 
 
+    const normalizedSearch =
+        String(search || "")
+            .trim()
+            .toLowerCase();
+
     const filteredJobs =
         completedJobs.filter(
-            job =>
+            job => {
 
-                (
-                    job.name ||
-                    ""
-                )
-                .toLowerCase()
-                .includes(
-                    search
-                        .toLowerCase()
-                )
+                if(!normalizedSearch){
+                    return true;
+                }
 
+                const customerName =
+                    String(job.name || "")
+                        .toLowerCase();
+
+                const jobNumber =
+                    String(job.jobNumber || "")
+                        .toLowerCase();
+
+                return (
+                    customerName.includes(normalizedSearch) ||
+                    jobNumber.includes(normalizedSearch)
+                );
+
+            }
         );
 
 
@@ -8827,11 +9663,16 @@ function displayJobs(
                 <div class="invoice-summary">
 
                     <div class="job-number">
-                        ${job.jobNumber}
+                        ${job.jobNumber || "No job number"}
                     </div>
 
-                    <div class="customer-name">
-                        ${job.name || "Unknown Customer"}
+                    <div>
+                        <div class="customer-name">
+                            ${job.name || "Unknown Customer"}
+                        </div>
+                        <div class="invoice-row-meta">
+                            ${job.completedAt ? new Date(job.completedAt).toLocaleDateString("en-GB") : "Completed date unavailable"}
+                        </div>
                     </div>
 
                 </div>
@@ -8876,8 +9717,46 @@ customerSearch.addEventListener(
         displayJobs(
             customerSearch.value
         );
+
+        const clearButton =
+            document.getElementById(
+                "clearInvoiceSearch"
+            );
+
+        if(clearButton){
+            clearButton.classList.toggle(
+                "hidden",
+                !customerSearch.value.trim()
+            );
+        }
     }
 );
+
+const clearInvoiceSearch =
+    document.getElementById(
+        "clearInvoiceSearch"
+    );
+
+if(clearInvoiceSearch){
+
+    clearInvoiceSearch.addEventListener(
+        "click",
+        ()=>{
+
+            customerSearch.value = "";
+
+            displayJobs("");
+
+            clearInvoiceSearch.classList.add(
+                "hidden"
+            );
+
+            customerSearch.focus();
+
+        }
+    );
+
+}
 
 
 /* =========================================================
