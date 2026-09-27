@@ -1011,12 +1011,14 @@ Local device support across Southwater & Horsham
                 <option>CarPlay / Car Screen Help</option>
                 <option>General IT Support</option>
             </select>
+
+            <div id="serviceDisclaimer" class="service-disclaimer" role="status" aria-live="polite"></div>
         </div>
 
         <div class="form-group" style="margin-top:18px;margin-bottom:0;">
-            <label for="message">
+            <label for="message" id="messageLabel">
                 Tell us what you need help with
-                <span class="optional">Optional</span>
+                <span id="messageRequired" class="optional">Optional</span>
             </label>
 
             <textarea
@@ -1319,6 +1321,80 @@ const selectionSummary =
     document.getElementById(
         "selectionSummary"
     );
+
+
+const serviceInput =
+    document.getElementById(
+        "service"
+    );
+
+const serviceDisclaimer =
+    document.getElementById(
+        "serviceDisclaimer"
+    );
+
+const serviceDisclaimers = {
+    "Camera Setup":
+        "Camera setup is limited to non-permanent setup and configuration. We do not carry out work that requires electrical wiring, drilling, screwing, mounting, or permanent alterations to walls, ceilings, furniture, vehicles, or other surfaces.",
+
+    "Laptop / PC Support":
+        "We may not be able to resolve every computer problem. Some issues may require specialist repair, replacement parts, manufacturer support, or another service.",
+
+    "General IT Support":
+        "General IT support covers a wide range of issues, but we may not be able to help with every problem. If your issue is outside the services we provide, we will let you know.",
+
+    "Laptop / PC Setup":
+        "Laptop and PC setup covers common setup and configuration tasks, but we may not be able to help with every issue or requirement. More specialist problems may require another service or specialist support."
+};
+
+const servicesRequiringDetails = new Set([
+    "Laptop / PC Setup",
+    "Laptop / PC Support",
+    "Camera Setup",
+    "General IT Support"
+]);
+
+function updateServiceDisclaimer(){
+    const service = serviceInput.value;
+    const message = serviceDisclaimers[service];
+    const messageInput = document.getElementById("message");
+    const messageRequired = document.getElementById("messageRequired");
+
+    const detailsRequired =
+        servicesRequiringDetails.has(service);
+
+    if(message){
+        serviceDisclaimer.innerHTML =
+            "<strong>Important information</strong>" + message +
+            (detailsRequired
+                ? "<br><br><strong>Please describe the issue</strong>You must tell us what you need help with before submitting a booking request."
+                : "");
+
+        serviceDisclaimer.style.display = "block";
+    }else{
+        serviceDisclaimer.innerHTML = "";
+        serviceDisclaimer.style.display = "none";
+    }
+
+    messageInput.required = detailsRequired;
+
+    if(detailsRequired){
+        messageRequired.textContent = "Required";
+        messageRequired.className = "required";
+        messageInput.placeholder =
+            "Please describe exactly what you need help with...";
+    }else{
+        messageRequired.textContent = "Optional";
+        messageRequired.className = "optional";
+        messageInput.placeholder =
+            "For example: My laptop is running slowly and I need help setting up my printer.";
+    }
+}
+
+serviceInput.addEventListener(
+    "change",
+    updateServiceDisclaimer
+);
 
 
 // =====================================
@@ -2188,6 +2264,9 @@ bookingForm.addEventListener(
             // REQUIRED FIELDS
             // =====================================
 
+            const detailsRequired =
+                servicesRequiringDetails.has(service);
+
             if(
 
                 !name ||
@@ -2195,7 +2274,8 @@ bookingForm.addEventListener(
                 !phone ||
                 !address ||
                 !date ||
-                !timeSlot
+                !timeSlot ||
+                (detailsRequired && !message.trim())
 
             ){
 
@@ -2203,7 +2283,9 @@ bookingForm.addEventListener(
 
                     "Missing Details",
 
-                    "Please complete all required fields."
+                    detailsRequired && !message.trim()
+                        ? "Please describe what you need help with before submitting your booking request."
+                        : "Please complete all required fields."
 
                 );
 
