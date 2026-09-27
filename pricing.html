@@ -446,6 +446,316 @@ nav a:hover{
     color:#666;
 }
 
+
+/* ==========================
+   ESTIMATE QUOTE
+========================== */
+
+.quote-section{
+    background:linear-gradient(180deg,#eef6ff 0%,#f8fbff 100%);
+}
+
+.quote-wrap{
+    max-width:1050px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:35px;
+    align-items:stretch;
+}
+
+.quote-panel,
+.quote-result{
+    background:#fff;
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 18px 45px rgba(15,55,95,.10);
+    border:1px solid rgba(74,168,255,.12);
+}
+
+.quote-panel h3,
+.quote-result h3{
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.quote-panel > p,
+.quote-result > p{
+    color:#687386;
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.quote-field{
+    margin-bottom:20px;
+}
+
+.quote-field label{
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+    color:#172033;
+}
+
+.quote-field select,
+.quote-field input{
+    width:100%;
+    padding:14px 16px;
+    border:1px solid #d8e1ec;
+    border-radius:12px;
+    background:#fff;
+    color:#222;
+    font:inherit;
+    outline:none;
+    transition:.2s;
+}
+
+.quote-field select:focus,
+.quote-field input:focus{
+    border-color:#49a9ff;
+    box-shadow:0 0 0 4px rgba(73,169,255,.12);
+}
+
+.quote-help{
+    font-size:13px;
+    color:#7a8494;
+    margin-top:6px;
+}
+
+.quote-button{
+    width:100%;
+    border:0;
+    cursor:pointer;
+    padding:15px 20px;
+    border-radius:13px;
+    background:linear-gradient(135deg,#1877dd,#49a9ff);
+    color:#fff;
+    font:600 16px 'Poppins',sans-serif;
+    transition:.25s;
+}
+
+.quote-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(24,119,221,.22);
+}
+
+.quote-summary{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+}
+
+.quote-row{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:13px 0;
+    border-bottom:1px solid #edf1f5;
+    color:#5f6978;
+}
+
+.quote-row strong{
+    color:#172033;
+    text-align:right;
+}
+
+.quote-total{
+    margin-top:18px;
+    padding:20px;
+    border-radius:17px;
+    background:linear-gradient(135deg,#eef7ff,#f7fbff);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.quote-total span{
+    color:#526070;
+    font-weight:600;
+}
+
+.quote-total strong{
+    font-size:32px;
+    color:#1877dd;
+}
+
+.quote-note{
+    margin-top:18px;
+    padding:14px 16px;
+    border-radius:12px;
+    background:#f6f8fb;
+    color:#687386;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.quote-actions{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+.quote-actions a,
+.quote-copy{
+    flex:1;
+    text-align:center;
+    padding:12px 15px;
+    border-radius:11px;
+    text-decoration:none;
+    font:600 14px 'Poppins',sans-serif;
+    cursor:pointer;
+}
+
+.quote-actions a{
+    background:#1877dd;
+    color:#fff;
+}
+
+.quote-copy{
+    border:1px solid #d8e1ec;
+    background:#fff;
+    color:#1877dd;
+}
+
+.quote-empty{
+    min-height:270px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#7a8494;
+    line-height:1.7;
+}
+
+.quote-result-content.hidden{
+    display:none !important;
+}
+
+@media(max-width:800px){
+    .quote-wrap{
+        grid-template-columns:1fr;
+    }
+
+    .quote-panel,
+    .quote-result{
+        padding:25px;
+    }
+
+    .quote-total strong{
+        font-size:27px;
+    }
+}
+
+
+/* ==========================
+   CLEAR PRICING TABLE
+========================== */
+
+.service-pricing-section{
+    background:#fff;
+}
+
+.pricing-intro{
+    max-width:760px;
+    margin:-25px auto 35px;
+    text-align:center;
+    color:#687386;
+    line-height:1.7;
+}
+
+.pricing-table-wrap{
+    max-width:1100px;
+    margin:0 auto;
+    background:#fff;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    border:1px solid #e5edf6;
+}
+
+.pricing-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.pricing-table th{
+    background:#0b1b30;
+    color:#fff;
+    padding:18px 22px;
+    text-align:left;
+    font-size:15px;
+    font-weight:600;
+}
+
+.pricing-table td{
+    padding:20px 22px;
+    border-bottom:1px solid #edf1f5;
+    color:#667085;
+    vertical-align:middle;
+}
+
+.pricing-table tbody tr:last-child td{
+    border-bottom:0;
+}
+
+.pricing-table tbody tr:hover{
+    background:#f7fbff;
+}
+
+.pricing-table td:first-child{
+    color:#172033;
+    width:29%;
+}
+
+.pricing-table td:nth-child(2){
+    width:51%;
+}
+
+.pricing-table td:last-child{
+    width:20%;
+    text-align:right;
+    white-space:nowrap;
+    color:#1877dd;
+    font-size:22px;
+}
+
+.pricing-table td:last-child span{
+    display:block;
+    font-size:12px;
+    color:#687386;
+    font-weight:500;
+}
+
+.pricing-note{
+    max-width:1100px;
+    margin:20px auto 0;
+    padding:17px 20px;
+    background:#eef7ff;
+    border-left:4px solid #49a9ff;
+    border-radius:10px;
+    color:#526070;
+}
+
+@media(max-width:700px){
+    .pricing-intro{
+        margin-top:-25px;
+    }
+
+    .pricing-table-wrap{
+        overflow-x:auto;
+    }
+
+    .pricing-table{
+        min-width:680px;
+    }
+
+    .pricing-table th,
+    .pricing-table td{
+        padding:16px;
+    }
+}
+
 </style>
 
 
@@ -512,10 +822,10 @@ Jack's <span>IT Services</span>
 
 <div>
 
-<h1>Pricing</h1>
+<h1>Simple, Transparent Pricing</h1>
 
 <p>
-Affordable local IT support throughout Southwater and Horsham.
+Clear hourly rates, simple travel charges and a quick estimate calculator.
 </p>
 
 
@@ -534,7 +844,7 @@ Affordable local IT support throughout Southwater and Horsham.
 
 
 <h2 class="title">
-Location Pricing
+Travel Charges
 </h2>
 
 
@@ -643,153 +953,71 @@ Location Pricing
 
 
 
-<section>
+<section class="service-pricing-section">
 
+<h2 class="title">Service Rates</h2>
 
-<h2 class="title">
-Service Pricing
-</h2>
-
-
-
-<div class="cards">
-
-
-
-<div class="card">
-
-<h3>Laptop / PC Setup</h3>
-
-<div class="price">
-£10 <span>/ hour</span>
-</div>
-
-<p>
-Complete setup, updates and getting your device ready.
+<p class="pricing-intro">
+Our hourly rates are shown below. Choose a service to see the rate clearly, then use the estimate calculator underneath to work out an approximate total.
 </p>
 
+<div class="pricing-table-wrap">
+    <table class="pricing-table">
+        <thead>
+            <tr>
+                <th>Service</th>
+                <th>What it includes</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Laptop / PC Setup</strong></td>
+                <td>Complete setup, updates and getting your device ready.</td>
+                <td><strong>£10<span>/hour</span></strong></td>
+            </tr>
+            <tr>
+                <td><strong>Laptop / PC Support</strong></td>
+                <td>Troubleshooting and fixing computer problems.</td>
+                <td><strong>£15<span>/hour</span></strong></td>
+            </tr>
+            <tr>
+                <td><strong>Camera Setup</strong></td>
+                <td>Connecting security cameras.</td>
+                <td><strong>£10<span>/hour</span></strong></td>
+            </tr>
+            <tr>
+                <td><strong>Printer Setup &amp; Support</strong></td>
+                <td>Printer installation and fixing connection issues.</td>
+                <td><strong>£15<span>/hour</span></strong></td>
+            </tr>
+            <tr>
+                <td><strong>Smart Device Setup</strong></td>
+                <td>Setting up smart devices around your home.</td>
+                <td><strong>£10<span>/hour</span></strong></td>
+            </tr>
+            <tr>
+                <td><strong>CarPlay / Car Help</strong></td>
+                <td>Help setting up Apple CarPlay and car technology.</td>
+                <td><strong>£10<span>/hour</span></strong></td>
+            </tr>
+            <tr>
+                <td><strong>Virus Removal</strong></td>
+                <td>Removal of viruses on mobile devices.</td>
+                <td><strong>£25<span>/hour</span></strong></td>
+            </tr>
+            <tr>
+                <td><strong>General IT Support</strong></td>
+                <td>General help with your devices.</td>
+                <td><strong>£15<span>/hour</span></strong></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
-
-
-
-
-<div class="card">
-
-<h3>Laptop / PC Support</h3>
-
-<div class="price">
-£15 <span>/ hour</span>
+<div class="pricing-note">
+    <strong>Travel charges are separate.</strong> See the travel charges above or use the estimate calculator to include them automatically.
 </div>
-
-<p>
-Troubleshooting and fixing computer problems.
-</p>
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<h3>Camera Setup</h3>
-
-<div class="price">
-£10 <span>/ hour</span>
-</div>
-
-<p>
-Connecting security cameras.
-</p>
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<h3>Printer Setup & Support</h3>
-
-<div class="price">
-£15 <span>/ hour</span>
-</div>
-
-<p>
-Printer installation and fixing connection issues.
-</p>
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<h3>Smart Device Setup</h3>
-
-<div class="price">
-£10 <span>/ hour</span>
-</div>
-
-<p>
-Setting up smart devices around your home.
-</p>
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<h3>CarPlay / Car Help</h3>
-
-<div class="price">
-£10 <span>/ hour</span>
-</div>
-
-<p>
-Help setting up Apple CarPlay and car technology.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>Virus Removal</h3>
-
-<div class="price">
-£25 <span>/ hour</span>
-</div>
-
-<p>
-Removal of viruses on all mobile devices
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>General IT Support</h3>
-
-<div class="price">
-£15 <span>/ hour</span>
-</div>
-
-<p>
-General help with your devices.
-</p>
-
-</div>
-
-</div>
-
 
 </section>
 
@@ -798,6 +1026,113 @@ General help with your devices.
 
 
 
+
+
+<section class="quote-section">
+    <h2 class="title">Estimate Your Quote</h2>
+
+    <div class="quote-wrap">
+
+        <div class="quote-panel">
+            <h3>Get a quick estimate</h3>
+            <p>Choose the service, your location and the estimated time needed. Your estimate includes the applicable travel charge.</p>
+
+            <div class="quote-field">
+                <label for="quoteService">Service</label>
+                <select id="quoteService">
+                    <option value="">Select a service</option>
+                    <option value="Laptop / PC Setup" data-rate="10">Laptop / PC Setup — £10/hour</option>
+                    <option value="Laptop / PC Support" data-rate="15">Laptop / PC Support — £15/hour</option>
+                    <option value="Camera Setup" data-rate="10">Camera Setup — £10/hour</option>
+                    <option value="Printer Setup & Support" data-rate="15">Printer Setup & Support — £15/hour</option>
+                    <option value="Smart Device Setup" data-rate="10">Smart Device Setup — £10/hour</option>
+                    <option value="CarPlay / Car Help" data-rate="10">CarPlay / Car Help — £10/hour</option>
+                    <option value="Virus Removal" data-rate="25">Virus Removal — £25/hour</option>
+                    <option value="General IT Support" data-rate="15">General IT Support — £15/hour</option>
+                </select>
+            </div>
+
+            <div class="quote-field">
+                <label for="quoteLocation">Your location</label>
+                <select id="quoteLocation">
+                    <option value="">Select your location</option>
+                    <option value="Southwater" data-travel="1">Southwater — £1 travel</option>
+                    <option value="Horsham" data-travel="2">Horsham — £2 travel</option>
+                    <option value="Roffey" data-travel="3">Roffey — £3 travel</option>
+                    <option value="Shipley" data-travel="3">Shipley — £3 travel</option>
+                    <option value="Broadbridge Heath" data-travel="3">Broadbridge Heath — £3 travel</option>
+                    <option value="Barns Green" data-travel="4">Barns Green — £4 travel</option>
+                </select>
+            </div>
+
+            <div class="quote-field">
+                <label for="quoteHours">Estimated hours</label>
+                <input id="quoteHours" type="number" min="1" max="24" step="0.5" value="1" inputmode="decimal">
+                <div class="quote-help">Enter the approximate number of hours you expect the job to take.</div>
+            </div>
+
+            <button type="button" class="quote-button" id="calculateQuote">
+                Calculate Estimate
+            </button>
+        </div>
+
+        <div class="quote-result">
+            <h3>Your estimate</h3>
+            <p>This is an estimate based on the prices shown on this page.</p>
+
+            <div id="quoteEmpty" class="quote-empty">
+                <div>
+                    <strong>Select your options</strong><br>
+                    Your estimated labour, travel charge and total will appear here.
+                </div>
+            </div>
+
+            <div id="quoteResultContent" class="quote-result-content hidden">
+                <div class="quote-summary">
+                    <div class="quote-row">
+                        <span>Service</span>
+                        <strong id="resultService">—</strong>
+                    </div>
+
+                    <div class="quote-row">
+                        <span>Location</span>
+                        <strong id="resultLocation">—</strong>
+                    </div>
+
+                    <div class="quote-row">
+                        <span>Estimated time</span>
+                        <strong id="resultHours">—</strong>
+                    </div>
+
+                    <div class="quote-row">
+                        <span>Labour</span>
+                        <strong id="resultLabour">£0.00</strong>
+                    </div>
+
+                    <div class="quote-row">
+                        <span>Travel charge</span>
+                        <strong id="resultTravel">£0.00</strong>
+                    </div>
+
+                    <div class="quote-total">
+                        <span>Estimated total</span>
+                        <strong id="resultTotal">£0.00</strong>
+                    </div>
+                </div>
+
+                <div class="quote-note">
+                    This is an estimate only, not a fixed quote. The final amount may vary depending on the actual work required and time taken.
+                </div>
+
+                <div class="quote-actions">
+                    <a href="https://www.jacksit.uk/bookings">Book Support</a>
+                    <button type="button" class="quote-copy" id="copyQuote">Copy Estimate</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
 
 <section class="cta">
 
@@ -871,6 +1206,87 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
+
+
+// ===============================
+// ESTIMATE QUOTE CALCULATOR
+// ===============================
+
+const quoteService = document.getElementById("quoteService");
+const quoteLocation = document.getElementById("quoteLocation");
+const quoteHours = document.getElementById("quoteHours");
+const calculateQuote = document.getElementById("calculateQuote");
+
+const quoteEmpty = document.getElementById("quoteEmpty");
+const quoteResultContent = document.getElementById("quoteResultContent");
+
+const resultService = document.getElementById("resultService");
+const resultLocation = document.getElementById("resultLocation");
+const resultHours = document.getElementById("resultHours");
+const resultLabour = document.getElementById("resultLabour");
+const resultTravel = document.getElementById("resultTravel");
+const resultTotal = document.getElementById("resultTotal");
+const copyQuote = document.getElementById("copyQuote");
+
+let latestQuoteText = "";
+
+calculateQuote.addEventListener("click", () => {
+
+    const serviceOption = quoteService.options[quoteService.selectedIndex];
+    const locationOption = quoteLocation.options[quoteLocation.selectedIndex];
+
+    const service = quoteService.value;
+    const location = quoteLocation.value;
+    const rate = Number(serviceOption?.dataset.rate || 0);
+    const travel = Number(locationOption?.dataset.travel || 0);
+    const hours = Number(quoteHours.value);
+
+    if (!service || !location || !hours || hours < 1) {
+        alert("Please select a service, select your location and enter at least 1 hour.");
+        return;
+    }
+
+    const labour = rate * hours;
+    const total = labour + travel;
+
+    resultService.textContent = service;
+    resultLocation.textContent = location;
+    resultHours.textContent = `${hours} ${hours === 1 ? "hour" : "hours"}`;
+    resultLabour.textContent = `£${labour.toFixed(2)}`;
+    resultTravel.textContent = `£${travel.toFixed(2)}`;
+    resultTotal.textContent = `£${total.toFixed(2)}`;
+
+    latestQuoteText =
+`Jack's IT Services - Estimate
+
+Service: ${service}
+Location: ${location}
+Estimated time: ${hours} ${hours === 1 ? "hour" : "hours"}
+Labour: £${labour.toFixed(2)}
+Travel charge: £${travel.toFixed(2)}
+Estimated total: £${total.toFixed(2)}
+
+This is an estimate only, not a fixed quote. The final amount may vary depending on the actual work required and time taken.`;
+
+    quoteEmpty.classList.add("hidden");
+    quoteResultContent.classList.remove("hidden");
+});
+
+copyQuote.addEventListener("click", async () => {
+
+    if (!latestQuoteText) return;
+
+    try {
+        await navigator.clipboard.writeText(latestQuoteText);
+        const originalText = copyQuote.textContent;
+        copyQuote.textContent = "Copied!";
+        setTimeout(() => {
+            copyQuote.textContent = originalText;
+        }, 1800);
+    } catch (error) {
+        alert("Unable to copy the estimate. Please select and copy the text manually.");
+    }
+});
 
 </script>
 </body>
