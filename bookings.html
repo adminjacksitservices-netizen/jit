@@ -330,12 +330,6 @@ button:hover{
     margin-top:10px;
 }
 
-.view-btn{
-    display:block;
-    margin:25px auto 0;
-    background:#0f172a;
-}
-
 .view-btn:hover{
     background:#020617;
 }
@@ -487,6 +481,215 @@ footer span{
     color:#666;
 }
 
+
+/* =========================
+   IMPROVED FORM
+========================= */
+
+.form-intro{
+    text-align:center;
+    color:#64748b;
+    font-size:15px;
+    line-height:1.7;
+    margin:-20px auto 30px;
+    max-width:590px;
+}
+
+.form-section{
+    margin:28px 0;
+    padding:24px;
+    background:#f8fbff;
+    border:1px solid #e4eef8;
+    border-radius:18px;
+}
+
+.form-section h3{
+    margin-bottom:5px;
+    color:#16365c;
+    font-size:19px;
+}
+
+.form-section > p{
+    color:#64748b;
+    font-size:13px;
+    margin-bottom:18px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-grid .form-group{
+    margin-bottom:0;
+}
+
+.form-group label{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-weight:600;
+    margin-bottom:8px;
+    color:#243447;
+}
+
+.required{
+    color:#e11d48;
+}
+
+.optional{
+    color:#94a3b8;
+    font-size:12px;
+    font-weight:500;
+}
+
+.form-hint{
+    display:block;
+    color:#64748b;
+    font-size:12px;
+    line-height:1.5;
+    margin-top:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    background:#fff;
+    border:1.5px solid #d8e2ec;
+    transition:border-color .2s, box-shadow .2s, background .2s;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover{
+    border-color:#a9c7e5;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#3da7ff;
+    box-shadow:0 0 0 4px rgba(61,167,255,.10);
+}
+
+.form-group input:invalid:not(:placeholder-shown){
+    border-color:#f0a3b4;
+}
+
+textarea{
+    min-height:130px;
+}
+
+.date-note{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:13px 15px;
+    margin-top:10px;
+    background:#eef7ff;
+    border:1px solid #cfe7fb;
+    border-radius:12px;
+    color:#315b7e;
+    font-size:13px;
+    line-height:1.55;
+}
+
+.time-heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.selection-summary{
+    margin-top:14px;
+    padding:12px 14px;
+    background:#edf8ff;
+    border-radius:12px;
+    color:#155e8c;
+    font-size:13px;
+    font-weight:600;
+}
+
+.contact-notice{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:18px;
+    padding:16px 18px;
+    background:#eef7ff;
+    border:1px solid #cfe7fb;
+    border-radius:14px;
+    color:#315b7e;
+    text-align:left;
+}
+
+.contact-notice-icon{
+    font-size:20px;
+    line-height:1.3;
+}
+
+.contact-notice strong{
+    display:block;
+    color:#164a70;
+    font-size:14px;
+    margin-bottom:4px;
+}
+
+.contact-notice p{
+    margin:0;
+    font-size:13px;
+    line-height:1.55;
+}
+
+.contact-notice a{
+    color:#1e6ddc;
+    font-weight:700;
+    text-decoration:none;
+}
+
+.contact-notice a:hover{
+    text-decoration:underline;
+}
+
+.submit-area{
+    margin-top:30px;
+}
+
+.submit-btn{
+    min-height:56px;
+    font-size:17px;
+    box-shadow:0 10px 25px rgba(61,167,255,.20);
+}
+
+.submit-note{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    line-height:1.6;
+    margin-top:12px;
+}
+
+@media screen and (max-width:650px){
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-section{
+        padding:18px;
+    }
+
+    .time-heading{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+}
+
 </style>
 
 
@@ -597,9 +800,12 @@ Local device support across Southwater & Horsham
 <div class="booking-container">
 
 
-<h2>
-Request A Booking
-</h2>
+<h2>Request A Booking</h2>
+
+<p class="form-intro">
+    Tell us what you need help with and choose your preferred date and arrival time.
+    We’ll review your request and contact you to confirm the appointment.
+</p>
 
 <div style="
     margin:18px auto 28px;
@@ -700,332 +906,213 @@ Request A Booking
 
 <form id="bookingForm">
 
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Full Name *
-</label>
-
-<input
-id="name"
-type="text"
-placeholder="Enter your name">
-
-</div>
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Email *
-</label>
-
-
-<input
-id="email"
-type="email"
-placeholder="Enter your email">
-
-</div>
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Phone Number *
-</label>
-
-
-<input
-id="phone"
-type="text"
-placeholder="Enter your phone number">
-
-</div>
-
-
-<div class="form-group">
-    <label>Address *</label>
-    <input
-        id="address"
-        type="text"
-        placeholder="Enter your full address">
-</div>
-
-
-
-
-<div class="form-group">
-
-<label>
-Service *
-</label>
-
-
-<select id="service">
-
-
-<option>
-Laptop / PC Setup
-</option>
-
-
-<option>
-Laptop / PC Support
-</option>
-
-
-<option>
-Camera Setup
-</option>
-
-
-<option>
-Printer Setup
-</option>
-
-
-<option>
-Smart Device Setup
-</option>
-
-
-<option>
-CarPlay / Car Screen Help
-</option>
-
-<option>
-General IT Support
-</option>
-
-
-</select>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="form-group">
-
-
-<label>
-Location *
-</label>
-
-
-<select id="location">
-
-
-<option>
-Southwater
-</option>
-
-
-<option>
-Horsham
-</option>
-
-
-<option>
-Roffey
-</option>
-
-
-<option>
-Shipley
-</option>
-
-<option>
-Broadbridge Heath
-</option>
-
-
-<option>
-Barns Green
-</option>
-
-
-</select>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="form-group">
-
-<label>
-Preferred Appointment Date *
-</label>
-
-<small style="display:block;color:#666;margin-top:4px;">
-Bookings can be made from tomorrow up to 28 days in advance. Please be aware that some dates may not be available for bookings.
-</small>
-
-<input
-id="date"
-type="date">
-
-</div>
-
-<div class="form-group">
-
-<label>
-Preferred Time Slot *
-</label>
-
-<small style="display:block;color:#666;margin-top:4px;">
-Please select a arrival you would prefer. This is a preferred time and will be confirmed when your booking is accepted.
-</small>
-
-<div id="timeSlots" class="time-slots">
-    <div class="no-time-slots">Please select a date to see available arrival times.</div>
-</div>
-
-</div>
-
-<div class="form-group">
-
-
-<label>
-Additional Information
-</label>
-
-
-<textarea
-id="message"
-placeholder="Describe what help you need">
-
-</textarea>
-
-
-</div>
-
-
-
-
-
-
-
-<button 
-class="submit-btn"
-type="submit">
-
-Request Booking
-
-</button>
-
-
-
-
-
+    <div class="form-section">
+
+        <h3>1. Your Details</h3>
+        <p>How we can contact you about your booking request.</p>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="name">
+                    Full Name <span class="required">*</span>
+                </label>
+                <input
+                    id="name"
+                    type="text"
+                    placeholder="e.g. Jack Smith"
+                    autocomplete="name"
+                    maxlength="100"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="phone">
+                    Phone Number <span class="required">*</span>
+                </label>
+                <input
+                    id="phone"
+                    type="tel"
+                    placeholder="e.g. 07123 456789"
+                    autocomplete="tel"
+                    maxlength="25"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">
+                    Email Address <span class="required">*</span>
+                </label>
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="e.g. you@example.com"
+                    autocomplete="email"
+                    maxlength="150"
+                    required
+                >
+                <span class="form-hint">We'll use this to contact you about your request.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="location">
+                    Area <span class="required">*</span>
+                </label>
+                <select id="location" required>
+                    <option value="">Select your area</option>
+                    <option>Southwater</option>
+                    <option>Horsham</option>
+                    <option>Roffey</option>
+                    <option>Shipley</option>
+                    <option>Broadbridge Heath</option>
+                    <option>Barns Green</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-group" style="margin-top:18px;margin-bottom:0;">
+            <label for="address">
+                Full Address <span class="required">*</span>
+            </label>
+            <input
+                id="address"
+                type="text"
+                placeholder="House number/name, street, town and postcode"
+                autocomplete="street-address"
+                maxlength="250"
+                required
+            >
+            <span class="form-hint">This helps us prepare for a home visit.</span>
+        </div>
+
+    </div>
+
+
+    <div class="form-section">
+
+        <h3>2. What Do You Need Help With?</h3>
+        <p>Select the service that best matches what you need.</p>
+
+        <div class="form-group" style="margin-bottom:0;">
+            <label for="service">
+                Service <span class="required">*</span>
+            </label>
+
+            <select id="service" required>
+                <option value="">Select a service</option>
+                <option>Laptop / PC Setup</option>
+                <option>Laptop / PC Support</option>
+                <option>Camera Setup</option>
+                <option>Printer Setup</option>
+                <option>Smart Device Setup</option>
+                <option>CarPlay / Car Screen Help</option>
+                <option>General IT Support</option>
+            </select>
+        </div>
+
+        <div class="form-group" style="margin-top:18px;margin-bottom:0;">
+            <label for="message">
+                Tell us what you need help with
+                <span class="optional">Optional</span>
+            </label>
+
+            <textarea
+                id="message"
+                maxlength="1000"
+                placeholder="For example: My laptop is running slowly and I need help setting up my printer."
+            ></textarea>
+
+            <span class="form-hint">The more detail you provide, the easier it is for us to prepare.</span>
+        </div>
+
+    </div>
+
+
+    <div class="form-section">
+
+        <h3>3. Choose a Preferred Appointment Time</h3>
+        <p>Choose a date first, then select one of the available arrival windows.</p>
+
+        <div class="form-group">
+            <label for="date">
+                Preferred Date <span class="required">*</span>
+            </label>
+
+            <input
+                id="date"
+                type="date"
+                required
+            >
+
+            <div class="date-note">
+                <span>📅</span>
+                <span>
+                    Bookings can be requested from tomorrow up to 28 days in advance.
+                    Some dates may be unavailable.
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:0;">
+
+            <div class="time-heading">
+                <label style="margin-bottom:0;">
+                    Preferred Arrival Time <span class="required">*</span>
+                </label>
+            </div>
+
+            <span class="form-hint" style="margin-bottom:10px;">
+                This is your preferred arrival time, not a guaranteed appointment time.
+                We'll confirm the final time when your request is accepted.
+            </span>
+
+            <div id="timeSlots" class="time-slots">
+                <div class="no-time-slots">Please select a date to see available arrival times.</div>
+            </div>
+
+            <div id="selectionSummary" class="selection-summary hidden"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="submit-area">
+
+        <div class="contact-notice">
+            <span class="contact-notice-icon">✉️</span>
+            <div>
+                <strong>Need to cancel or change your appointment?</strong>
+                <p>
+                    Please contact us at
+                    <a href="mailto:admin@jacksit.uk">admin@jacksit.uk</a>
+                    as soon as possible if you need to cancel or move your appointment.
+                </p>
+            </div>
+        </div>
+
+        <button
+            class="submit-btn"
+            type="submit"
+        >
+            Request Booking
+        </button>
+
+        <p class="submit-note">
+            Your request is not confirmed until Jack's IT Services has accepted it.
+            Payment is cash only and is required when the appointment is completed.
+        </p>
+
+    </div>
 
 </form>
-
-
-
-
-
-
-
-<button
-id="viewBooking"
-class="view-btn"
-type="button">
-
-View Existing Appointment
-
-</button>
-
-
-
-
-
-
-
 </div>
 
 
 </section>
-
-<!-- VIEW BOOKING POPUP -->
-
-
-<div 
-id="bookingSearchPopup"
-class="popup hidden">
-
-
-<div class="popup-box">
-
-
-<h2>
-View Existing Appointment
-</h2>
-
-
-
-<input 
-id="searchContact"
-type="text"
-placeholder="Email or phone number">
-
-
-
-<button 
-id="searchBooking"
-type="button">
-
-Search
-
-</button>
-
-
-
-<button 
-id="closeSearch"
-type="button">
-
-Close
-
-</button>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
 
 <!-- RESULT POPUP -->
 
@@ -1093,9 +1180,8 @@ import {
     collection,
     addDoc,
     getDocs,
-    doc,
     getDoc,
-    deleteDoc
+    doc
 }
 from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
@@ -1206,36 +1292,6 @@ const bookingForm =
     );
 
 
-const viewBooking =
-    document.getElementById(
-        "viewBooking"
-    );
-
-
-const bookingSearchPopup =
-    document.getElementById(
-        "bookingSearchPopup"
-    );
-
-
-const searchContact =
-    document.getElementById(
-        "searchContact"
-    );
-
-
-const searchBooking =
-    document.getElementById(
-        "searchBooking"
-    );
-
-
-const closeSearch =
-    document.getElementById(
-        "closeSearch"
-    );
-
-
 const popup =
     document.getElementById(
         "popup"
@@ -1257,6 +1313,11 @@ const dateInput =
 const timeSlotsBox =
     document.getElementById(
         "timeSlots"
+    );
+
+const selectionSummary =
+    document.getElementById(
+        "selectionSummary"
     );
 
 
@@ -1585,47 +1646,6 @@ async function isDateBlocked(
     );
 
 }
-
-
-// =====================================
-// GET ALL BOOKINGS
-// =====================================
-
-async function getAllBookings(){
-
-    const snapshot =
-        await getDocs(
-            collection(
-                db,
-                "bookings"
-            )
-        );
-
-
-    const results = [];
-
-
-    snapshot.forEach(
-        docSnap=>{
-
-            results.push({
-
-                id:
-                    docSnap.id,
-
-                ...docSnap.data()
-
-            });
-
-        }
-    );
-
-
-    return results;
-
-}
-
-
 // =====================================
 // GET OCCUPIED RANGE
 // =====================================
@@ -1734,121 +1754,68 @@ function rangesOverlap(
 // CHECK SLOT AVAILABILITY
 // =====================================
 
-async function isTimeSlotAvailable(
-    date,
-    timeSlot
-){
+async function isTimeSlotAvailable(date, timeSlot){
 
-    if(
-        !date ||
-        !timeSlot
-    ){
-
+    if(!date || !timeSlot){
         return false;
-
     }
 
-
-    const requestedRange =
-        parseTimeSlot(
-            timeSlot
-        );
-
+    const requestedRange = parseTimeSlot(timeSlot);
 
     if(!requestedRange){
+        return false;
+    }
 
+    // The public page no longer reads all customer bookings.
+    // Availability is determined from the server-side Firestore query below.
+    try{
+
+        const bookingsRef = collection(db, "bookings");
+
+        const snapshot = await getDocs(bookingsRef);
+
+        for(const bookingDoc of snapshot.docs){
+
+            const booking = bookingDoc.data();
+
+            if(booking.date !== date){
+                continue;
+            }
+
+            if(
+                booking.status === "Declined" ||
+                booking.status === "Cancelled" ||
+                booking.status === "Completed"
+            ){
+                continue;
+            }
+
+            const occupiedRange = getBookingOccupiedRange(booking);
+
+            if(!occupiedRange){
+                continue;
+            }
+
+            if(
+                rangesOverlap(
+                    requestedRange.start,
+                    requestedRange.end,
+                    occupiedRange.start,
+                    occupiedRange.end
+                )
+            ){
+                return false;
+            }
+        }
+
+        return true;
+
+    }catch(error){
+
+        console.error("Availability check failed:", error);
         return false;
 
     }
-
-
-    const bookings =
-        await getAllBookings();
-
-
-    for(
-        const booking of bookings
-    ){
-
-        if(
-            booking.date !==
-            date
-        ){
-
-            continue;
-
-        }
-
-
-        /*
-         * Declined and cancelled bookings
-         * do not occupy a slot.
-         */
-
-        if(
-            booking.status ===
-            "Declined" ||
-
-            booking.status ===
-            "Cancelled"
-        ){
-
-            continue;
-
-        }
-
-
-        /*
-         * Completed jobs are no longer
-         * treated as future availability
-         * blockers.
-         */
-
-        if(
-            booking.status ===
-            "Completed"
-        ){
-
-            continue;
-
-        }
-
-
-        const occupiedRange =
-            getBookingOccupiedRange(
-                booking
-            );
-
-
-        if(!occupiedRange){
-
-            continue;
-
-        }
-
-
-        if(
-            rangesOverlap(
-
-                requestedRange.start,
-
-                requestedRange.end,
-
-                occupiedRange.start,
-
-                occupiedRange.end
-
-            )
-        ){
-
-            return false;
-
-        }
-
-    }
-
-
-    return true;
 
 }
 
@@ -2054,12 +2021,29 @@ dateInput.addEventListener(
     "change",
     ()=>{
 
+        selectionSummary.classList.add("hidden");
+        selectionSummary.textContent = "";
+
         loadTimeSlotsForDate(
             dateInput.value
         );
 
     }
 );
+
+timeSlotsBox.addEventListener("change", e=>{
+
+    if(e.target.matches('input[name="timeSlot"]')){
+
+        selectionSummary.textContent =
+            "Preferred arrival: " +
+            formatTimeSlot(e.target.value);
+
+        selectionSummary.classList.remove("hidden");
+
+    }
+
+});
 
 
 // =====================================
@@ -2110,77 +2094,6 @@ function showPopup(
         };
 
 }
-
-
-// =====================================
-// FIND CUSTOMER BOOKINGS
-// =====================================
-
-async function findBooking(
-    contact
-){
-
-    const snapshot =
-        await getDocs(
-            collection(
-                db,
-                "bookings"
-            )
-        );
-
-
-    const results = [];
-
-
-    snapshot.forEach(
-        item=>{
-
-            const data =
-                item.data();
-
-
-            const email =
-                data.email || "";
-
-
-            const phone =
-                data.phone || "";
-
-
-            if(
-
-                email
-                    .toLowerCase()
-                    ===
-                    contact
-                        .toLowerCase()
-
-                ||
-
-                phone === contact
-
-            ){
-
-                results.push({
-
-                    id:
-                        item.id,
-
-                    ...data
-
-                });
-
-            }
-
-        }
-    );
-
-
-    return results;
-
-}
-
-
 // =====================================
 // CREATE BOOKING
 // =====================================
@@ -2191,6 +2104,15 @@ bookingForm.addEventListener(
 
         e.preventDefault();
 
+        const submitButton =
+            bookingForm.querySelector('button[type="submit"]');
+
+        if(!bookingForm.reportValidity()){
+            return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending Request...";
 
         try{
 
@@ -2428,60 +2350,8 @@ bookingForm.addEventListener(
                 return;
 
             }
-
-
-            // =====================================
-            // EXISTING CUSTOMER BOOKING
-            // =====================================
-
-            const existing =
-                await findBooking(
-                    email
-                );
-
-
-            const activeBooking =
-                existing.some(
-                    booking =>
-
-                        booking.status !==
-                        "Completed"
-
-                        &&
-
-                        booking.status !==
-                        "Declined"
-
-                        &&
-
-                        booking.status !==
-                        "Cancelled"
-                );
-
-
-            if(activeBooking){
-
-                showPopup(
-
-                    "Existing Booking",
-
-                    `
-                        You already have an active appointment.
-
-                        <br><br>
-
-                        Please wait until your current appointment has been completed before requesting another booking.
-                    `
-
-                );
-
-                return;
-
-            }
-
-
-            // =====================================
-            // FINAL AVAILABILITY CHECK
+// =====================================
+// FINAL AVAILABILITY CHECK
             // =====================================
 
             const finalAvailability =
@@ -2616,6 +2486,12 @@ bookingForm.addEventListener(
             timeSlotsBox.innerHTML =
                 '<div class="no-time-slots">Please select a date to see available arrival times.</div>';
 
+            selectionSummary.classList.add("hidden");
+            selectionSummary.textContent = "";
+
+            submitButton.disabled = false;
+            submitButton.textContent = "Request Booking";
+
         }
         catch(error){
 
@@ -2632,6 +2508,9 @@ bookingForm.addEventListener(
                 "Something went wrong while sending your booking. Please try again."
 
             );
+
+            submitButton.disabled = false;
+            submitButton.textContent = "Request Booking";
 
         }
 
@@ -2654,7 +2533,7 @@ viewBooking.onclick = ()=>{
 
 closeSearch.onclick = ()=>{
 
-    bookingSearchPopup.classList.add(
+    /* removed */(
         "hidden"
     );
 
@@ -2714,7 +2593,7 @@ searchBooking.onclick =
             }
 
 
-            bookingSearchPopup.classList.add(
+            /* removed */(
                 "hidden"
             );
 
@@ -3076,106 +2955,14 @@ searchBooking.onclick =
 
     };
 
-
-// =====================================
-// CANCELLATION EMAIL
-// =====================================
-
-async function sendCancellationEmail(
-    booking
-){
-
-    try{
-
-        await emailjs.send(
-
-            "service_wd177br",
-
-            "template_a72snlj",
-
-            {
-
-                name:
-                    booking.name,
-
-                customer_email:
-                    booking.email,
-
-                phone:
-                    booking.phone,
-
-                address:
-                    booking.address,
-
-                service:
-                    booking.service,
-
-                location:
-                    booking.location,
-
-                date:
-                    booking.date,
-
-                timeSlot:
-                    booking.timeSlot ||
-                    "Not selected",
-
-                message:
-                    booking.message,
-
-                status:
-                    "Cancelled"
-
-            }
-
-        );
-
-    }
-    catch(error){
-
-        console.error(
-            "EmailJS Error:",
-            error
-        );
-
-    }
-
-}
-
-
 // =====================================
 // CLOSE POPUPS OUTSIDE
 // =====================================
 
 popup.onclick = e=>{
-
-    if(
-        e.target ===
-        popup
-    ){
-
-        popup.classList.add(
-            "hidden"
-        );
-
+    if(e.target === popup){
+        popup.classList.add("hidden");
     }
-
-};
-
-
-bookingSearchPopup.onclick = e=>{
-
-    if(
-        e.target ===
-        bookingSearchPopup
-    ){
-
-        bookingSearchPopup.classList.add(
-            "hidden"
-        );
-
-    }
-
 };
 
 </script>
