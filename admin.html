@@ -1272,6 +1272,188 @@ body.dark-mode .booking-summary-modern .summary-row{
 
 
 /* =========================================================
+   MOBILE JOB LIST
+========================================================= */
+
+.mobile-job-list{
+    display:none;
+}
+
+.mobile-job-date{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin:18px 0 8px;
+    color:#334155;
+    font-size:13px;
+    font-weight:700;
+}
+
+.mobile-job-date:first-child{
+    margin-top:0;
+}
+
+.mobile-job-date span{
+    padding:4px 8px;
+    border-radius:20px;
+    background:#dbeafe;
+    color:#2563eb;
+    font-size:9px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.mobile-job-card{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:9px;
+    padding:13px;
+    border:1px solid #e2e8f0;
+    border-left:4px solid #f59e0b;
+    border-radius:14px;
+    background:#f8fafc;
+    text-align:left;
+    color:#0f172a;
+    transition:.2s;
+}
+
+.mobile-job-card:hover{
+    border-color:#93c5fd;
+    transform:translateY(-1px);
+}
+
+.mobile-job-card.approved{
+    border-left-color:#22c55e;
+}
+
+.mobile-job-card.pending{
+    border-left-color:#f59e0b;
+}
+
+.mobile-job-card.declined{
+    border-left-color:#ef4444;
+}
+
+.mobile-job-card.completed{
+    border-left-color:#0ea5e9;
+}
+
+.mobile-job-icon{
+    width:40px;
+    min-width:40px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:11px;
+    background:#fff;
+    font-size:17px;
+    box-shadow:0 2px 7px rgba(15,23,42,.06);
+}
+
+.mobile-job-info{
+    min-width:0;
+    flex:1;
+}
+
+.mobile-job-info strong{
+    display:block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:13px;
+}
+
+.mobile-job-info small,
+.mobile-job-info span{
+    display:block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:#64748b;
+    font-size:10px;
+    margin-top:2px;
+}
+
+.mobile-job-info span{
+    color:#2563eb;
+    font-weight:600;
+}
+
+.mobile-job-status{
+    flex-shrink:0;
+    padding:5px 8px;
+    border-radius:20px;
+    background:#fef3c7;
+    color:#b45309;
+    font-size:8px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.mobile-job-card.approved .mobile-job-status{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.mobile-job-card.declined .mobile-job-status{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.mobile-job-card.completed .mobile-job-status{
+    background:#e0f2fe;
+    color:#0369a1;
+}
+
+.mobile-blocked-card{
+    border-left-color:#ef4444;
+    cursor:default;
+}
+
+.mobile-blocked-card .mobile-job-info small{
+    color:#991b1b;
+}
+
+.blocked-status{
+    background:#fee2e2!important;
+    color:#b91c1c!important;
+}
+
+.mobile-job-empty{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:180px;
+    padding:25px;
+    text-align:center;
+    color:#64748b;
+    background:#f8fafc;
+    border:1px dashed #cbd5e1;
+    border-radius:15px;
+}
+
+.mobile-job-empty span{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.mobile-job-empty strong{
+    color:#334155;
+    font-size:14px;
+}
+
+.mobile-job-empty small{
+    margin-top:4px;
+    font-size:10px;
+}
+
+
+/* =========================================================
    CALENDAR SETTINGS
 ========================================================= */
 
@@ -1864,39 +2046,27 @@ select:focus{
         font-size:20px;
     }
 
+    .calendar-header-row,
     .calendar{
-        gap:4px;
+        display:none;
     }
 
-    .calendar-header-row{
-        gap:4px;
+    .mobile-job-list{
+        display:block;
     }
 
-    .day{
-        min-height:90px;
-        padding:5px;
-        border-radius:9px;
+    .calendar-toolbar{
+        margin-bottom:14px;
     }
 
-    .day-number{
-        font-size:10px;
+    #monthTitle{
+        min-width:0;
+        font-size:17px;
     }
 
-    .day-name{
-        font-size:9px;
-    }
-
-    .booking-event{
-        padding:4px;
-        font-size:8px;
-    }
-
-    .booking-event strong{
-        font-size:8px;
-    }
-
-    .booking-event small{
-        font-size:7px;
+    .calendar-toolbar button{
+        width:38px;
+        height:38px;
     }
 
     #monthTitle{
@@ -2863,6 +3033,11 @@ body.dark-mode .welcome-card{
                 <div
                     id="calendarGrid"
                     class="calendar"
+                ></div>
+
+                <div
+                    id="mobileJobList"
+                    class="mobile-job-list"
                 ></div>
 
             </div>
@@ -5800,6 +5975,9 @@ function renderCalendar(){
         ).getDate();
 
 
+    renderMobileJobList();
+
+
     for(
         let i=0;
         i<firstDay;
@@ -5990,6 +6168,209 @@ function renderCalendar(){
         );
 
     }
+
+}
+
+
+/* =========================================================
+   MOBILE JOB LIST
+========================================================= */
+
+function renderMobileJobList(){
+
+    const list =
+        document.getElementById(
+            "mobileJobList"
+        );
+
+    if(!list){
+        return;
+    }
+
+    list.innerHTML = "";
+
+    const monthStart =
+        `${currentYear}-${String(currentMonth + 1).padStart(2,"0")}-01`;
+
+    const monthEnd =
+        `${currentYear}-${String(currentMonth + 1).padStart(2,"0")}-${String(
+            new Date(currentYear, currentMonth + 1, 0).getDate()
+        ).padStart(2,"0")}`;
+
+    const monthBookings =
+        bookings
+            .filter(booking =>
+                booking.date >= monthStart &&
+                booking.date <= monthEnd
+            )
+            .sort((a,b)=>{
+                const dateCompare =
+                    String(a.date || "").localeCompare(String(b.date || ""));
+
+                if(dateCompare !== 0){
+                    return dateCompare;
+                }
+
+                return String(a.timeSlot || "").localeCompare(
+                    String(b.timeSlot || "")
+                );
+            });
+
+    const blockedForMonth =
+        blockedDates
+            .filter(date =>
+                date >= monthStart &&
+                date <= monthEnd
+            )
+            .sort();
+
+    if(monthBookings.length === 0 && blockedForMonth.length === 0){
+
+        list.innerHTML = `
+            <div class="mobile-job-empty">
+                <span>📅</span>
+                <strong>No jobs this month</strong>
+                <small>There are no appointments scheduled for this month.</small>
+            </div>
+        `;
+
+        return;
+
+    }
+
+    const monthItems = [];
+
+    monthBookings.forEach(booking=>{
+
+        monthItems.push({
+            type:"booking",
+            date:booking.date,
+            time:booking.timeSlot || "",
+            booking
+        });
+
+    });
+
+    blockedForMonth.forEach(date=>{
+
+        monthItems.push({
+            type:"blocked",
+            date,
+            time:""
+        });
+
+    });
+
+    monthItems.sort((a,b)=>{
+
+        const dateCompare =
+            a.date.localeCompare(b.date);
+
+        if(dateCompare !== 0){
+            return dateCompare;
+        }
+
+        return a.time.localeCompare(b.time);
+
+    });
+
+    let currentListDate = "";
+
+    monthItems.forEach(item=>{
+
+        const date =
+            new Date(`${item.date}T00:00:00`);
+
+        const dateLabel =
+            date.toLocaleDateString(
+                "en-GB",
+                {
+                    weekday:"long",
+                    day:"numeric",
+                    month:"long",
+                    year:"numeric"
+                }
+            );
+
+        if(item.date !== currentListDate){
+
+            currentListDate = item.date;
+
+            const heading =
+                document.createElement("div");
+
+            heading.className = "mobile-job-date";
+
+            heading.textContent = dateLabel;
+
+            if(
+                date.getDate() === new Date().getDate() &&
+                date.getMonth() === new Date().getMonth() &&
+                date.getFullYear() === new Date().getFullYear()
+            ){
+                heading.classList.add("today");
+                heading.innerHTML = `${dateLabel} <span>Today</span>`;
+            }
+
+            list.appendChild(heading);
+
+        }
+
+        if(item.type === "blocked"){
+
+            const blocked =
+                document.createElement("div");
+
+            blocked.className = "mobile-job-card mobile-blocked-card";
+            blocked.innerHTML = `
+                <div class="mobile-job-icon">⛔</div>
+                <div class="mobile-job-info">
+                    <strong>Blocked Date</strong>
+                    <small>Customers cannot book on this date.</small>
+                </div>
+                <span class="mobile-job-status blocked-status">BLOCKED</span>
+            `;
+
+            list.appendChild(blocked);
+            return;
+
+        }
+
+        const booking = item.booking;
+        const status =
+            String(booking.status || "Pending").toLowerCase();
+
+        const statusClass =
+            ["approved","declined","completed","pending"].includes(status)
+                ? status
+                : "pending";
+
+        const card =
+            document.createElement("button");
+
+        card.type = "button";
+        card.className = `mobile-job-card ${statusClass}`;
+
+        const time =
+            booking.arrivalTimeSlot || booking.timeSlot;
+
+        card.innerHTML = `
+            <div class="mobile-job-icon">📋</div>
+            <div class="mobile-job-info">
+                <strong>${booking.name || "Customer"}</strong>
+                <small>${booking.service || "IT Support"}</small>
+                <span>${formatTimeSlot(time)}</span>
+            </div>
+            <span class="mobile-job-status">${booking.status || "Pending"}</span>
+        `;
+
+        card.onclick = ()=>{
+            openBooking(booking);
+        };
+
+        list.appendChild(card);
+
+    });
 
 }
 
