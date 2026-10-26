@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -6,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b1b33">
   <meta name="description" content="Explore opportunities to join Jacks IT Services. Apply for customer service, website builder, or repairmen roles.">
+
   <title>Apply | Jacks IT Services</title>
 
   <style>
@@ -33,7 +33,12 @@
       margin: 0;
       font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
       color: var(--text);
-      background: linear-gradient(180deg, #f4f9ff 0%, #fff 46%, #f6faff 100%);
+      background: linear-gradient(
+        180deg,
+        #f4f9ff 0%,
+        #fff 46%,
+        #f6faff 100%
+      );
       line-height: 1.6;
     }
 
@@ -75,7 +80,11 @@
       height: 42px;
       border-radius: 12px;
       color: white;
-      background: linear-gradient(135deg, var(--bright-blue), var(--blue));
+      background: linear-gradient(
+        135deg,
+        var(--bright-blue),
+        var(--blue)
+      );
       box-shadow: 0 7px 20px rgba(59, 164, 255, .25);
       font-weight: 900;
     }
@@ -96,8 +105,16 @@
       position: relative;
       overflow: hidden;
       background:
-        radial-gradient(circle at 85% 18%, rgba(59,164,255,.24), transparent 28%),
-        radial-gradient(circle at 5% 100%, rgba(20,120,232,.22), transparent 34%),
+        radial-gradient(
+          circle at 85% 18%,
+          rgba(59,164,255,.24),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 5% 100%,
+          rgba(20,120,232,.22),
+          transparent 34%
+        ),
         var(--navy);
       color: white;
       padding: 76px 24px 92px;
@@ -263,7 +280,10 @@
       text-decoration: none;
       text-align: center;
       cursor: pointer;
-      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+      transition:
+        transform .18s ease,
+        background .18s ease,
+        box-shadow .18s ease;
     }
 
     .button:hover {
@@ -293,6 +313,8 @@
       flex: 0 0 auto;
     }
 
+    /* Application form sections */
+
     .form-section {
       margin-top: 38px;
       padding: 30px;
@@ -321,6 +343,77 @@
     .form-heading p {
       margin: 0;
       color: var(--muted);
+    }
+
+    .form-heading-tools {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Full-screen button */
+
+    .fullscreen-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid #cbdcf0;
+      border-radius: 9px;
+      background: #eef6ff;
+      color: #145da8;
+      font: inherit;
+      font-size: .86rem;
+      font-weight: 750;
+      cursor: pointer;
+      transition: background .18s ease;
+    }
+
+    .fullscreen-button:hover {
+      background: #dceeff;
+    }
+
+    .fullscreen-button:focus-visible {
+      outline: 3px solid #8bcaff;
+      outline-offset: 3px;
+    }
+
+    /* Fallback for browsers without fullscreen support */
+
+    .form-frame-wrap.form-fullscreen-fallback {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      width: 100vw;
+      height: 100vh;
+      border: 0;
+      border-radius: 0;
+    }
+
+    .form-frame-wrap.form-fullscreen-fallback .form-frame {
+      height: 100vh;
+    }
+
+    /* Native fullscreen mode */
+
+    .form-frame-wrap:fullscreen {
+      width: 100vw;
+      height: 100vh;
+      max-width: none;
+      border: 0;
+      border-radius: 0;
+      background: white;
+    }
+
+    .form-frame-wrap:fullscreen .form-frame {
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
     }
 
     .secure-label {
@@ -466,6 +559,11 @@
         gap: 10px;
       }
 
+      .form-heading-tools {
+        justify-content: flex-start;
+        width: 100%;
+      }
+
       .form-frame {
         height: 1000px;
       }
@@ -486,8 +584,10 @@
 </head>
 
 <body>
+
   <header class="topbar">
     <div class="topbar-inner">
+
       <a class="brand" href="index.html" aria-label="Jacks IT Services home">
         <span class="brand-mark" aria-hidden="true">J</span>
         <span>Jacks IT Services</span>
@@ -496,11 +596,13 @@
       <a class="top-link" href="#roles">
         Explore roles <span aria-hidden="true">↓</span>
       </a>
+
     </div>
   </header>
 
   <section class="hero">
     <div class="hero-inner">
+
       <h1>Start your <span>IT Career</span></h1>
 
       <p>
@@ -509,40 +611,57 @@
       </p>
 
       <div class="hero-note">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+
+        <svg width="20" height="20" viewBox="0 0 24 24"
+             fill="none" aria-hidden="true">
           <path d="M12 3l7 3v5c0 4.5-3 7.5-7 10-4-2.5-7-5.5-7-10V6l7-3z"
-                stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                stroke="currentColor" stroke-width="1.8"
+                stroke-linejoin="round"/>
           <path d="m8.5 12 2.2 2.2 4.8-5"
                 stroke="currentColor" stroke-width="1.8"
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
 
         Choose a role to view its application form below.
+
       </div>
     </div>
   </section>
 
   <main id="roles">
+
     <section class="role-grid" aria-label="Available roles">
 
       <!-- CUSTOMER SERVICE ROLE -->
+
       <article class="role-card">
+
         <div class="card-top">
+
           <div class="role-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H8l-4 2v-5.2A7.5 7.5 0 1 1 20 11.5Z"
-                    stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linejoin="round"/>
               <path d="M8 10h8M8 13.5h5"
-                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round"/>
             </svg>
           </div>
 
           <h2>Customer Service</h2>
-          <p>Help customers get clear answers and a friendly, professional experience.</p>
+
+          <p>
+            Help customers get clear answers and a friendly,
+            professional experience.
+          </p>
+
           <p class="role-type"><strong>Online role</strong></p>
+
         </div>
 
         <div class="card-body">
+
           <span class="status">
             <span class="status-dot"></span>
             Application form available
@@ -550,33 +669,46 @@
 
           <a class="button" href="#customer-service-form">
             Apply for this role
+
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 12h14m-6-6 6 6-6 6"
                     stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
+
         </div>
       </article>
 
       <!-- WEBSITE BUILDER ROLE -->
+
       <article class="role-card">
+
         <div class="card-top">
+
           <div class="role-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <rect x="3" y="4" width="18" height="16" rx="2.5"
                     stroke="currentColor" stroke-width="1.8"/>
               <path d="M3 9h18M8 6.5h.01M11 6.5h.01M7 13h4m-4 3h7"
-                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round"/>
             </svg>
           </div>
 
           <h2>Website Builder</h2>
-          <p>Help create and improve clean, useful websites and online experiences.</p>
+
+          <p>
+            Help create and improve clean, useful websites
+            and online experiences.
+          </p>
+
           <p class="role-type"><strong>Online role</strong></p>
+
         </div>
 
         <div class="card-body">
+
           <span class="status empty">
             <span class="status-dot"></span>
             Form coming soon
@@ -586,30 +718,42 @@
              aria-label="Website Builder form coming soon">
             Application not available yet
           </a>
+
         </div>
       </article>
 
       <!-- REPAIRMEN ROLE -->
+
       <article class="role-card">
+
         <div class="card-top">
+
           <div class="role-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none">
               <path d="m14.5 6.5 3-3a5 5 0 0 1-6.3 6.3L5 16a2.1 2.1 0 0 0 3 3l6.2-6.2a5 5 0 0 1 6.3-6.3l-3 3-3-3Z"
                     stroke="currentColor" stroke-width="1.8"
                     stroke-linecap="round" stroke-linejoin="round"/>
               <path d="m4 4 3 3"
-                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round"/>
             </svg>
           </div>
 
           <h2>Repairmen</h2>
-          <p>Support customers with practical troubleshooting and repair-related help.</p>
+
+          <p>
+            Support customers with practical troubleshooting
+            and repair-related help.
+          </p>
+
           <p class="role-type">
             <strong>In-person role</strong> · Must be located in West Sussex.
           </p>
+
         </div>
 
         <div class="card-body">
+
           <span class="status empty">
             <span class="status-dot"></span>
             Form coming soon
@@ -619,31 +763,66 @@
              aria-label="Repairmen form coming soon">
             Application not available yet
           </a>
+
         </div>
       </article>
+
     </section>
 
     <!-- CUSTOMER SERVICE APPLICATION FORM -->
-    <section class="form-section" id="customer-service-form"
+
+    <section class="form-section"
+             id="customer-service-form"
              aria-labelledby="customer-form-title">
+
       <div class="form-heading">
+
         <div>
-          <h2 id="customer-form-title">Customer Service application</h2>
-          <p>Complete the form below to apply for the Customer Service role.</p>
+          <h2 id="customer-form-title">
+            Customer Service application
+          </h2>
+
+          <p>
+            Complete the form below to apply for the Customer Service role.
+          </p>
         </div>
 
-        <span class="secure-label" aria-label="Form provided by Google Forms">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="5" y="10" width="14" height="11" rx="2"
-                  stroke="currentColor" stroke-width="1.8"/>
-            <path d="M8 10V7a4 4 0 0 1 8 0v3"
-                  stroke="currentColor" stroke-width="1.8"/>
-          </svg>
-          Google Forms
-        </span>
+        <div class="form-heading-tools">
+
+          <!-- FULL SCREEN BUTTON -->
+
+          <button
+            class="fullscreen-button"
+            type="button"
+            data-fullscreen-target="customer-service-form"
+            aria-label="Open Customer Service application form full screen">
+
+            <span aria-hidden="true">⛶</span>
+            Full screen
+
+          </button>
+
+          <span class="secure-label"
+                aria-label="Form provided by Google Forms">
+
+            <svg width="16" height="16" viewBox="0 0 24 24"
+                 fill="none" aria-hidden="true">
+              <rect x="5" y="10" width="14" height="11" rx="2"
+                    stroke="currentColor" stroke-width="1.8"/>
+              <path d="M8 10V7a4 4 0 0 1 8 0v3"
+                    stroke="currentColor" stroke-width="1.8"/>
+            </svg>
+
+            Google Forms
+
+          </span>
+
+        </div>
       </div>
 
-      <div class="form-frame-wrap">
+      <div class="form-frame-wrap"
+           id="customer-service-form-frame-wrap">
+
         <iframe
           class="form-frame"
           src="https://docs.google.com/forms/d/e/1FAIpQLSeNvjvveDEECK8j5jrZ7lzDIFro_Q1t6llDxtGhsREthupTVg/viewform?embedded=true"
@@ -651,62 +830,114 @@
           loading="lazy"
           referrerpolicy="strict-origin-when-cross-origin"
           allow="clipboard-write">
+
           Loading application form…
+
         </iframe>
+
       </div>
 
       <p class="form-fallback">
+
         If the form does not appear,
+
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSeNvjvveDEECK8j5jrZ7lzDIFro_Q1t6llDxtGhsREthupTVg/viewform?usp=dialog"
-           target="_blank" rel="noopener noreferrer">
+           target="_blank"
+           rel="noopener noreferrer">
+
           open the Customer Service application in a new tab
+
         </a>.
+
       </p>
+
     </section>
 
     <!-- WEBSITE BUILDER FORM PLACEHOLDER -->
-    <section class="form-section" id="website-builder-form"
+
+    <section class="form-section"
+             id="website-builder-form"
              aria-labelledby="website-form-title">
+
       <div class="form-heading">
+
         <div>
-          <h2 id="website-form-title">Website Builder application</h2>
-          <p>This section is ready for the application form when it’s available.</p>
+          <h2 id="website-form-title">
+            Website Builder application
+          </h2>
+
+          <p>
+            This section is ready for the application form when it’s available.
+          </p>
         </div>
+
       </div>
 
       <div class="empty-panel">
+
         <strong>Website Builder form coming soon</strong>
-        <p>The application form will be available here when it’s ready.</p>
+
+        <p>
+          The application form will be available here when it’s ready.
+        </p>
+
       </div>
+
     </section>
 
     <!-- REPAIRMEN FORM PLACEHOLDER -->
-    <section class="form-section" id="repairmen-form"
+
+    <section class="form-section"
+             id="repairmen-form"
              aria-labelledby="repairmen-form-title">
+
       <div class="form-heading">
+
         <div>
-          <h2 id="repairmen-form-title">Repairmen application</h2>
-          <p>This section is ready for the application form when it’s available.</p>
+          <h2 id="repairmen-form-title">
+            Repairmen application
+          </h2>
+
+          <p>
+            This section is ready for the application form when it’s available.
+          </p>
         </div>
+
       </div>
 
       <div class="empty-panel">
+
         <strong>Repairmen form coming soon</strong>
-        <p>The application form will be available here when it’s ready.</p>
+
+        <p>
+          The application form will be available here when it’s ready.
+        </p>
+
       </div>
+
     </section>
+
   </main>
 
+  <!-- FOOTER -->
+
   <footer class="footer">
+
     <p><strong>Jacks IT Services</strong></p>
-    <p>Thank you for your interest in joining our team.</p>
+
+    <p>
+      Thank you for your interest in joining our team.
+    </p>
+
     <p>
       If you need assistance please contact
       <a href="mailto:admin@jacksit.uk">admin@jacksit.uk</a>.
     </p>
+
   </footer>
 
   <script>
+
     /*
       EASY FORM SETUP
 
@@ -722,7 +953,13 @@
     const WEBSITE_BUILDER_FORM_URL = "";
     const REPAIRMEN_FORM_URL = "";
 
+
+    /*
+      CONVERT GOOGLE FORMS URL TO EMBED URL
+    */
+
     function googleFormsEmbedUrl(url) {
+
       if (!url) return "";
 
       const match = url.match(
@@ -730,13 +967,22 @@
       );
 
       if (match) {
+
         return `https://docs.google.com/forms/d/e/${match[1]}/viewform?embedded=true`;
+
       }
 
       return "";
+
     }
 
+
+    /*
+      SET UP OPTIONAL APPLICATION FORMS
+    */
+
     function setupOptionalForm(url, sectionId, title) {
+
       if (!url) return;
 
       const section = document.getElementById(sectionId);
@@ -746,14 +992,18 @@
       const embedUrl = googleFormsEmbedUrl(url);
 
       if (!embedUrl) {
+
         const note = section.querySelector(".empty-panel p");
 
         if (note) {
+
           note.textContent =
             "Please use the full Google Forms URL (docs.google.com/forms/d/e/...) for embedding this form.";
+
         }
 
         return;
+
       }
 
       const panel = section.querySelector(".empty-panel");
@@ -768,8 +1018,145 @@
       frame.loading = "lazy";
       frame.referrerPolicy = "strict-origin-when-cross-origin";
 
-      panel.replaceWith(frame);
+      const wrap = document.createElement("div");
+
+      wrap.className = "form-frame-wrap";
+      wrap.id = sectionId + "-frame-wrap";
+
+      wrap.appendChild(frame);
+
+      panel.replaceWith(wrap);
+
+      /*
+        ADD A FULL SCREEN BUTTON TO THE OPTIONAL FORM
+      */
+
+      const heading = section.querySelector(".form-heading");
+
+      if (heading && !heading.querySelector(".fullscreen-button")) {
+
+        const button = document.createElement("button");
+
+        button.className = "fullscreen-button";
+        button.type = "button";
+        button.dataset.fullscreenTarget = sectionId;
+
+        button.innerHTML =
+          '<span aria-hidden="true">⛶</span> Full screen';
+
+        button.setAttribute(
+          "aria-label",
+          "Open " + title + " full screen"
+        );
+
+        const tools = document.createElement("div");
+
+        tools.className = "form-heading-tools";
+
+        tools.appendChild(button);
+
+        heading.appendChild(tools);
+
+      }
+
     }
+
+
+    /*
+      FULL SCREEN FUNCTION
+    */
+
+    async function toggleFormFullscreen(sectionId, button) {
+
+      const wrap = document.getElementById(
+        sectionId + "-frame-wrap"
+      );
+
+      if (!wrap) return;
+
+      try {
+
+        if (document.fullscreenElement === wrap) {
+
+          await document.exitFullscreen();
+
+        } else {
+
+          await wrap.requestFullscreen();
+
+        }
+
+      } catch (error) {
+
+        /*
+          FALLBACK FOR BROWSERS THAT DO NOT SUPPORT
+          THE FULL SCREEN API
+        */
+
+        wrap.classList.toggle("form-fullscreen-fallback");
+
+      }
+
+    }
+
+
+    /*
+      HANDLE FULL SCREEN BUTTON CLICKS
+    */
+
+    document.addEventListener("click", function(event) {
+
+      const button = event.target.closest(".fullscreen-button");
+
+      if (button) {
+
+        toggleFormFullscreen(
+          button.dataset.fullscreenTarget,
+          button
+        );
+
+      }
+
+    });
+
+
+    /*
+      UPDATE BUTTON TEXT WHEN ENTERING OR LEAVING
+      FULL SCREEN MODE
+    */
+
+    document.addEventListener("fullscreenchange", function() {
+
+      document.querySelectorAll(".fullscreen-button").forEach(
+        function(button) {
+
+          const wrap = document.getElementById(
+            button.dataset.fullscreenTarget + "-frame-wrap"
+          );
+
+          const isFullscreen =
+            wrap && document.fullscreenElement === wrap;
+
+          button.innerHTML = isFullscreen
+            ? '<span aria-hidden="true">⛶</span> Exit full screen'
+            : '<span aria-hidden="true">⛶</span> Full screen';
+
+          button.setAttribute(
+            "aria-label",
+            isFullscreen
+              ? "Exit full screen"
+              : "Open form full screen"
+          );
+
+        }
+      );
+
+    });
+
+
+    /*
+      LOAD OPTIONAL FORMS WHEN THEIR URLS ARE PROVIDED
+    */
 
     setupOptionalForm(
       WEBSITE_BUILDER_FORM_URL,
@@ -782,6 +1169,8 @@
       "repairmen-form",
       "Jacks IT Services Repairmen application form"
     );
+
   </script>
+
 </body>
 </html>
