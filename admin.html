@@ -2671,6 +2671,7 @@ body.dark-mode .welcome-card{
             </button>
 
            <button class="nav-item" data-page="staff"><span class="nav-icon">👥</span><span class="nav-text">Staff</span></button>
+            <button class="nav-item" data-page="announcements"><span class="nav-icon">📣</span><span class="nav-text">Announcements</span></button>
 
             <button
     class="nav-item"
@@ -3011,6 +3012,7 @@ body.dark-mode .welcome-card{
                         ◀
                     </button>
 
+                    <select id="ownerCalendarFilter" class="hidden" aria-label="Calendar view" style="max-width:220px;margin:0 12px" onchange="window.setOwnerCalendarFilter && window.setOwnerCalendarFilter(this.value)"><option value="all">Everyone's calendar</option><option value="mine">My calendar</option></select>
                     <h2 id="monthTitle">
                         Loading...
                     </h2>
@@ -3458,7 +3460,16 @@ body.dark-mode .welcome-card{
 
         </section>
 
-       <section id="page-staff" class="page-section"><div class="card"><h2>Staff</h2><p>Not done yet you haven't made it yet dummy</p></div></section>
+       <section id="page-staff" class="page-section">
+        <div class="overview-hero"><div class="overview-hero-content"><div class="overview-eyebrow">TEAM MANAGEMENT</div><h2>Staff & permissions</h2><p>Create staff accounts, assign roles and control access to the dashboard.</p></div><div class="overview-hero-art"><div class="hero-orb hero-orb-one"></div><div class="hero-calendar-icon">👥</div></div></div>
+        <div class="card" id="staffCreateCard"><h2>Add a staff member</h2><p class="card-subtitle">Each person signs in with their own username and password. Choose their job role to apply the relevant permissions.</p>
+          <div class="quote-grid"><div class="quote-field"><label for="newStaffName">Full name</label><input id="newStaffName" placeholder="Staff member name"></div><div class="quote-field"><label for="newStaffUsername">Username</label><input id="newStaffUsername" placeholder="e.g. alex.smith" autocomplete="off"></div><div class="quote-field"><label for="newStaffPassword">Temporary password</label><input id="newStaffPassword" type="password" placeholder="At least 8 characters" autocomplete="new-password"></div><div class="quote-field"><label for="newStaffRole">Job role</label><select id="newStaffRole"><option value="customerService">Customer service</option><option value="websiteBuilder">Website builder</option><option value="repairman">Repairman</option></select></div></div><button class="approve-btn" style="margin-top:14px;padding:12px 18px;border-radius:11px" id="createStaffBtn">Create staff account</button>
+        </div><div class="card"><h2>Staff accounts</h2><p class="card-subtitle">Disable accounts when someone no longer needs access.</p><div id="staffList" class="upcoming-list"><div class="empty-state">Loading staff accounts…</div></div></div>
+      </section>
+      <section id="page-announcements" class="page-section"><div class="overview-hero"><div class="overview-hero-content"><div class="overview-eyebrow">TEAM UPDATES</div><h2>Announcements</h2><p>Important updates from the owner, shared with staff in this dashboard.</p></div><div class="overview-hero-art"><div class="hero-orb hero-orb-one"></div><div class="hero-calendar-icon">📣</div></div></div>
+        <div class="card" id="announcementComposeCard"><h2>Publish an announcement</h2><p class="card-subtitle">Only the owner can publish or remove announcements.</p><label for="announcementTitle">Title</label><input id="announcementTitle" placeholder="Announcement title"><label for="announcementBody">Message</label><textarea id="announcementBody" rows="5" style="width:100%;padding:13px;border:1px solid #dbe3ee;border-radius:11px;font:inherit" placeholder="Write your update for the team…"></textarea><button id="publishAnnouncementBtn" class="approve-btn" style="margin-top:14px;padding:12px 18px;border-radius:11px">Publish announcement</button></div>
+        <div class="card"><h2>Latest announcements</h2><div id="announcementsList" class="upcoming-list"><div class="empty-state">Loading announcements…</div></div></div>
+      </section>
 
         <section
     id="page-settings"
@@ -4311,7 +4322,8 @@ const pageInformation = {
     },
 
    settings:{title:"Settings",subtitle:"Manage your dashboard preferences and security"},
-    staff:{title:"Staff",subtitle:"Staff management"}
+    staff:{title:"Staff",subtitle:"Manage staff accounts and access"},
+    announcements:{title:"Announcements",subtitle:"Updates from the owner for the team"}
 
 };
 
@@ -7715,6 +7727,7 @@ async function approveBooking(){
             {
 
                 status:"Approved",
+                ...(window.__pendingAssignment || {}),
 
                 estimatedHours:
 
@@ -12117,6 +12130,150 @@ document.getElementById(
     ).value = "";
 
 };
+
+
+
+/* =========================================================
+   STAFF ROLES, ASSIGNMENTS & ANNOUNCEMENTS
+   UI permissions complement (but do not replace) Firestore rules.
+========================================================= */
+let currentStaffUser = { username: "admin", name: "Owner", role: "owner", active: true };
+const ROLE_LABELS = { owner:"Owner", customerService:"Customer service", websiteBuilder:"Website builder", repairman:"Repairman" };
+const ROLE_PAGES = {
+  owner:["overview","calendar","invoices","quote","staff","settings","announcements"],
+  customerService:["overview","calendar","invoices","settings","announcements"],
+  websiteBuilder:["announcements"],
+  repairman:["overview","calendar","quote","settings","announcements"]
+};
+const safeText = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const staffCollection = () => collection(db,"staffUsers");
+const can = capability => {
+  const role=currentStaffUser?.role || "owner";
+  if(capability==="manageStaff"||capability==="approve"||capability==="assign"||capability==="blockDays"||capability==="availability"||capability==="complete") return role==="owner";
+  if(capability==="editCustomer") return ["owner","customerService"].includes(role);
+  if(capability==="viewAllBookings") return ["owner","customerService"].includes(role);
+  return true;
+};
+let ownerCalendarFilter = "all";
+window.setOwnerCalendarFilter = value => { ownerCalendarFilter=value; renderCalendar(); };
+function visibleBookings(){
+  if(currentStaffUser.role==="owner"){
+    if(ownerCalendarFilter==="mine") return bookings.filter(b=>(b.assignedToUsername||"")===currentStaffUser.username || b.assignedToId==="owner");
+    if(ownerCalendarFilter.startsWith("staff:")){const who=ownerCalendarFilter.slice(6);return bookings.filter(b=>(b.assignedToUsername||"")===who);}
+    return bookings;
+  }
+  if(can("viewAllBookings")) return bookings;
+  return bookings.filter(b => (b.assignedToUsername || b.assignedTo || "") === currentStaffUser.username || (b.assignedToId && b.assignedToId===currentStaffUser.id));
+}
+function applyRoleAccess(){
+  const pages=ROLE_PAGES[currentStaffUser.role]||ROLE_PAGES.repairman;
+  document.querySelectorAll(".nav-item[data-page]").forEach(btn=>{btn.classList.toggle("hidden",!pages.includes(btn.dataset.page));});
+  document.querySelectorAll(".page-section").forEach(sec=>{const page=sec.id.replace("page-",""); if(!pages.includes(page)) sec.classList.remove("active");});
+  const role=currentStaffUser.role;
+  document.getElementById("staffCreateCard")?.classList.toggle("hidden",role!=="owner");
+  document.getElementById("announcementComposeCard")?.classList.toggle("hidden",role!=="owner");
+  if(role!=="owner"){
+    document.querySelectorAll("#calendarSettings, .calendar-settings-grid, #blockedDatesCard, #availabilitySettingsCard").forEach(el=>el?.classList.add("hidden"));
+  } else {
+    document.querySelectorAll(".calendar-settings-grid").forEach(el=>el.classList.remove("hidden"));
+  }
+  const label=document.querySelector(".sidebar-brand span"); if(label) label.textContent=ROLE_LABELS[role]||"Staff";
+  const name=document.querySelector(".sidebar-brand strong"); if(name) name.textContent=currentStaffUser.name||currentStaffUser.username||"Jack's IT Services";
+}
+async function loadStaffList(){
+  const host=document.getElementById("staffList"); if(!host) return;
+  if(currentStaffUser.role!=="owner"){host.innerHTML='<div class="empty-state">Staff management is only available to the owner.</div>';return;}
+  try{
+    const snap=await getDocs(staffCollection()); const rows=[];
+    snap.forEach(d=>{const u=d.data(); rows.push({id:d.id,...u});});
+    rows.sort((a,b)=>(a.name||a.username||"").localeCompare(b.name||b.username||""));
+    const calendarFilter=document.getElementById("ownerCalendarFilter");if(calendarFilter){calendarFilter.classList.toggle("hidden",currentStaffUser.role!=="owner");if(currentStaffUser.role==="owner"){const old=calendarFilter.value;calendarFilter.innerHTML='<option value="all">Combined calendar</option><option value="mine">My calendar</option>'+rows.filter(u=>u.role==="repairman"&&u.active!==false).map(u=>`<option value="staff:${safeText(u.username)}">${safeText(u.name||u.username)}’s calendar</option>`).join("");calendarFilter.value=[...calendarFilter.options].some(o=>o.value===old)?old:"all";}}
+    host.innerHTML=rows.length?rows.map(u=>`<div class="upcoming-item"><div class="upcoming-main"><strong>${safeText(u.name||u.username)}</strong><span>@${safeText(u.username)} · ${safeText(ROLE_LABELS[u.role]||u.role||"Staff")}</span></div><div style="display:flex;align-items:center;gap:10px"><span class="status-badge ${u.active===false?'status-declined':'status-approved'}">${u.active===false?'Disabled':'Active'}</span><button data-toggle-staff="${safeText(u.id)}" data-active="${u.active===false?'false':'true'}" class="${u.active===false?'approve-btn':'cancel-btn'}" style="padding:8px 10px;border-radius:9px;color:#fff">${u.active===false?'Enable':'Disable'}</button></div></div>`).join(""):'<div class="empty-state">No staff accounts yet. Add your first team member above.</div>';
+  }catch(e){console.error(e);host.innerHTML='<div class="empty-state">Could not load staff accounts. Check your Firestore permissions.</div>';}
+}
+async function loadAnnouncements(){
+  const host=document.getElementById("announcementsList"); if(!host)return;
+  try{const snap=await getDocs(collection(db,"announcements"));const items=[];snap.forEach(d=>items.push({id:d.id,...d.data()}));items.sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""));host.innerHTML=items.length?items.map(a=>`<article class="upcoming-item" style="align-items:flex-start"><div class="upcoming-main" style="flex:1"><strong>${safeText(a.title||"Announcement")}</strong><span>${safeText(a.createdBy||"Owner")} · ${safeText(a.createdAt?new Date(a.createdAt).toLocaleString():"")}</span><p style="margin-top:10px;white-space:pre-wrap;color:#334155;font-size:13px">${safeText(a.body||"")}</p></div>${can("manageStaff")?`<button data-delete-announcement="${safeText(a.id)}" class="delete-btn" style="padding:8px 10px;border-radius:9px;color:#fff">Delete</button>`:""}</article>`).join(""):'<div class="empty-state">No announcements yet.</div>';}catch(e){console.error(e);host.innerHTML='<div class="empty-state">Could not load announcements. Check Firestore permissions.</div>';}
+}
+document.getElementById("createStaffBtn")?.addEventListener("click",async()=>{
+ if(!can("manageStaff")){showMessage("Only the owner can manage staff.","error");return;}
+ const name=document.getElementById("newStaffName").value.trim(), username=document.getElementById("newStaffUsername").value.trim().toLowerCase(), password=document.getElementById("newStaffPassword").value, role=document.getElementById("newStaffRole").value;
+ if(!name||!/^[a-z0-9._-]{3,30}$/.test(username)||password.length<8){showMessage("Enter a name, a username (3–30 letters/numbers/._-), and a password of at least 8 characters.","error");return;}
+ try{const id=await hashPassword(username);const ref=doc(db,"staffUsers",id);if((await getDoc(ref)).exists()){showMessage("That username is already in use.","error");return;}await setDoc(ref,{name,username,passwordHash:await hashPassword(password),role,active:true,createdAt:new Date().toISOString(),createdBy:currentStaffUser.username});document.getElementById("newStaffName").value="";document.getElementById("newStaffUsername").value="";document.getElementById("newStaffPassword").value="";await loadStaffList();showMessage("Staff account created.");}catch(e){console.error(e);showMessage("Could not create staff account. Check Firestore permissions.","error");}
+});
+document.getElementById("publishAnnouncementBtn")?.addEventListener("click",async()=>{
+ if(!can("manageStaff")){showMessage("Only the owner can publish announcements.","error");return;}
+ const title=document.getElementById("announcementTitle").value.trim(),body=document.getElementById("announcementBody").value.trim();if(!title||!body){showMessage("Add both a title and message.","error");return;}
+ try{const id=`${Date.now()}_${Math.random().toString(36).slice(2,8)}`;await setDoc(doc(db,"announcements",id),{title,body,createdAt:new Date().toISOString(),createdBy:currentStaffUser.name||currentStaffUser.username});document.getElementById("announcementTitle").value="";document.getElementById("announcementBody").value="";await loadAnnouncements();showMessage("Announcement published.");}catch(e){console.error(e);showMessage("Could not publish announcement. Check Firestore permissions.","error");}
+});
+document.addEventListener("click",async e=>{
+ const toggle=e.target.closest("[data-toggle-staff]"); if(toggle){if(!can("manageStaff"))return;try{const active=toggle.dataset.active!=="true";await updateDoc(doc(db,"staffUsers",toggle.dataset.toggleStaff),{active});await loadStaffList();showMessage(active?"Staff account enabled.":"Staff account disabled.");}catch(err){console.error(err);showMessage("Unable to update staff account.","error");}}
+ const del=e.target.closest("[data-delete-announcement]"); if(del){if(!can("manageStaff"))return;if(!confirm("Delete this announcement?"))return;try{await deleteDoc(doc(db,"announcements",del.dataset.deleteAnnouncement));await loadAnnouncements();showMessage("Announcement deleted.");}catch(err){console.error(err);showMessage("Unable to delete announcement.","error");}}
+});
+
+// Replace the single-account login with owner + staff login while preserving the existing owner credentials.
+window.adminLogin = async function(){
+ errorText.textContent="";
+ try{
+  const username=usernameInput.value.trim().toLowerCase(), password=passwordInput.value;
+  const settings=await getAdminSettings();
+  if(username===(settings.username||"admin").toLowerCase() && await hashPassword(password)===settings.passwordHash){
+   currentStaffUser={username:settings.username||"admin",name:settings.displayName||"Owner",role:"owner",active:true};
+  }else{
+   const ref=doc(db,"staffUsers",await hashPassword(username));const snap=await getDoc(ref);if(!snap.exists()){errorText.textContent="Incorrect username or password.";return;}const user=snap.data();if(user.active===false || user.username!==username || user.passwordHash!==await hashPassword(password)){errorText.textContent="Incorrect username or password.";return;}currentStaffUser={id:snap.id,...user};
+  }
+  loginScreen.classList.add("hidden");dashboard.classList.remove("hidden");applyTheme(settings.theme||"light");applyRoleAccess();updateToday();await loadBookings();if(can("blockDays")){loadBlockedDates();loadAvailability();}await loadStaffList();await loadAnnouncements();const permitted=(ROLE_PAGES[currentStaffUser.role]||ROLE_PAGES.repairman);const requested=settings.defaultPage||"overview";showPage(permitted.includes(requested)?requested:permitted[0]);
+ }catch(error){console.error(error);errorText.textContent="Unable to sign in. Please try again.";}
+};
+
+// Keep the calendar and dashboard scoped to the signed-in employee unless role permits all bookings.
+const originalRenderCalendar = renderCalendar;
+renderCalendar = function(){
+ const all=bookings;const scoped=visibleBookings();bookings=scoped;try{originalRenderCalendar();}finally{bookings=all;}
+ const settingsGrid=document.querySelector(".calendar-settings-grid");if(settingsGrid)settingsGrid.classList.toggle("hidden",!can("availability"));
+ const blockCard=document.getElementById("blockedDatesCard");if(blockCard)blockCard.classList.toggle("hidden",!can("blockDays"));
+};
+const originalUpdateStats = updateStats;
+updateStats = function(){const all=bookings;bookings=visibleBookings();try{originalUpdateStats();}finally{bookings=all;}};
+const originalLoadCompletedJobs = loadCompletedJobs;
+loadCompletedJobs = async function(){await originalLoadCompletedJobs();if(!can("viewAllBookings")){completedJobs=completedJobs.filter(j=>(j.assignedToUsername||j.assignedTo||"")===currentStaffUser.username||(j.assignedToId&&j.assignedToId===currentStaffUser.id));displayJobs(completedJobs);}};
+
+// Role-aware booking details and action restrictions.
+const originalOpenBooking = openBooking;
+openBooking = function(booking){
+ if(!can("viewAllBookings") && !visibleBookings().some(b=>b.id===booking.id)){showMessage("You can only view jobs assigned to you.","error");return;}
+ originalOpenBooking(booking);
+ const isOwner=can("approve"), isCS=currentStaffUser.role==="customerService";
+ approveBtn.classList.toggle("hidden",!isOwner);
+ completeBtn.classList.toggle("hidden",!isOwner);
+ cancelBtn.classList.toggle("hidden",!isOwner);
+ deleteBtn.classList.toggle("hidden",!isOwner);
+ editBookingBtn.classList.toggle("hidden",!can("editCustomer"));
+ if(!isOwner){approveBtn.onclick=null;completeBtn.onclick=null;cancelBtn.onclick=null;deleteBtn.onclick=null;}
+ if(isCS){editBookingBtn.textContent="Edit customer information";editBookingBtn.onclick=()=>openCustomerInfoEditor(booking);}
+ else if(currentStaffUser.role==="repairman"){editBookingBtn.classList.add("hidden");}
+};
+function openCustomerInfoEditor(b){
+ if(!can("editCustomer")){showMessage("You do not have permission to edit customer information.","error");return;}
+ const fields=[['name','Customer name'],['email','Email'],['phone','Phone'],['address','Address'],['location','Location'],['service','Service required']];
+ const overlay=document.createElement('div');overlay.className='modal';overlay.innerHTML=`<div class="modal-content"><h2>Edit customer information</h2><p class="card-subtitle">Booking date, status, assigned employee and arrival slot cannot be changed here.</p>${fields.map(([key,label])=>`<label>${label}</label><input data-customer-field="${key}" value="${safeText(b[key]||'')}">`).join('')}<div class="modal-buttons"><button id="saveCustomerInfo" class="approve-btn">Save changes</button><button id="cancelCustomerInfo" class="close-btn">Cancel</button></div></div>`;document.body.appendChild(overlay);overlay.querySelector('#cancelCustomerInfo').onclick=()=>overlay.remove();overlay.querySelector('#saveCustomerInfo').onclick=async()=>{try{const data={};overlay.querySelectorAll('[data-customer-field]').forEach(i=>data[i.dataset.customerField]=i.value.trim());await updateDoc(doc(db,'bookings',b.id),data);overlay.remove();modal.classList.add('hidden');await loadBookings();showMessage('Customer information updated.');}catch(err){console.error(err);showMessage('Unable to save customer information.','error');}};
+}
+
+// Owner-only assignment popup appears during approval. The owner can assign the job to themselves or staff.
+const originalApproveBooking = approveBooking;
+approveBooking = async function(){
+ if(!can("approve")){showMessage("Only the owner can approve bookings.","error");return;}
+ if(!selectedBooking)return;
+ try{const snap=await getDocs(staffCollection());const people=[{username:currentStaffUser.username,name:currentStaffUser.name||"Owner",role:"owner",id:"owner"}];snap.forEach(d=>{const u=d.data();if(u.active!==false && u.role==="repairman")people.push({id:d.id,...u});});
+  const overlay=document.createElement('div');overlay.className='modal';overlay.innerHTML=`<div class="modal-content"><h2>Assign this job</h2><p class="card-subtitle">Choose who will carry out the appointment. Only the owner can approve and assign jobs.</p><label for="jobAssignee">Assigned employee</label><select id="jobAssignee" style="margin-top:6px">${people.map(p=>`<option value="${safeText(p.username)}" data-id="${safeText(p.id)}">${safeText(p.name||p.username)} — ${safeText(ROLE_LABELS[p.role]||p.role)}</option>`).join('')}</select><div class="modal-buttons"><button id="confirmAssignment" class="approve-btn">Continue to approval</button><button id="cancelAssignment" class="close-btn">Cancel</button></div></div>`;document.body.appendChild(overlay);overlay.querySelector('#cancelAssignment').onclick=()=>overlay.remove();overlay.querySelector('#confirmAssignment').onclick=async()=>{const select=overlay.querySelector('#jobAssignee'),opt=select.selectedOptions[0];window.__pendingAssignment={assignedToUsername:select.value,assignedToId:opt.dataset.id,assignedToName:opt.textContent.split(' — ')[0]};overlay.remove();await originalApproveBooking();window.__pendingAssignment=null;};
+ }catch(e){console.error(e);showMessage("Could not load staff for assignment.","error");}
+};
+// Assignment data is merged into the approval update above.
+window.__pendingAssignment = null;
+const originalMarkArrived = markBookingArrived;
+markBookingArrived = async function(){if(!can("complete")){showMessage("Only the owner can change job arrival status.","error");return;}return originalMarkArrived();};
+const originalShowPage=showPage;
+showPage=function(page){const allowed=ROLE_PAGES[currentStaffUser?.role||"owner"]||ROLE_PAGES.owner;if(!allowed.includes(page)){showMessage("Your account does not have access to that page.","error");return;}originalShowPage(page);if(page==="staff")loadStaffList();if(page==="announcements")loadAnnouncements();};
 
 </script>
 
