@@ -2543,7 +2543,7 @@ body.dark-mode .welcome-card{
 
         <h3>Admin Dashboard</h3>
 
-        <h5>V1.20</h5>
+        <h5>V1.50</h5>
 
         <input id="username" type="text" placeholder="Username" autocomplete="username" aria-label="Username">
         <div class="password-input-wrap">
@@ -2671,6 +2671,7 @@ body.dark-mode .welcome-card{
             </button>
 
            <button class="nav-item" data-page="staff"><span class="nav-icon">👥</span><span class="nav-text">Staff</span></button>
+             <button class="nav-item" data-page="templates"><span class="nav-icon">✉️</span><span class="nav-text">Templates</span></button>
             <button class="nav-item" data-page="announcements"><span class="nav-icon">📣</span><span class="nav-text">Announcements</span></button>
 
             <button
@@ -2775,7 +2776,7 @@ body.dark-mode .welcome-card{
             <div class="overview-hero">
                 <div class="overview-hero-content">
                     <div class="overview-eyebrow">BUSINESS OVERVIEW</div>
-                    <h2>Welcome back, Jack <span>👋</span></h2>
+                    <h2 id="overviewWelcomeHeading">Welcome back, Jack <span>👋</span></h2>
                     <p>Here’s a clear snapshot of your appointments, workload and completed work.</p>
                     <div class="overview-hero-meta">
                         <span id="overviewHeroDate">Today</span>
@@ -3462,12 +3463,17 @@ body.dark-mode .welcome-card{
 
        <section id="page-staff" class="page-section">
         <div class="overview-hero"><div class="overview-hero-content"><div class="overview-eyebrow">TEAM MANAGEMENT</div><h2>Staff & permissions</h2><p>Create staff accounts, assign roles and control access to the dashboard.</p></div><div class="overview-hero-art"><div class="hero-orb hero-orb-one"></div><div class="hero-calendar-icon">👥</div></div></div>
-        <div class="card" id="staffCreateCard"><h2>Add a staff member</h2><p class="card-subtitle">Each person signs in with their own username and password. Choose their job role to apply the relevant permissions.</p>
-          <div class="quote-grid"><div class="quote-field"><label for="newStaffName">Full name</label><input id="newStaffName" placeholder="Staff member name"></div><div class="quote-field"><label for="newStaffUsername">Username</label><input id="newStaffUsername" placeholder="e.g. alex.smith" autocomplete="off"></div><div class="quote-field"><label for="newStaffPassword">Temporary password</label><input id="newStaffPassword" type="password" placeholder="At least 8 characters" autocomplete="new-password"></div><div class="quote-field"><label for="newStaffRole">Job role</label><select id="newStaffRole"><option value="customerService">Customer service</option><option value="websiteBuilder">Website builder</option><option value="repairman">Repairman</option></select></div></div><button class="approve-btn" style="margin-top:14px;padding:12px 18px;border-radius:11px" id="createStaffBtn">Create staff account</button>
-        </div><div class="card"><h2>Staff accounts</h2><p class="card-subtitle">Disable accounts when someone no longer needs access.</p><div id="staffList" class="upcoming-list"><div class="empty-state">Loading staff accounts…</div></div></div>
+        <div class="card" id="staffCreateCard"><h2>Add a staff member</h2><p class="card-subtitle">Create a dashboard account and add their contact email.</p>
+          <div class="quote-grid"><div class="quote-field"><label for="newStaffName">Full name</label><input id="newStaffName" placeholder="Staff member name"></div><div class="quote-field"><label for="newStaffEmail">Email address</label><input id="newStaffEmail" type="email" placeholder="name@example.com" autocomplete="email"></div><div class="quote-field"><label for="newStaffUsername">Username</label><input id="newStaffUsername" placeholder="e.g. alex.smith" autocomplete="off"></div><div class="quote-field"><label for="newStaffPassword">Temporary password</label><input id="newStaffPassword" type="password" placeholder="At least 8 characters" autocomplete="new-password"></div><div class="quote-field"><label for="newStaffRole">Job role</label><select id="newStaffRole"><option value="customerService">Customer service</option><option value="headCustomerService">Head of customer service</option><option value="headRepairman">Head of repairmen</option><option value="headWebsiteBuilder">Head of website builder</option><option value="websiteBuilder">Website builder</option><option value="repairman">Repairman</option></select></div></div><button class="approve-btn" style="margin-top:14px;padding:12px 18px;border-radius:11px" id="createStaffBtn">Create staff account</button>
+        </div><div class="card"><h2>Team directory</h2><p class="card-subtitle" id="staffListDescription">Search staff members and select a person to view their details.</p><input id="staffSearch" placeholder="Search by name, email, username or role…" aria-label="Search staff" style="margin-bottom:15px"><div id="staffList" class="upcoming-list"><div class="empty-state">Loading staff accounts…</div></div><div id="staffDetails"></div></div>
       </section>
-      <section id="page-announcements" class="page-section"><div class="overview-hero"><div class="overview-hero-content"><div class="overview-eyebrow">TEAM UPDATES</div><h2>Announcements</h2><p>Important updates from the owner, shared with staff in this dashboard.</p></div><div class="overview-hero-art"><div class="hero-orb hero-orb-one"></div><div class="hero-calendar-icon">📣</div></div></div>
-        <div class="card" id="announcementComposeCard"><h2>Publish an announcement</h2><p class="card-subtitle">Only the owner can publish or remove announcements.</p><label for="announcementTitle">Title</label><input id="announcementTitle" placeholder="Announcement title"><label for="announcementBody">Message</label><textarea id="announcementBody" rows="5" style="width:100%;padding:13px;border:1px solid #dbe3ee;border-radius:11px;font:inherit" placeholder="Write your update for the team…"></textarea><button id="publishAnnouncementBtn" class="approve-btn" style="margin-top:14px;padding:12px 18px;border-radius:11px">Publish announcement</button></div>
+      <section id="page-templates" class="page-section">
+        <div class="overview-hero"><div class="overview-hero-content"><div class="overview-eyebrow">CUSTOMER COMMUNICATION</div><h2>Email templates</h2><p>Find, copy and manage ready-to-send customer response emails.</p></div><div class="overview-hero-art"><div class="hero-orb hero-orb-one"></div><div class="hero-calendar-icon">✉️</div></div></div>
+        <div class="card" id="templateCreateCard"><h2 id="templateFormHeading">Create a template</h2><label for="templateTitle">Template name</label><input id="templateTitle" placeholder="e.g. Appointment confirmation"><label for="templateSubject">Email subject</label><input id="templateSubject" placeholder="Subject line"><label for="templateBody">Email response</label><textarea id="templateBody" rows="8" style="width:100%;padding:13px;border:1px solid #dbe3ee;border-radius:11px;font:inherit" placeholder="Write the email template… Use placeholders such as [NAME] if helpful."></textarea><div class="modal-buttons"><button id="saveTemplateBtn" class="approve-btn">Save template</button><button id="cancelTemplateEditBtn" class="close-btn hidden">Cancel edit</button></div></div>
+        <div class="card"><h2>Saved templates</h2><input id="templateSearch" placeholder="Search templates by name, subject or content…" style="margin-bottom:15px"><div id="templatesList" class="upcoming-list"><div class="empty-state">Loading templates…</div></div></div>
+      </section>
+      <section id="page-announcements" class="page-section"><div class="overview-hero"><div class="overview-hero-content"><div class="overview-eyebrow">TEAM UPDATES</div><h2>Announcements</h2><p>Team updates relevant to your role.</p></div><div class="overview-hero-art"><div class="hero-orb hero-orb-one"></div><div class="hero-calendar-icon">📣</div></div></div>
+        <div class="card" id="announcementComposeCard"><h2>Publish an announcement</h2><p class="card-subtitle">Department heads can publish announcements for the owner and their own department.</p><label for="announcementTitle">Title</label><input id="announcementTitle" placeholder="Announcement title"><label for="announcementBody">Message</label><textarea id="announcementBody" rows="5" style="width:100%;padding:13px;border:1px solid #dbe3ee;border-radius:11px;font:inherit" placeholder="Write your update for the team…"></textarea><button id="publishAnnouncementBtn" class="approve-btn" style="margin-top:14px;padding:12px 18px;border-radius:11px">Publish announcement</button></div>
         <div class="card"><h2>Latest announcements</h2><div id="announcementsList" class="upcoming-list"><div class="empty-state">Loading announcements…</div></div></div>
       </section>
 
@@ -12138,20 +12144,26 @@ document.getElementById(
    UI permissions complement (but do not replace) Firestore rules.
 ========================================================= */
 let currentStaffUser = { username: "admin", name: "Owner", role: "owner", active: true };
-const ROLE_LABELS = { owner:"Owner", customerService:"Customer service", websiteBuilder:"Website builder", repairman:"Repairman" };
+const ROLE_LABELS = { owner:"Owner", headCustomerService:"Head of customer service", headRepairman:"Head of repairmen", headWebsiteBuilder:"Head of website builder", customerService:"Customer service", websiteBuilder:"Website builder", repairman:"Repairman" };
 const ROLE_PAGES = {
-  owner:["overview","calendar","invoices","quote","staff","settings","announcements"],
-  customerService:["overview","calendar","invoices","settings","announcements"],
-  websiteBuilder:["announcements"],
-  repairman:["overview","calendar","quote","settings","announcements"]
+ owner:["overview","calendar","invoices","quote","staff","templates","settings","announcements"],
+ customerService:["overview","calendar","invoices","staff","templates","announcements"],
+ headCustomerService:["overview","calendar","invoices","staff","templates","announcements"],
+ websiteBuilder:["overview","staff","announcements"], headWebsiteBuilder:["overview","staff","announcements"],
+ repairman:["overview","calendar","quote","staff","announcements"], headRepairman:["overview","calendar","quote","staff","announcements"]
 };
 const safeText = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const staffCollection = () => collection(db,"staffUsers");
 const can = capability => {
   const role=currentStaffUser?.role || "owner";
   if(capability==="manageStaff"||capability==="approve"||capability==="assign"||capability==="blockDays"||capability==="availability"||capability==="complete") return role==="owner";
+  if(capability==="manageAnnouncements") return ["owner","headCustomerService","headRepairman","headWebsiteBuilder"].includes(role);
+  if(capability==="createTemplate") return ["owner","headCustomerService"].includes(role);
+  if(capability==="manageTemplates") return role==="owner";
+  if(capability==="viewStaffProfiles") return ["owner","headCustomerService","headRepairman","headWebsiteBuilder"].includes(role);
+  if(capability==="manageStaffNotes") return ["owner","headCustomerService","headRepairman","headWebsiteBuilder"].includes(role);
   if(capability==="editCustomer") return ["owner","customerService"].includes(role);
-  if(capability==="viewAllBookings") return ["owner","customerService"].includes(role);
+  if(capability==="viewAllBookings") return ["owner","customerService","headCustomerService"].includes(role);
   return true;
 };
 let ownerCalendarFilter = "all";
@@ -12165,13 +12177,57 @@ function visibleBookings(){
   if(can("viewAllBookings")) return bookings;
   return bookings.filter(b => (b.assignedToUsername || b.assignedTo || "") === currentStaffUser.username || (b.assignedToId && b.assignedToId===currentStaffUser.id));
 }
+function configureRoleOverview(){
+  const page=document.getElementById("page-overview"); if(!page)return;
+  let panel=document.getElementById("roleOverviewPanel");
+  if(!panel){panel=document.createElement("div");panel.id="roleOverviewPanel";panel.className="card";panel.style.marginBottom="20px";const hero=page.querySelector(".overview-hero");if(hero)hero.insertAdjacentElement("afterend",panel);}
+  const role=currentStaffUser?.role||"owner";
+  const nonOwner=role!=="owner";
+  const eyebrow=page.querySelector(".overview-eyebrow");
+  const heroCopy=page.querySelector(".overview-hero-content > p");
+  if(eyebrow) eyebrow.textContent=({owner:"BUSINESS OVERVIEW",customerService:"CUSTOMER SERVICE",headCustomerService:"CUSTOMER SERVICE LEADERSHIP",repairman:"REPAIR JOBS",websiteBuilder:"WEBSITE BUILDER"})[role]||"TEAM OVERVIEW";
+  if(heroCopy) heroCopy.textContent=({owner:"Here’s a clear snapshot of your appointments, workload and completed work.",customerService:"Your customer appointments, workload and email response tools in one place.",headCustomerService:"Lead customer service, manage profiles and share relevant updates.",headRepairman:"Lead the repair team, manage profiles and share relevant updates.",headWebsiteBuilder:"Lead the website team, manage profiles and share relevant updates.",repairman:"Focus on the appointments assigned to you and the work ahead.",websiteBuilder:"Quick access to the staff directory and important team updates."})[role]||"Your role-specific dashboard.";
+  [".overview-section-heading",".overview-stats",".overview-main-grid",".overview-lower-grid",".recent-jobs-card"].forEach(sel=>page.querySelectorAll(sel).forEach(el=>{if(!el.closest("#roleOverviewPanel"))el.classList.toggle("hidden",nonOwner);}));
+  if(!nonOwner){panel.classList.add("hidden");return;}
+  panel.classList.remove("hidden");
+  const jobs=typeof bookings!=="undefined"?visibleBookings():[];
+  const pending=jobs.filter(b=>String(b.status||"").toLowerCase()==="pending").length;
+  const approved=jobs.filter(b=>String(b.status||"").toLowerCase()==="approved").length;
+  const completed=jobs.filter(b=>String(b.status||"").toLowerCase()==="completed").length;
+  const today=new Date().toDateString();
+  const todayJobs=jobs.filter(b=>{const d=b.date||b.bookingDate||b.appointmentDate;return d&&new Date(d).toDateString()===today;}).length;
+  let heading="Your workspace",intro="Here are the tools and updates relevant to your role.",stats=[],links=[];
+  if(role==="customerService"){
+    heading="Customer service overview";intro="Keep on top of customer appointments and find the right response quickly.";
+    stats=[["Pending bookings",pending],["Approved bookings",approved],["Bookings today",todayJobs],["Saved templates","Ready to copy"]];
+    links=[['Calendar','calendar','View appointments'],['Invoices','invoices','Find job and invoice details'],['Templates','templates','Copy approved email responses']];
+  }else if(role==="headCustomerService"){
+    heading="Customer service team overview";intro="Manage response templates, review customer service profiles and share team announcements.";
+    stats=[["Customer service profiles",cachedStaffRows.filter(u=>u.role==="customerService").length],["Saved templates","Create and maintain responses"],["Announcements","Team updates"]];
+    links=[['Staff profiles','staff','View customer service profiles only'],['Templates','templates','Create and copy email templates'],['Announcements','announcements','Post updates to owner and customer service']];
+  }else if(role==="repairman"){
+    heading="Repair jobs overview";intro="A focused view of jobs assigned to you and your upcoming work.";
+    stats=[["Assigned jobs",jobs.length],["Pending jobs",pending],["Approved jobs",approved],["Completed jobs",completed]];
+    links=[['My calendar','calendar','View your assigned appointments'],['Quote calculator','quote','Prepare a quick quote']];
+  }else{
+    heading="Website builder overview";intro="Your workspace for staff directory access and team updates.";
+    stats=[["Your role","Website builder"],["Staff directory","Repairmen contact list"],["Announcements","Team updates"]];
+    links=[['Staff directory','staff','View the team contact list'],['Announcements','announcements','Read team updates']];
+  }
+  panel.innerHTML=`<div class="overview-section-heading" style="margin:0 0 16px"><div><h2>${safeText(heading)}</h2><p>${safeText(intro)}</p></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-bottom:18px">${stats.map(([label,value])=>`<div style="padding:16px;border:1px solid #e2e8f0;border-radius:13px;background:var(--card-bg,#fff)"><div style="font-size:12px;color:#64748b;margin-bottom:8px">${safeText(label)}</div><strong style="font-size:22px">${safeText(value)}</strong></div>`).join("")}</div><div style="display:flex;gap:10px;flex-wrap:wrap">${links.map(([label,page,desc])=>`<button type="button" class="overview-link-btn" title="${safeText(desc)}" onclick="showPage('${page}')">${safeText(label)} →</button>`).join("")}</div>`;
+}
+
 function applyRoleAccess(){
   const pages=ROLE_PAGES[currentStaffUser.role]||ROLE_PAGES.repairman;
   document.querySelectorAll(".nav-item[data-page]").forEach(btn=>{btn.classList.toggle("hidden",!pages.includes(btn.dataset.page));});
   document.querySelectorAll(".page-section").forEach(sec=>{const page=sec.id.replace("page-",""); if(!pages.includes(page)) sec.classList.remove("active");});
   const role=currentStaffUser.role;
   document.getElementById("staffCreateCard")?.classList.toggle("hidden",role!=="owner");
-  document.getElementById("announcementComposeCard")?.classList.toggle("hidden",role!=="owner");
+  document.getElementById("announcementComposeCard")?.classList.toggle("hidden",!can("manageAnnouncements"));
+  document.getElementById("templateCreateCard")?.classList.toggle("hidden",!can("createTemplate"));
+  const welcome=document.getElementById("overviewWelcomeHeading");
+  if(welcome) welcome.innerHTML=`Welcome back, ${safeText(currentStaffUser.name||currentStaffUser.username||"there")} <span>👋</span>`;
+  configureRoleOverview();
   if(role!=="owner"){
     document.querySelectorAll("#calendarSettings, .calendar-settings-grid, #blockedDatesCard, #availabilitySettingsCard").forEach(el=>el?.classList.add("hidden"));
   } else {
@@ -12180,31 +12236,93 @@ function applyRoleAccess(){
   const label=document.querySelector(".sidebar-brand span"); if(label) label.textContent=ROLE_LABELS[role]||"Staff";
   const name=document.querySelector(".sidebar-brand strong"); if(name) name.textContent=currentStaffUser.name||currentStaffUser.username||"Jack's IT Services";
 }
+
+let cachedStaffRows=[];
+let editingTemplateId=null;
+function escAttr(v){return safeText(String(v??"")).replace(/`/g,"&#96;");}
 async function loadStaffList(){
-  const host=document.getElementById("staffList"); if(!host) return;
-  if(currentStaffUser.role!=="owner"){host.innerHTML='<div class="empty-state">Staff management is only available to the owner.</div>';return;}
-  try{
-    const snap=await getDocs(staffCollection()); const rows=[];
-    snap.forEach(d=>{const u=d.data(); rows.push({id:d.id,...u});});
-    rows.sort((a,b)=>(a.name||a.username||"").localeCompare(b.name||b.username||""));
-    const calendarFilter=document.getElementById("ownerCalendarFilter");if(calendarFilter){calendarFilter.classList.toggle("hidden",currentStaffUser.role!=="owner");if(currentStaffUser.role==="owner"){const old=calendarFilter.value;calendarFilter.innerHTML='<option value="all">Combined calendar</option><option value="mine">My calendar</option>'+rows.filter(u=>u.role==="repairman"&&u.active!==false).map(u=>`<option value="staff:${safeText(u.username)}">${safeText(u.name||u.username)}’s calendar</option>`).join("");calendarFilter.value=[...calendarFilter.options].some(o=>o.value===old)?old:"all";}}
-    host.innerHTML=rows.length?rows.map(u=>`<div class="upcoming-item"><div class="upcoming-main"><strong>${safeText(u.name||u.username)}</strong><span>@${safeText(u.username)} · ${safeText(ROLE_LABELS[u.role]||u.role||"Staff")}</span></div><div style="display:flex;align-items:center;gap:10px"><span class="status-badge ${u.active===false?'status-declined':'status-approved'}">${u.active===false?'Disabled':'Active'}</span><button data-toggle-staff="${safeText(u.id)}" data-active="${u.active===false?'false':'true'}" class="${u.active===false?'approve-btn':'cancel-btn'}" style="padding:8px 10px;border-radius:9px;color:#fff">${u.active===false?'Enable':'Disable'}</button></div></div>`).join(""):'<div class="empty-state">No staff accounts yet. Add your first team member above.</div>';
-  }catch(e){console.error(e);host.innerHTML='<div class="empty-state">Could not load staff accounts. Check your Firestore permissions.</div>';}
+ const host=document.getElementById("staffList"); if(!host)return;
+ try{
+  const snap=await getDocs(staffCollection()); cachedStaffRows=[];
+  snap.forEach(d=>cachedStaffRows.push({id:d.id,...d.data()}));
+  cachedStaffRows.sort((a,b)=>(a.name||a.username||"").localeCompare(b.name||b.username||""));
+  const filter=document.getElementById("ownerCalendarFilter");
+  if(filter&&currentStaffUser.role==="owner"){const old=filter.value;filter.innerHTML='<option value="all">Combined calendar</option><option value="mine">My calendar</option>'+cachedStaffRows.filter(u=>u.role==="repairman"&&u.active!==false).map(u=>`<option value="staff:${safeText(u.username)}">${safeText(u.name||u.username)}’s calendar</option>`).join("");filter.value=[...filter.options].some(o=>o.value===old)?old:"all";}
+  renderStaffDirectory();
+  if(currentStaffUser.role==="headCustomerService") configureRoleOverview();
+ }catch(e){console.error(e);host.innerHTML='<div class="empty-state">Could not load staff directory. Check Firestore permissions.</div>';}
 }
+function renderStaffDirectory(){
+ const host=document.getElementById("staffList"), query=(document.getElementById("staffSearch")?.value||"").trim().toLowerCase();
+ if(!host)return;
+ const isOwner=currentStaffUser.role==="owner";
+ const rows=cachedStaffRows.filter(u=>[u.name,u.email,u.username,ROLE_LABELS[u.role],u.role].join(" ").toLowerCase().includes(query));
+ const owners=rows.filter(u=>u.role==="owner"), heads=rows.filter(u=>["headCustomerService","headRepairman","headWebsiteBuilder"].includes(u.role));
+ const customer=rows.filter(u=>u.role==="customerService"), repair=rows.filter(u=>u.role==="repairman"), web=rows.filter(u=>u.role==="websiteBuilder");
+ const profileAllowed=u=>isOwner||(currentStaffUser.role==="headCustomerService"&&u.role==="customerService")||(currentStaffUser.role==="headRepairman"&&u.role==="repairman")||(currentStaffUser.role==="headWebsiteBuilder"&&u.role==="websiteBuilder");
+ const renderGroup=(title,arr)=>arr.length?`<div style="margin:10px 0 5px;font-size:12px;font-weight:700;color:#64748b">${title}</div>`+arr.map(u=>`<button type="button" ${profileAllowed(u)?`data-staff-detail="${escAttr(u.id)}"`:""} class="upcoming-item" style="width:100%;text-align:left;color:inherit;border:1px solid #e2e8f0"><div class="upcoming-main"><strong>${safeText(u.name||u.username||"Staff member")}</strong><span>${safeText(u.email||"No email added")}</span></div>${isOwner?`<span class="status-badge ${u.active===false?'status-declined':'status-approved'}">${u.active===false?'Disabled':'Active'}</span>`:(profileAllowed(u)?"<span style='color:#2563eb'>View profile</span>":"<span style='color:#64748b'>Staff</span>")}</button>`).join(""):"";
+ const other=rows.filter(u=>!["owner","headCustomerService","headRepairman","headWebsiteBuilder","customerService","repairman","websiteBuilder"].includes(u.role));
+ host.innerHTML=renderGroup("OWNERS",owners)+renderGroup("HEAD OF DEPARTMENT",heads)+renderGroup("CUSTOMER SERVICE",customer)+renderGroup("REPAIRMEN",repair)+renderGroup("WEBSITE BUILDERS",web)+renderGroup("OTHER STAFF",other)||'<div class="empty-state">No staff found.</div>';
+ document.getElementById("staffListDescription").textContent="All staff names and email addresses. Owners and department heads can open profiles within their permissions.";
+ document.getElementById("staffCreateCard")?.classList.toggle("hidden",!isOwner);
+}
+async function showStaffDetails(id){
+ const host=document.getElementById("staffDetails"); if(!host)return;
+ const isOwner=currentStaffUser.role==="owner";
+ const u=cachedStaffRows.find(x=>x.id===id);
+ const allowed=u&&(isOwner||(currentStaffUser.role==="headCustomerService"&&u.role==="customerService")||(currentStaffUser.role==="headRepairman"&&u.role==="repairman")||(currentStaffUser.role==="headWebsiteBuilder"&&u.role==="websiteBuilder"));
+ if(!allowed){host.innerHTML="";return;}
+ let jobs=[];
+ if(u.role==="repairman"){
+  try{const snap=await getDocs(collection(db,"bookings"));snap.forEach(d=>{const b={id:d.id,...d.data()};if((b.assignedToUsername||b.assignedTo||"")===u.username||(b.assignedToId&&b.assignedToId===u.id)){jobs.push(b);}});}catch(e){console.warn("Could not load job count",e);}
+ }
+ const completed=jobs.filter(j=>String(j.status||"").toLowerCase()==="completed").length;
+ const notes=Array.isArray(u.notes)?u.notes:[];
+ host.innerHTML=`<div class="card" style="margin-top:18px;border-top:4px solid #2563eb"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start"><div><h2>${safeText(u.name||u.username)}</h2><p class="card-subtitle">${safeText(ROLE_LABELS[u.role]||u.role||"Staff")} profile</p></div><button type="button" class="close-btn" data-close-staff-details style="padding:8px 12px;border-radius:9px;color:#fff">Close</button></div>
+ <div class="booking-detail-grid"><div class="detail-item"><span>Full name</span><strong>${safeText(u.name||"—")}</strong></div><div class="detail-item"><span>Email</span><strong>${safeText(u.email||"Not provided")}</strong></div><div class="detail-item"><span>Username</span><strong>${safeText(u.username||"—")}</strong></div><div class="detail-item"><span>Role</span><strong>${safeText(ROLE_LABELS[u.role]||u.role||"Staff")}</strong></div><div class="detail-item"><span>Account created</span><strong>${safeText(u.createdAt?new Date(u.createdAt).toLocaleString():"Unknown")}</strong></div><div class="detail-item"><span>Created by</span><strong>${safeText(u.createdBy||"Unknown")}</strong></div><div class="detail-item"><span>Account status</span><strong>${u.active===false?"Disabled":"Active"}</strong></div>${u.role==="repairman"?`<div class="detail-item"><span>Jobs completed</span><strong>${completed}</strong></div><div class="detail-item"><span>Total assigned jobs</span><strong>${jobs.length}</strong></div>`:""}</div>
+ ${can("manageStaffNotes")?`<h3 style="margin-top:20px;color:#2563eb">Staff notes</h3><p class="card-subtitle">Internal notes visible to authorised staff leads and owners.</p><div class="upcoming-list">${notes.length?notes.map((n,i)=>`<div class="upcoming-item" style="align-items:flex-start"><div class="upcoming-main" style="flex:1"><strong>${safeText(n.createdBy||"Owner")} · ${safeText(n.createdAt?new Date(n.createdAt).toLocaleString():"")}</strong><p style="white-space:pre-wrap;margin-top:5px">${safeText(n.text||"")}</p></div><button data-delete-staff-note="${i}" data-staff-id="${escAttr(u.id)}" class="delete-btn" style="padding:7px 9px;border-radius:8px;color:#fff">Delete</button></div>`).join(""):'<div class="empty-state">No notes added.</div>'}</div><label for="newStaffNote">Add a note</label><textarea id="newStaffNote" rows="3" style="width:100%;padding:12px;border:1px solid #dbe3ee;border-radius:11px;font:inherit" placeholder="Add an internal note about this staff member…"></textarea><div class="modal-buttons"><button class="approve-btn" data-save-staff-note="${escAttr(u.id)}">Save note</button><button class="${u.active===false?'approve-btn':'cancel-btn'}" data-toggle-staff="${escAttr(u.id)}" data-active="${u.active===false?'false':'true'}" style="color:#fff">${u.active===false?'Enable account':'Disable account'}</button></div>`:`<p class="card-subtitle" style="margin-top:18px">Profile details are read-only for Head of Customer Service.</p>`}</div>`;
+}
+async function loadTemplates(){
+ const host=document.getElementById("templatesList");if(!host)return;
+ try{const snap=await getDocs(collection(db,"emailTemplates"));const all=[];snap.forEach(d=>all.push({id:d.id,...d.data()}));all.sort((a,b)=>(a.title||"").localeCompare(b.title||""));const q=(document.getElementById("templateSearch")?.value||"").toLowerCase().trim();const rows=all.filter(t=>[t.title,t.subject,t.body].join(" ").toLowerCase().includes(q));
+ host.innerHTML=rows.length?rows.map(t=>`<article class="upcoming-item" style="align-items:flex-start"><div class="upcoming-main" style="flex:1;min-width:0"><strong>${safeText(t.title||"Untitled template")}</strong><span><b>Subject:</b> ${safeText(t.subject||"(no subject)")}</span><p style="margin-top:10px;white-space:pre-wrap;overflow-wrap:anywhere;color:#475569;font-size:12px">${safeText(t.body||"")}</p></div><div style="display:flex;flex-wrap:wrap;gap:7px"><button data-copy-template="${escAttr(t.id)}" class="approve-btn" style="padding:8px 10px;border-radius:9px;color:#fff">Copy</button>${currentStaffUser.role==="owner"?`<button data-edit-template="${escAttr(t.id)}" class="edit-btn" style="padding:8px 10px;border-radius:9px;color:#fff">Edit</button><button data-delete-template="${escAttr(t.id)}" class="delete-btn" style="padding:8px 10px;border-radius:9px;color:#fff">Delete</button>`:""}</div></article>`).join(""):'<div class="empty-state">No matching email templates yet.</div>';
+ }catch(e){console.error(e);host.innerHTML='<div class="empty-state">Could not load templates. Check Firestore permissions.</div>';}
+}
+function resetTemplateForm(){editingTemplateId=null;document.getElementById("templateFormHeading").textContent="Create a template";document.getElementById("saveTemplateBtn").textContent="Save template";document.getElementById("cancelTemplateEditBtn").classList.add("hidden");["templateTitle","templateSubject","templateBody"].forEach(id=>document.getElementById(id).value="");}
+document.getElementById("staffSearch")?.addEventListener("input",renderStaffDirectory);
+document.getElementById("templateSearch")?.addEventListener("input",loadTemplates);
+document.getElementById("saveTemplateBtn")?.addEventListener("click",async()=>{
+ if(!can("createTemplate")){showMessage("You do not have permission to create templates.","error");return;}
+ if(editingTemplateId&&currentStaffUser.role!=="owner"){showMessage("Only the owner can edit existing templates.","error");return;}
+ const title=document.getElementById("templateTitle").value.trim(),subject=document.getElementById("templateSubject").value.trim(),body=document.getElementById("templateBody").value.trim();
+ if(!title||!body){showMessage("Enter a template name and email response.","error");return;}
+ try{const data={title,subject,body,updatedAt:new Date().toISOString(),updatedBy:currentStaffUser.username};if(editingTemplateId)await updateDoc(doc(db,"emailTemplates",editingTemplateId),data);else await setDoc(doc(db,"emailTemplates",`${Date.now()}_${Math.random().toString(36).slice(2,8)}`),{...data,createdAt:new Date().toISOString(),createdBy:currentStaffUser.username});const wasEditing=!!editingTemplateId;resetTemplateForm();await loadTemplates();showMessage(wasEditing?"Template updated.":"Template saved.");}catch(e){console.error(e);showMessage("Could not save template. Check Firestore permissions.","error");}
+});
+document.getElementById("cancelTemplateEditBtn")?.addEventListener("click",resetTemplateForm);
+document.addEventListener("click",async e=>{
+ const staff=e.target.closest("[data-staff-detail]");if(staff){await showStaffDetails(staff.dataset.staffDetail);return;}
+ if(e.target.closest("[data-close-staff-details]")){document.getElementById("staffDetails").innerHTML="";return;}
+ const saveNote=e.target.closest("[data-save-staff-note]");if(saveNote){if(!can("manageStaffNotes"))return;const u=cachedStaffRows.find(x=>x.id===saveNote.dataset.saveStaffNote),text=document.getElementById("newStaffNote").value.trim();if(!u||!text){showMessage("Write a note first.","error");return;}const notes=Array.isArray(u.notes)?u.notes:[];notes.push({text,createdAt:new Date().toISOString(),createdBy:currentStaffUser.name||currentStaffUser.username});try{await updateDoc(doc(db,"staffUsers",u.id),{notes});await loadStaffList();await showStaffDetails(u.id);showMessage("Note saved.");}catch(err){console.error(err);showMessage("Could not save note.","error");}return;}
+ const delNote=e.target.closest("[data-delete-staff-note]");if(delNote){if(!can("manageStaffNotes"))return;const u=cachedStaffRows.find(x=>x.id===delNote.dataset.staffId);if(!u)return;const notes=(Array.isArray(u.notes)?u.notes:[]).filter((_,i)=>i!==Number(delNote.dataset.deleteStaffNote));try{await updateDoc(doc(db,"staffUsers",u.id),{notes});await loadStaffList();await showStaffDetails(u.id);}catch(err){showMessage("Could not delete note.","error");}return;}
+ const copy=e.target.closest("[data-copy-template]");if(copy){try{const d=await getDoc(doc(db,"emailTemplates",copy.dataset.copyTemplate));if(!d.exists())throw Error("Missing template");const t=d.data();await navigator.clipboard.writeText((t.subject?`Subject: ${t.subject}\n\n`:"")+t.body);showMessage("Email template copied.");}catch(err){showMessage("Could not copy automatically. Check browser clipboard permissions.","error");}return;}
+ const edit=e.target.closest("[data-edit-template]");if(edit){if(currentStaffUser.role!=="owner")return;const d=await getDoc(doc(db,"emailTemplates",edit.dataset.editTemplate));if(!d.exists())return;const t=d.data();editingTemplateId=edit.dataset.editTemplate;document.getElementById("templateTitle").value=t.title||"";document.getElementById("templateSubject").value=t.subject||"";document.getElementById("templateBody").value=t.body||"";document.getElementById("templateFormHeading").textContent="Edit template";document.getElementById("saveTemplateBtn").textContent="Save changes";document.getElementById("cancelTemplateEditBtn").classList.remove("hidden");document.getElementById("templateCreateCard").scrollIntoView({behavior:"smooth"});return;}
+ const delTemplate=e.target.closest("[data-delete-template]");if(delTemplate){if(currentStaffUser.role!=="owner"||!confirm("Delete this email template? This cannot be undone."))return;try{await deleteDoc(doc(db,"emailTemplates",delTemplate.dataset.deleteTemplate));await loadTemplates();showMessage("Template deleted.");}catch(err){showMessage("Could not delete template.","error");}return;}
+});
+
 async function loadAnnouncements(){
   const host=document.getElementById("announcementsList"); if(!host)return;
-  try{const snap=await getDocs(collection(db,"announcements"));const items=[];snap.forEach(d=>items.push({id:d.id,...d.data()}));items.sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""));host.innerHTML=items.length?items.map(a=>`<article class="upcoming-item" style="align-items:flex-start"><div class="upcoming-main" style="flex:1"><strong>${safeText(a.title||"Announcement")}</strong><span>${safeText(a.createdBy||"Owner")} · ${safeText(a.createdAt?new Date(a.createdAt).toLocaleString():"")}</span><p style="margin-top:10px;white-space:pre-wrap;color:#334155;font-size:13px">${safeText(a.body||"")}</p></div>${can("manageStaff")?`<button data-delete-announcement="${safeText(a.id)}" class="delete-btn" style="padding:8px 10px;border-radius:9px;color:#fff">Delete</button>`:""}</article>`).join(""):'<div class="empty-state">No announcements yet.</div>';}catch(e){console.error(e);host.innerHTML='<div class="empty-state">Could not load announcements. Check Firestore permissions.</div>';}
+  try{const snap=await getDocs(collection(db,"announcements"));const items=[];snap.forEach(d=>items.push({id:d.id,...d.data()}));const visible=items.filter(a=>!Array.isArray(a.targetRoles)||a.targetRoles.includes(currentStaffUser.role));visible.sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""));host.innerHTML=visible.length?visible.map(a=>`<article class="upcoming-item" style="align-items:flex-start"><div class="upcoming-main" style="flex:1"><strong>${safeText(a.title||"Announcement")}</strong><span>${safeText(a.createdBy||"Owner")} · ${safeText(a.createdAt?new Date(a.createdAt).toLocaleString():"")}</span><p style="margin-top:10px;white-space:pre-wrap;color:#334155;font-size:13px">${safeText(a.body||"")}</p></div>${currentStaffUser.role==="owner"?`<button data-delete-announcement="${safeText(a.id)}" class="delete-btn" style="padding:8px 10px;border-radius:9px;color:#fff">Delete</button>`:""}</article>`).join(""):'<div class="empty-state">No announcements yet.</div>';}catch(e){console.error(e);host.innerHTML='<div class="empty-state">Could not load announcements. Check Firestore permissions.</div>';}
 }
 document.getElementById("createStaffBtn")?.addEventListener("click",async()=>{
  if(!can("manageStaff")){showMessage("Only the owner can manage staff.","error");return;}
- const name=document.getElementById("newStaffName").value.trim(), username=document.getElementById("newStaffUsername").value.trim().toLowerCase(), password=document.getElementById("newStaffPassword").value, role=document.getElementById("newStaffRole").value;
- if(!name||!/^[a-z0-9._-]{3,30}$/.test(username)||password.length<8){showMessage("Enter a name, a username (3–30 letters/numbers/._-), and a password of at least 8 characters.","error");return;}
- try{const id=await hashPassword(username);const ref=doc(db,"staffUsers",id);if((await getDoc(ref)).exists()){showMessage("That username is already in use.","error");return;}await setDoc(ref,{name,username,passwordHash:await hashPassword(password),role,active:true,createdAt:new Date().toISOString(),createdBy:currentStaffUser.username});document.getElementById("newStaffName").value="";document.getElementById("newStaffUsername").value="";document.getElementById("newStaffPassword").value="";await loadStaffList();showMessage("Staff account created.");}catch(e){console.error(e);showMessage("Could not create staff account. Check Firestore permissions.","error");}
+ const name=document.getElementById("newStaffName").value.trim(), email=document.getElementById("newStaffEmail").value.trim().toLowerCase(), username=document.getElementById("newStaffUsername").value.trim().toLowerCase(), password=document.getElementById("newStaffPassword").value, role=document.getElementById("newStaffRole").value;
+ if(!name||!/^\S+@\S+\.\S+$/.test(email)||!/^[a-z0-9._-]{3,30}$/.test(username)||password.length<8){showMessage("Enter a name, valid email, username (3–30 letters/numbers/._-), and password of at least 8 characters.","error");return;}
+ try{const id=await hashPassword(username);const ref=doc(db,"staffUsers",id);if((await getDoc(ref)).exists()){showMessage("That username is already in use.","error");return;}await setDoc(ref,{name,email,username,passwordHash:await hashPassword(password),role,active:true,notes:[],createdAt:new Date().toISOString(),createdBy:currentStaffUser.username});document.getElementById("newStaffName").value="";document.getElementById("newStaffEmail").value="";document.getElementById("newStaffUsername").value="";document.getElementById("newStaffPassword").value="";await loadStaffList();showMessage("Staff account created.");}catch(e){console.error(e);showMessage("Could not create staff account. Check Firestore permissions.","error");}
 });
 document.getElementById("publishAnnouncementBtn")?.addEventListener("click",async()=>{
- if(!can("manageStaff")){showMessage("Only the owner can publish announcements.","error");return;}
+ if(!can("manageAnnouncements")){showMessage("You do not have permission to publish announcements.","error");return;}
  const title=document.getElementById("announcementTitle").value.trim(),body=document.getElementById("announcementBody").value.trim();if(!title||!body){showMessage("Add both a title and message.","error");return;}
- try{const id=`${Date.now()}_${Math.random().toString(36).slice(2,8)}`;await setDoc(doc(db,"announcements",id),{title,body,createdAt:new Date().toISOString(),createdBy:currentStaffUser.name||currentStaffUser.username});document.getElementById("announcementTitle").value="";document.getElementById("announcementBody").value="";await loadAnnouncements();showMessage("Announcement published.");}catch(e){console.error(e);showMessage("Could not publish announcement. Check Firestore permissions.","error");}
+ try{const id=`${Date.now()}_${Math.random().toString(36).slice(2,8)}`;await setDoc(doc(db,"announcements",id),{title,body,createdAt:new Date().toISOString(),createdBy:currentStaffUser.name||currentStaffUser.username,...(currentStaffUser.role==="headCustomerService"?{targetRoles:["owner","customerService","headCustomerService"]}:currentStaffUser.role==="headRepairman"?{targetRoles:["owner","repairman","headRepairman"]}:currentStaffUser.role==="headWebsiteBuilder"?{targetRoles:["owner","websiteBuilder","headWebsiteBuilder"]}:{})});document.getElementById("announcementTitle").value="";document.getElementById("announcementBody").value="";await loadAnnouncements();showMessage("Announcement published.");}catch(e){console.error(e);showMessage("Could not publish announcement. Check Firestore permissions.","error");}
 });
 document.addEventListener("click",async e=>{
  const toggle=e.target.closest("[data-toggle-staff]"); if(toggle){if(!can("manageStaff"))return;try{const active=toggle.dataset.active!=="true";await updateDoc(doc(db,"staffUsers",toggle.dataset.toggleStaff),{active});await loadStaffList();showMessage(active?"Staff account enabled.":"Staff account disabled.");}catch(err){console.error(err);showMessage("Unable to update staff account.","error");}}
@@ -12222,7 +12340,7 @@ window.adminLogin = async function(){
   }else{
    const ref=doc(db,"staffUsers",await hashPassword(username));const snap=await getDoc(ref);if(!snap.exists()){errorText.textContent="Incorrect username or password.";return;}const user=snap.data();if(user.active===false || user.username!==username || user.passwordHash!==await hashPassword(password)){errorText.textContent="Incorrect username or password.";return;}currentStaffUser={id:snap.id,...user};
   }
-  loginScreen.classList.add("hidden");dashboard.classList.remove("hidden");applyTheme(settings.theme||"light");applyRoleAccess();updateToday();await loadBookings();if(can("blockDays")){loadBlockedDates();loadAvailability();}await loadStaffList();await loadAnnouncements();const permitted=(ROLE_PAGES[currentStaffUser.role]||ROLE_PAGES.repairman);const requested=settings.defaultPage||"overview";showPage(permitted.includes(requested)?requested:permitted[0]);
+  loginScreen.classList.add("hidden");dashboard.classList.remove("hidden");applyTheme(settings.theme||"light");applyRoleAccess();updateToday();await loadBookings();if(can("blockDays")){loadBlockedDates();loadAvailability();}await loadStaffList();await loadAnnouncements();configureRoleOverview();const permitted=(ROLE_PAGES[currentStaffUser.role]||ROLE_PAGES.repairman);const requested=settings.defaultPage||"overview";showPage(permitted.includes(requested)?requested:permitted[0]);
  }catch(error){console.error(error);errorText.textContent="Unable to sign in. Please try again.";}
 };
 
@@ -12273,7 +12391,7 @@ window.__pendingAssignment = null;
 const originalMarkArrived = markBookingArrived;
 markBookingArrived = async function(){if(!can("complete")){showMessage("Only the owner can change job arrival status.","error");return;}return originalMarkArrived();};
 const originalShowPage=showPage;
-showPage=function(page){const allowed=ROLE_PAGES[currentStaffUser?.role||"owner"]||ROLE_PAGES.owner;if(!allowed.includes(page)){showMessage("Your account does not have access to that page.","error");return;}originalShowPage(page);if(page==="staff")loadStaffList();if(page==="announcements")loadAnnouncements();};
+showPage=function(page){const allowed=ROLE_PAGES[currentStaffUser?.role||"owner"]||ROLE_PAGES.owner;if(!allowed.includes(page)){showMessage("Your account does not have access to that page.","error");return;}originalShowPage(page);if(page==="staff")loadStaffList();if(page==="templates")loadTemplates();if(page==="announcements")loadAnnouncements();};
 
 </script>
 
